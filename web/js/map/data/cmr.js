@@ -65,7 +65,7 @@ export function dataCmrClient(spec, store) {
     const deferred = $.Deferred();
     ns.ajax
       .submit(queryParameters)
-      .done((data) => {
+      .done(data => {
         deferred.resolve(data.feed.entry);
       })
       .fail((jqXHR, textStatus, errorThrown) => {
@@ -184,7 +184,7 @@ export function dataCmrMockClient(suffix, store) {
     console.warn('Mocking CMR query', endpoint);
     const deferred = $.Deferred();
     if (!results) {
-      $.getJSON(endpoint, (data) => {
+      $.getJSON(endpoint, data => {
         try {
           results = adjustResults(parameters, data);
           deferred.resolve(results.feed.entry);

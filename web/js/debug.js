@@ -79,7 +79,7 @@ export function debugConfig(config) {
       noTransition: 'true',
       projections: {},
     };
-    lodashEach(config.projections, (proj) => {
+    lodashEach(config.projections, proj => {
       config.layers.debug_tile.projections[proj.id] = {
         source: 'debug_tile',
         matrixSet: tileSize,

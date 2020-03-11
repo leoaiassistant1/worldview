@@ -158,7 +158,7 @@ class App extends React.Component {
 
       // Load any additional scripts as needed
       if (config.scripts) {
-        lodashEach(config.scripts, (script) => {
+        lodashEach(config.scripts, script => {
           $.getScript(script);
         });
       }
@@ -202,8 +202,8 @@ function mapStateToProps(state, ownProps) {
     modalId: state.modal.id,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  keyPressAction: (keyCode) => {
+const mapDispatchToProps = dispatch => ({
+  keyPressAction: keyCode => {
     dispatch(keyPress(keyCode));
   },
   screenResize: (width, height) => {

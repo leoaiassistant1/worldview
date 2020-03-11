@@ -3,10 +3,10 @@ const fs = require('fs');
 // walk through directory to collect html file paths, parse for links, and return array of link objects
 
 // create collection of HTML file addresses from directory
-const walk = (dir) => {
+const walk = dir => {
   let results = [];
   const list = fs.readdirSync(dir);
-  list.forEach((file) => {
+  list.forEach(file => {
     file = `${dir}/${file}`;
     const stat = fs.statSync(file);
     if (stat && stat.isDirectory()) {
@@ -23,7 +23,7 @@ const walk = (dir) => {
 };
 
 // get URLS from HTML in ./build/options using cheerio
-const getUrls = (htmlArray) => {
+const getUrls = htmlArray => {
   // skip exact (rel and href) doubles of links
   const trackDoubles = {};
   const scrapedHTML = [];

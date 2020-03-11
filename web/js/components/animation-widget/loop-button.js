@@ -8,7 +8,7 @@ import { faRetweet } from '@fortawesome/free-solid-svg-icons';
  * @class LoopButton
  * @extends React.Component
  */
-const LoopButton = (props) => (
+const LoopButton = props => (
   <a
     title={props.looping ? 'Stop Loop' : 'Loop video'}
     className={

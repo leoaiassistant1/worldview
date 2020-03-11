@@ -31,7 +31,7 @@ export default function markers(ui, store) {
         date = selected.date;
       }
 
-      const geometry = lodashFind(event.geometries, (geom) => geom.date.split('T')[0] === date) || event.geometries[0];
+      const geometry = lodashFind(event.geometries, geom => geom.date.split('T')[0] === date) || event.geometries[0];
       if (!geometry) return marker;
 
       let { coordinates } = geometry;
@@ -40,7 +40,7 @@ export default function markers(ui, store) {
       if (proj.selected.id !== 'geographic') {
         // check for polygon geometries
         if (geometry.type === 'Polygon') {
-          const coordinatesTransform = coordinates[0].map((coordinate) => olProj.transform(coordinate, 'EPSG:4326', proj.selected.crs));
+          const coordinatesTransform = coordinates[0].map(coordinate => olProj.transform(coordinate, 'EPSG:4326', proj.selected.crs));
           const extent = olExtent.boundingExtent(coordinatesTransform);
           coordinates = olExtent.getCenter(extent);
           if (isSelected) {
@@ -99,20 +99,20 @@ export default function markers(ui, store) {
         const pinEl = marker.pin.element_ || marker.pin.element;
 
         // Use passiveSupport detect in ui. passive applied if supported, capture will be false either way.
-        ['pointerdown', 'mousedown', 'touchstart'].forEach((type) => {
+        ['pointerdown', 'mousedown', 'touchstart'].forEach(type => {
           pinEl.addEventListener(
             type,
-            (e) => {
+            e => {
               willSelect = true;
               moveCount = 0;
             },
             ui.supportsPassive ? { passive: true } : false,
           );
         });
-        ['pointermove', 'mousemove'].forEach((type) => {
+        ['pointermove', 'mousemove'].forEach(type => {
           pinEl.addEventListener(
             type,
-            (e) => {
+            e => {
               moveCount++;
               if (moveCount > 2) {
                 willSelect = false;
@@ -121,10 +121,10 @@ export default function markers(ui, store) {
             ui.supportsPassive ? { passive: true } : false,
           );
         });
-        ['touchend', 'click'].forEach((type) => {
+        ['touchend', 'click'].forEach(type => {
           pinEl.addEventListener(
             type,
-            (e) => {
+            e => {
               if (willSelect && !isSelected) {
                 e.stopPropagation();
                 store.dispatch(selectEventAction(event.id, date));
@@ -154,7 +154,7 @@ export default function markers(ui, store) {
   self.remove = function(markers) {
     markers = markers || [];
     if (markers.length < 1) return;
-    markers.forEach((marker) => {
+    markers.forEach(marker => {
       if (marker.boundingBox) {
         // added setMap to null for marker to remove - may be scope related issue
         marker.boundingBox.setMap(null);

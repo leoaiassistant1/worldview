@@ -45,7 +45,7 @@ describe('browser', () => {
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:26.0) Gecko/20100101 Firefox/26.0',
   }];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       browser.tests.navigator = () => ({ userAgent: t.userAgent });
       expect(browser.tests[t.fn]()).toEqual(t.answer);
@@ -86,7 +86,7 @@ describe('device sizes', () => {
       size: [1000, 300], small: false, constrained: true, name: 'constrained',
     },
   ];
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       browser.tests.getWindowDimensions = () => t.size;
       expect(browser.tests.small()).toBe(t.small);

@@ -137,7 +137,7 @@ export default (function(self) {
     const parts = [];
     lodashEach(kvps, (value, key) => {
       let part = `${key}=${encodeURIComponent(value)}`;
-      lodashEach(exceptions, (exception) => {
+      lodashEach(exceptions, exception => {
         const regexp = new RegExp(exception, 'ig');
         const decoded = decodeURIComponent(exception);
         part = part.replace(regexp, decoded);
@@ -227,7 +227,7 @@ export default (function(self) {
       let part = item.id || '';
       const attributes = [];
       if (item.attributes && item.attributes.length > 0) {
-        lodashEach(item.attributes, (attribute) => {
+        lodashEach(item.attributes, attribute => {
           if (attribute.value) {
             attributes.push(`${attribute.id}=${attribute.value}`);
           } else {
@@ -833,13 +833,13 @@ export default (function(self) {
   };
   self.fetch = function(url, mimeType) {
     return new Promise((resolve, reject) => fetch(url)
-      .then((response) => (mimeType === 'application/json'
+      .then(response => (mimeType === 'application/json'
         ? response.json()
         : response.text()))
-      .then((data) => {
+      .then(data => {
         resolve(data);
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error);
       }));
   };
@@ -885,7 +885,7 @@ export default (function(self) {
             .promise();
         }
         const promise = $.ajax(parameters);
-        promise.done((results) => {
+        promise.done(results => {
           cache.setItem(key, results, options);
         });
         return promise;
@@ -895,7 +895,7 @@ export default (function(self) {
   self.errorReport = function(errors) {
     // eslint-disable-next-line no-unused-vars
     let layersRemoved = 0;
-    lodashEach(errors, (error) => {
+    lodashEach(errors, error => {
       const cause = error.cause ? `: ${error.cause}` : '';
       self.warn(error.message + cause);
       if (error.layerRemoved) {
@@ -963,7 +963,7 @@ export default (function(self) {
     const deferred = $.Deferred();
 
     $.each(calls, (index, call) => {
-      call.promise.done((data) => {
+      call.promise.done(data => {
         result[call.item] = data;
         completed += 1;
         if (completed === calls.length) {
@@ -994,12 +994,12 @@ export default (function(self) {
   // became confusing as element attributes would need one escape character
   // but the selector would need two (\. vs \\.)
   self.encodeId = function(str) {
-    return str.replace(/[.:]/g, (match) => `__${match.charCodeAt(0).toString(16).toUpperCase()}__`);
+    return str.replace(/[.:]/g, match => `__${match.charCodeAt(0).toString(16).toUpperCase()}__`);
   };
 
   // Converts an encoded identifier back to its original value.
   self.decodeId = function(str) {
-    return str.replace(/__[0-9A-Fa-f]{2}__/g, (match) => {
+    return str.replace(/__[0-9A-Fa-f]{2}__/g, match => {
       const charCode = Number.parseInt(match.substring(2, 4), 16);
       return String.fromCharCode(charCode);
     });
@@ -1188,7 +1188,7 @@ export default (function(self) {
   self.objectsHaveSameKeys = function(...objects) {
     const allKeys = objects.reduce((keys, object) => keys.concat(Object.keys(object)), []);
     const union = new Set(allKeys);
-    return objects.every((object) => union.size === Object.keys(object).length);
+    return objects.every(object => union.size === Object.keys(object).length);
   };
 
   return self;

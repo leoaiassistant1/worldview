@@ -23,7 +23,7 @@ export function getVectorStyleAttributeArray(layer) {
   const maxObj = lodashAssign({}, { key: 'max', value: layer.max, isActive: isMaxActive });
   const attrArray = [];
 
-  [styleObj, minObj, maxObj].forEach((obj) => {
+  [styleObj, minObj, maxObj].forEach(obj => {
     if (obj.isActive) {
       attrArray.push({
         id: obj.key === 'custom' ? 'style' : obj.key,
@@ -61,7 +61,7 @@ export function adjustCircleRadius(style) {
   });
 }
 export function getOrbitPointStyles(feature, styleArray) {
-  return styleArray.map((style) => {
+  return styleArray.map(style => {
     const type = feature.getType();
     switch (type) {
       case 'Point':
@@ -100,7 +100,7 @@ export function selectedPolygonStyle(style) {
   return style;
 }
 export function offsetLineStringStyle(feature, styleArray) {
-  return styleArray.map((style) => {
+  return styleArray.map(style => {
     const text = style.getText();
     if (text) {
       text.setOffsetX(25);
@@ -110,7 +110,7 @@ export function offsetLineStringStyle(feature, styleArray) {
 }
 export function selectedStyleFunction(feature, styleArray, size) {
   if (styleArray.length !== 1) return styleArray;
-  return styleArray.map((style) => {
+  return styleArray.map(style => {
     const type = feature.getType();
     switch (type) {
       case 'Point':

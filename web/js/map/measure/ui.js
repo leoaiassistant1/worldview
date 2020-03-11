@@ -117,7 +117,7 @@ export function measure(map, mapUiEvents, store) {
     let tooltipCoord;
     mapUiEvents.trigger('disable-click-zoom');
     sketch = evt.feature;
-    drawChangeListener = sketch.getGeometry().on('change', (evt) => {
+    drawChangeListener = sketch.getGeometry().on('change', evt => {
       const geom = evt.target;
       if (geom instanceof OlGeomPolygon) {
         tooltipCoord = geom.getInteriorPoint().getCoordinates();
@@ -176,7 +176,7 @@ export function measure(map, mapUiEvents, store) {
    * current settings of unit of measurement
    */
   function recalculateAllMeasurements() {
-    Object.keys(allMeasureTooltips).forEach((id) => {
+    Object.keys(allMeasureTooltips).forEach(id => {
       const geomForTooltip = allGeometries[id];
       const tooltipElement = allMeasureTooltips[id].element.children[0];
       tooltipElement.innerHtml = setMeasurementTooltip(geomForTooltip, tooltipElement);
@@ -189,7 +189,7 @@ export function measure(map, mapUiEvents, store) {
    * Initiate a measurement interaction of the given measureType ('distance' or 'area')
    * @param {String} measureType
    */
-  self.initMeasurement = (measureType) => {
+  self.initMeasurement = measureType => {
     const type = measureType === 'area' ? 'Polygon' : 'LineString';
     if (draw) {
       map.removeInteraction(draw);
@@ -205,14 +205,14 @@ export function measure(map, mapUiEvents, store) {
 
     draw.on('drawstart', drawStartCallback, this);
     draw.on('drawend', drawEndCallback, this);
-    rightClickListener = map.on('contextmenu', (evt) => {
+    rightClickListener = map.on('contextmenu', evt => {
       evt.preventDefault();
       terminateDraw();
       map.removeOverlay(measureTooltip);
     });
 
     // TODO get this working
-    twoFingerTouchListener = map.on('touchstart', (evt) => {
+    twoFingerTouchListener = map.on('touchstart', evt => {
       if (evt.touches > 1) {
         evt.preventDefault();
         terminateDraw();
@@ -225,7 +225,7 @@ export function measure(map, mapUiEvents, store) {
    * Convert unit of measurement on all existing measurments and those created after
    * @param {String} unit - Unit of measurement: 'km' or 'mi'
    */
-  self.changeUnits = (unit) => {
+  self.changeUnits = unit => {
     unitOfMeasure = unit;
     recalculateAllMeasurements();
   };
@@ -234,7 +234,7 @@ export function measure(map, mapUiEvents, store) {
    * Clear all existing measurements on the associated map
    */
   self.clearMeasurements = () => {
-    Object.keys(allMeasureTooltips).forEach((id) => {
+    Object.keys(allMeasureTooltips).forEach(id => {
       map.removeOverlay(allMeasureTooltips[id]);
     });
     allMeasureTooltips = {};

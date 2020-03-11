@@ -31,7 +31,7 @@ export function mapParser(state, errors) {
     delete state.map;
   }
   if (state.v) {
-    const extent = lodashMap(state.v.split(','), (str) => parseFloat(str));
+    const extent = lodashMap(state.v.split(','), str => parseFloat(str));
     const valid = mapIsExtentValid(extent);
     if (!valid) {
       errors.push({
@@ -63,7 +63,7 @@ export function mapIsExtentValid(extent) {
   if (extent.toArray) {
     extent = extent.toArray();
   }
-  lodashEach(extent, (value) => {
+  lodashEach(extent, value => {
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(value)) {
       valid = false;

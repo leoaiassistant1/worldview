@@ -75,7 +75,7 @@ class MobileDatePicker extends Component {
     });
   }
 
-  handleSelect = (time) => {
+  handleSelect = time => {
     this.setState({
       time,
       isOpen: false,
@@ -100,14 +100,14 @@ class MobileDatePicker extends Component {
   }
 
   // change to UTC offset time for date picker controls
-  convertToUTCDateObject = (dateString) => {
+  convertToUTCDateObject = dateString => {
     const date = new Date(dateString);
     const dateUTC = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
     return dateUTC;
   }
 
   // change to offset time used in parent component date setting functions
-  convertToLocalDateObject = (date) => {
+  convertToLocalDateObject = date => {
     const dateLocal = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     return dateLocal;
   }

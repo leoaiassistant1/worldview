@@ -113,7 +113,7 @@ export class GifResults extends Component {
                 text="Download"
                 id="download-gif-button"
                 className="download wv-button"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   e.preventDefault();
                   FileSaver.saveAs(blob, dlURL);

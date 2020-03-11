@@ -88,7 +88,7 @@ class Layer extends React.Component {
     }
   }
 
-  getDisabledTitle = (layer) => {
+  getDisabledTitle = layer => {
     let startDate; let
       endDate;
 
@@ -108,7 +108,7 @@ class Layer extends React.Component {
     return 'No data on selected date for this layer';
   }
 
-  stopPropagation = (e) => {
+  stopPropagation = e => {
     e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation();
     e.preventDefault();
@@ -244,7 +244,7 @@ class Layer extends React.Component {
               </div>
               {tracksForLayer.length > 0 && (
               <div className="layer-tracks">
-                {tracksForLayer.map((track) => (
+                {tracksForLayer.map(track => (
                   <OrbitTrack
                     key={track.id}
                     trackLayer={track}
@@ -320,7 +320,7 @@ function mapStateToProps(state, ownProps) {
     ? getPaletteLegends(layer.id, layerGroupName, state)
     : [];
   const isCustomPalette = hasPalette && palettes.custom[layer.id];
-  const tracksForLayer = layers[layerGroupName].filter((activeLayer) => (layer.tracks || []).some((track) => activeLayer.id === track));
+  const tracksForLayer = layers[layerGroupName].filter(activeLayer => (layer.tracks || []).some(track => activeLayer.id === track));
 
   return {
     compare,
@@ -343,14 +343,14 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   hover: (id, value) => {
     dispatch(layerHover(id, value));
   },
   toggleVisibility: (id, isVisible) => {
     dispatch(toggleVisibility(id, isVisible));
   },
-  onRemoveClick: (id) => {
+  onRemoveClick: id => {
     dispatch(removeLayer(id));
   },
   onOptionsClick: (layer, title) => {
@@ -396,7 +396,7 @@ const mapDispatchToProps = (dispatch) => ({
       }),
     );
   },
-  requestPalette: (id) => {
+  requestPalette: id => {
     dispatch(requestPalette(id));
   },
 });

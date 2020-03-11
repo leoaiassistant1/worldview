@@ -43,10 +43,10 @@ export function events() {
       return;
     }
     const eventArguments = args.slice(1);
-    lodashEach(events[event], (listener) => {
+    lodashEach(events[event], listener => {
       listener.apply(self, eventArguments);
     });
-    lodashEach(allListeners, (listener) => {
+    lodashEach(allListeners, listener => {
       listener.apply(self, eventArguments);
     });
     return self;

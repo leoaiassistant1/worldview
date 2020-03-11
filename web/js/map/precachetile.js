@@ -25,7 +25,7 @@ export function mapPrecacheTile(models, config, cache, parent) {
     frameState = parent.selected.frameState_; // OL object describing the current map frame
     pixelRatio = frameState.pixelRatio;
     viewState = frameState.viewState;
-    promiseArray = layers.map((def) => {
+    promiseArray = layers.map(def => {
       let key;
       let layer;
 
@@ -42,7 +42,7 @@ export function mapPrecacheTile(models, config, cache, parent) {
       });
       return promiseLayerGroup(layer, viewState, pixelRatio, map);
     });
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       Promise.all(promiseArray).then(() => {
         resolve(date);
       });
@@ -60,7 +60,7 @@ export function mapPrecacheTile(models, config, cache, parent) {
     let layers;
     const arra = [];
     layers = models.layers.get();
-    lodashEach(layers, (layer) => {
+    lodashEach(layers, layer => {
       if (layer.visible && new Date(layer.startDate > date)) {
         arra.push(layer);
       }
@@ -136,14 +136,14 @@ export function mapPrecacheTile(models, config, cache, parent) {
       }
       // Calculate the extent of each layer in the layer group
       // and create a promiseTileLayer for prev, current, next day
-      layerPromiseArray = layers.map((layer) => {
+      layerPromiseArray = layers.map(layer => {
         extent = calculateExtent(
           layer.getExtent(),
           map.getView().calculateExtent(map.getSize()),
         );
         return promiseTileLayer(layer, extent, viewState, pixelRatio);
       });
-      Promise.all(layerPromiseArray).then((yo) => {
+      Promise.all(layerPromiseArray).then(yo => {
         resolve('resolve layer group');
       });
     });
@@ -179,7 +179,7 @@ export function mapPrecacheTile(models, config, cache, parent) {
           viewState.resolution,
           renderer.zDirection,
         );
-        tileGrid.forEachTileCoord(extent, currentZ, (tileCoord) => {
+        tileGrid.forEachTileCoord(extent, currentZ, tileCoord => {
           let tile;
           tile = tileSource.getTile(
             tileCoord[0],

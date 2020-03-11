@@ -27,8 +27,8 @@ export function getMapParameterSetup(
       options: {
         delimiter: ',',
         serializeNeedsGlobalState: true,
-        parse: (state) => {
-          const extent = lodashMap(state.split(','), (str) => parseFloat(str));
+        parse: state => {
+          const extent = lodashMap(state.split(','), str => parseFloat(str));
           const valid = mapIsExtentValid(extent);
           if (!valid) {
             errors.push({
@@ -59,7 +59,7 @@ export function getMapParameterSetup(
       options: {
         serializeNeedsGlobalState: true,
         // eslint-disable-next-line no-restricted-globals
-        parse: (state) => (isNaN(state) ? state * (Math.PI / 180.0) : 0),
+        parse: state => (isNaN(state) ? state * (Math.PI / 180.0) : 0),
         serialize: (currentItemState, currentState) => (currentItemState
             && currentState.proj.selected.id !== 'geographic'
           ? (currentItemState * (180.0 / Math.PI)).toPrecision(6)
@@ -87,7 +87,7 @@ export function mapIsExtentValid(extent) {
   if (extent.toArray) {
     extent = extent.toArray();
   }
-  lodashEach(extent, (value) => {
+  lodashEach(extent, value => {
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(value)) {
       valid = false;
@@ -156,7 +156,7 @@ export function promiseLayerGroup(layer, viewState, pixelRatio, map, def) {
     }
     // Calculate the extent of each layer in the layer group
     // and create a promiseTileLayer for prev, current, next day
-    layerPromiseArray = layers.map((layer) => {
+    layerPromiseArray = layers.map(layer => {
       extent = calculateExtent(
         layer.getExtent(),
         map.getView().calculateExtent(map.getSize()),
@@ -247,7 +247,7 @@ function promiseTileLayer(layer, extent, viewState, pixelRatio) {
         viewState.resolution,
         renderer.zDirection,
       );
-      tileGrid.forEachTileCoord(extent, currentZ, (tileCoord) => {
+      tileGrid.forEachTileCoord(extent, currentZ, tileCoord => {
         let tile;
         tile = tileSource.getTile(
           tileCoord[0],

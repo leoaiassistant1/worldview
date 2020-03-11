@@ -8,7 +8,7 @@ export function updatePermalink(queryString) {
   };
 }
 export function requestShortLink(location, type, signal) {
-  return (dispatch) => requestAction(
+  return dispatch => requestAction(
     dispatch,
     REQUEST_SHORT_LINK,
     location,

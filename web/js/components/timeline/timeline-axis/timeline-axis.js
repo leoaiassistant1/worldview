@@ -678,7 +678,7 @@ class TimelineAxis extends Component {
   * @param {Event} mouse event
   * @returns {void}
   */
-  showHoverOn = (e) => {
+  showHoverOn = e => {
     const { isAnimationDraggerDragging, isTimelineDragging, showHoverOn } = this.props;
     if (this.state.updatedTimeScale) {
       this.setState({
@@ -698,7 +698,7 @@ class TimelineAxis extends Component {
   * @param {Event} wheel scroll event
   * @returns {void}
   */
-  handleWheelType = (e) => {
+  handleWheelType = e => {
     e.persist();
     const deltaYAbs = Math.abs(e.deltaY);
     const deltaXAbs = Math.abs(e.deltaX);
@@ -803,7 +803,7 @@ class TimelineAxis extends Component {
   * @desc clientXOnDrag used to determine if 'click then drag' vs 'click only'
   * @returns {void}
   */
-  handleMouseDown = (e) => {
+  handleMouseDown = e => {
     let clientX;
     if (e.type === 'touchstart') {
       const touch = e.changedTouches[0];
@@ -822,7 +822,7 @@ class TimelineAxis extends Component {
   * @param {Event} mouse click event
   * @returns {void}
   */
-  setLineTime = (e) => {
+  setLineTime = e => {
     e.preventDefault();
     e.stopPropagation();
     if (e.target.className.animVal !== 'axis-grid-rect') {
@@ -864,7 +864,7 @@ class TimelineAxis extends Component {
   * @param {Event} touch click event
   * @returns {void}
   */
-  setLineTimeTouch = (e) => {
+  setLineTimeTouch = e => {
     e.preventDefault();
     e.stopPropagation();
     if (e.target.className.animVal !== 'axis-grid-rect') {

@@ -13,7 +13,7 @@ export default function Button(props) {
     <button
       type="button"
       onClick={onClick}
-      onMouseDown={(e) => e.stopPropagation()}
+      onMouseDown={e => e.stopPropagation()}
       style={style}
       id={id}
       disabled={!valid}

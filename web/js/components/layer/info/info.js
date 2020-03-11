@@ -18,13 +18,13 @@ class LayerInfo extends React.Component {
     if (layer.description) {
       util
         .get(`config/metadata/layers/${layer.description}.html`)
-        .then((data) => {
+        .then(data => {
           if (!data) {
             data = 'There is no description provided for this layer.';
           }
           this.setState({ metaData: data });
         })
-        .catch((error) => {
+        .catch(error => {
           console.warn(error);
           this.setState({
             metaData: 'There was an error loading metadata for this layer.',

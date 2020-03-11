@@ -12,20 +12,20 @@ export function getEventsWithinExtent(
   const { maxExtent } = selectedProj;
   const visibleListEvents = {};
 
-  loadedEvents.forEach((naturalEvent) => {
+  loadedEvents.forEach(naturalEvent => {
     const isSelectedEvent = selected.id === naturalEvent.id;
     let date = getDefaultEventDate(naturalEvent);
     if (selected && selected.date) {
       date = selected.date;
     }
-    const geometry = lodashFind(naturalEvent.geometries, (geometry) => geometry.date.split('T')[0] === date) || naturalEvent.geometries[0];
+    const geometry = lodashFind(naturalEvent.geometries, geometry => geometry.date.split('T')[0] === date) || naturalEvent.geometries[0];
 
     let { coordinates } = geometry;
 
     if (selectedProj.id !== 'geographic') {
       // check for polygon geometries for targeted projection coordinate transform
       if (geometry.type === 'Polygon') {
-        const coordinatesTransform = coordinates[0].map((coordinate) => olProj.transform(coordinate, 'EPSG:4326', selectedProj.crs));
+        const coordinatesTransform = coordinates[0].map(coordinate => olProj.transform(coordinate, 'EPSG:4326', selectedProj.crs));
         const geomExtent = olExtent.boundingExtent(coordinatesTransform);
         coordinates = olExtent.getCenter(geomExtent);
       } else {

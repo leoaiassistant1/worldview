@@ -17,10 +17,10 @@ import {
 import { CHANGE_TAB as CHANGE_SIDEBAR_TAB } from '../sidebar/constants';
 
 const sortEvents = function(events) {
-  return events.map((e) => {
+  return events.map(e => {
     e.geometries = lodashOrderBy(e.geometries, 'date', 'desc');
     // Discard duplicate geometry dates
-    e.geometries = lodashUniqBy(e.geometries, (g) => g.date.split('T')[0]);
+    e.geometries = lodashUniqBy(e.geometries, g => g.date.split('T')[0]);
     return e;
   });
 };
@@ -120,7 +120,7 @@ export function eventsRequestReducer(actionName, state, action) {
         : actionName === REQUEST_CATEGORIES
           ? 'categories'
           : 'sources';
-      const filtered = action.response[key].filter((item) => formatResponse(item, state.ignore));
+      const filtered = action.response[key].filter(item => formatResponse(item, state.ignore));
       return eventRequestResponse({
         response:
           actionName === REQUEST_EVENTS ? sortEvents(filtered) : filtered,

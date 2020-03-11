@@ -33,7 +33,7 @@ class Data extends React.Component {
       <h3 className="header">
         {'Not available for download  '}
         <span
-          onClick={(e) => {
+          onClick={e => {
             showUnavailableReason();
             googleTagManager.pushEvent({
               event: 'data_download_not_available',

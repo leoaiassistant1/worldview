@@ -16,7 +16,7 @@ describe('fromQueryString', () => {
     { qs: '?foo=image%2fjpeg', obj: { foo: 'image/jpeg' }, name: 'decodes' },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       expect(util.fromQueryString(t.qs)).toEqual(t.obj);
     });
@@ -33,7 +33,7 @@ describe('toQueryString', () => {
     },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       expect(util.toQueryString(t.obj, t.exceptions)).toEqual(t.qs);
     });
@@ -58,7 +58,7 @@ describe('parseDateUTC', () => {
     name: 'invalid',
   }];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       if (t.date) {
         expect(util.parseDateUTC(t.str)).toEqual(t.date);
@@ -125,7 +125,7 @@ describe('dateAdd', () => {
     { part: 'foo' },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.part, () => {
       const d = new Date(Date.UTC(2011, 1, 1));
       if (t.answer) {
@@ -157,7 +157,7 @@ describe('daysInYear', () => {
     { date: Date.UTC(2015, 11, 31), doy: '365', name: 'last day of year' },
     { date: Date.UTC(2016, 11, 31), doy: '366', name: 'last day of leap year' },
   ];
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       const d = new Date(t.date);
       expect(util.daysInYear(d)).toBe(t.doy);
@@ -178,7 +178,7 @@ describe('clamp', () => {
     },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       expect(util.clamp(t.v, t.min, t.max)).toBe(t.answer);
     });
@@ -198,7 +198,7 @@ describe('roll', () => {
     },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       expect(util.roll(t.v, t.min, t.max)).toBe(t.answer);
     });
@@ -337,7 +337,7 @@ describe('rollDate', () => {
     answer: new Date(Date.UTC(2015, 6, 16)),
   }];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       const result = util.rollDate(t.d, t.period.unit, t.period.value, t.minDate, t.maxDate);
       expect(result).toEqual(t.answer);
@@ -364,7 +364,7 @@ describe('formatDMS', () => {
     str: ['89°59\'59"N', '179°59\'59"E'],
   }];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       const lat = util.formatDMS(t.dd[0], 'latitude');
       const lon = util.formatDMS(t.dd[1], 'longitude');
@@ -393,7 +393,7 @@ describe('formatDM', () => {
     str: ['89°59.999\'N', '179°59.999\'E'],
   }];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(t.name, () => {
       const lat = util.formatDM(t.dd[0], 'latitude');
       const lon = util.formatDM(t.dd[1], 'longitude');
@@ -420,7 +420,7 @@ describe('encodeId/decodeId', () => {
     { decoded: 'foos.bars:', encoded: 'foos__2E__bars__3A__' },
   ];
 
-  tests.forEach((t) => {
+  tests.forEach(t => {
     test(`encode "${t.decoded}"`, () => {
       expect(util.encodeId(t.decoded)).toBe(t.encoded);
     });

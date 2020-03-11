@@ -7,7 +7,7 @@ import FilterUnavailable from './filterUnavailable';
  * @class LayerList
  * @extends React.Component
  */
-const LayerFilters = (props) => {
+const LayerFilters = props => {
   const {
     selectedDate,
     filterByAvailable,

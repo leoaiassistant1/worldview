@@ -97,7 +97,7 @@ export function prevDateInDateRange(def, date, dateArray) {
   }
 
   // populate closestAvailableDates if rangeDate is before or equal to input date
-  lodashEach(dateArray, (rangeDate) => {
+  lodashEach(dateArray, rangeDate => {
     const rangeDateValue = rangeDate.getTime();
     const isRangeDateBefore = rangeDateValue < currentDateValue;
     const isRangeDateEqual = rangeDateValue === currentDateValue;
@@ -129,7 +129,7 @@ export function datesinDateRanges(def, date) {
   const dateArray = [];
   let currentDate = new Date(date.getTime());
 
-  lodashEach(def.dateRanges, (dateRange) => {
+  lodashEach(def.dateRanges, dateRange => {
     let { dateInterval } = dateRange;
     dateInterval = Number(dateInterval);
     let yearDifference;
@@ -386,7 +386,7 @@ export function dateOverlap(period, dateRanges) {
 // LODASH Find() essentially does the same thing
 export function exists(layer, activeLayers) {
   let found = false;
-  lodashEach(activeLayers, (current) => {
+  lodashEach(activeLayers, current => {
     if (layer === current.id) {
       found = true;
     }
@@ -397,7 +397,7 @@ export function exists(layer, activeLayers) {
 export function layersParse11(str, config) {
   const layers = [];
   const ids = str.split(/[~,.]/);
-  lodashEach(ids, (id) => {
+  lodashEach(ids, id => {
     if (id === 'baselayers' || id === 'overlays') {
       return;
     }
@@ -436,7 +436,7 @@ export function layersParse12(stateObj, config) {
     // Split by layer definitions (commas not in parens)
     const layerDefs = str.match(/[^(,]+(\([^)]*\))?,?/g);
     const lstates = [];
-    lodashEach(layerDefs, (layerDef) => {
+    lodashEach(layerDefs, layerDef => {
       // Get the text before any paren or comma
       let layerId = layerDef.match(/[^(,]+/)[0];
       if (config.redirects && config.redirects.layers) {
@@ -453,7 +453,7 @@ export function layersParse12(stateObj, config) {
         const strAttr = arrayAttr[0].replace(/[()]/g, '');
         // Key value pairs
         const kvps = strAttr.split(',');
-        lodashEach(kvps, (kvp) => {
+        lodashEach(kvps, kvp => {
           parts = kvp.split('=');
           if (parts.length === 1) {
             lstate.attributes.push({
@@ -479,9 +479,9 @@ export function layersParse12(stateObj, config) {
 }
 const createLayerArrayFromState = function(state, config) {
   let layerArray = [];
-  lodashEach(state, (obj) => {
+  lodashEach(state, obj => {
     if (!lodashIsUndefined(state)) {
-      lodashEachRight(state, (layerDef) => {
+      lodashEachRight(state, layerDef => {
         let hidden = false;
         let opacity = 1.0;
         let max; let min; let squash; let custom; let
@@ -490,7 +490,7 @@ const createLayerArrayFromState = function(state, config) {
           console.warn(`No such layer: ${layerDef.id}`);
           return;
         }
-        lodashEach(layerDef.attributes, (attr) => {
+        lodashEach(layerDef.attributes, attr => {
           if (attr.id === 'hidden') {
             hidden = true;
           }
@@ -543,7 +543,7 @@ const createLayerArrayFromState = function(state, config) {
             } else if (typeof attr.value === 'string') {
               const squashArray = [];
               const values = util.toArray(attr.value.split(';'));
-              lodashEach(values, (value) => {
+              lodashEach(values, value => {
                 squashArray.push(value === 'true');
               });
               squash = squashArray.length ? squashArray : undefined;
@@ -587,12 +587,12 @@ export function validate(errors, config) {
       layerRemoved: true,
     });
     delete config.layers[layerId];
-    lodashRemove(config.layerOrder.baselayers, (e) => e === layerId);
-    lodashRemove(config.layerOrder.overlays, (e) => e === layerId);
+    lodashRemove(config.layerOrder.baselayers, e => e === layerId);
+    lodashRemove(config.layerOrder.overlays, e => e === layerId);
   };
 
   const layers = lodashCloneDeep(config.layers);
-  lodashEach(layers, (layer) => {
+  lodashEach(layers, layer => {
     if (!layer.group) {
       error(layer.id, 'No group defined');
       return;
@@ -603,7 +603,7 @@ export function validate(errors, config) {
   });
 
   const orders = lodashCloneDeep(config.layerOrder);
-  lodashEach(orders, (layerId) => {
+  lodashEach(orders, layerId => {
     if (!config.layers[layerId]) {
       error(layerId, 'No configuration');
     }

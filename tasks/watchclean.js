@@ -6,7 +6,7 @@ const dirs = [
   'web/build',
 ];
 
-dirs.forEach((dir) => {
+dirs.forEach(dir => {
   console.log('Removing', dir);
   shell.rm('-rf', dir);
 });

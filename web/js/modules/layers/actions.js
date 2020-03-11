@@ -79,12 +79,12 @@ export function addLayer(id, spec) {
   };
 }
 export function clearGraticule() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(toggleVisibility('Graticule', false));
   };
 }
 export function refreshGraticule() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(toggleVisibility('Graticule', true));
   };
 }

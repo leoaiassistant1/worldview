@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
-const CollapsedButton = (props) => {
+const CollapsedButton = props => {
   const {
     isMobile,
     isCollapsed,

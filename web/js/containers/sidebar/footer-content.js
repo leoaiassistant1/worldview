@@ -71,7 +71,7 @@ class FooterContent extends React.Component {
               text="+ Add Layers"
               id="layers-add"
               className="layers-add red"
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
                 addLayers();
                 googleTagManager.pushEvent({
@@ -80,7 +80,7 @@ class FooterContent extends React.Component {
               }}
             />
             <Button
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
                 toggleCompare();
                 googleTagManager.pushEvent({
@@ -116,7 +116,7 @@ class FooterContent extends React.Component {
     return (
       <div className="data-download-footer-case">
         <Button
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             onGetData();
             googleTagManager.pushEvent({
@@ -143,11 +143,11 @@ class FooterContent extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   toggleCompare: () => {
     dispatch(toggleCompareOnOff());
   },
-  changeCompareMode: (str) => {
+  changeCompareMode: str => {
     dispatch(changeMode(str));
   },
   onGetData: () => {

@@ -2,7 +2,7 @@
 const fetch = require('node-fetch');
 
 // delay helper to prevent too many requests at once
-const sleeper = (ms) => (x) => new Promise((resolve) => setTimeout(() => resolve(x), ms));
+const sleeper = ms => x => new Promise(resolve => setTimeout(() => resolve(x), ms));
 
 // helper function to find target key in nested object
 const findProp = async(obj, keys, out) => {
@@ -30,7 +30,7 @@ const findProp = async(obj, keys, out) => {
   return out;
 };
 
-const scrapeLinks = async(htmlLinks) => {
+const scrapeLinks = async htmlLinks => {
   // skip exact (rel and href) doubles of links
   const trackDoubles = {};
   const addedUrls = [];
@@ -39,7 +39,7 @@ const scrapeLinks = async(htmlLinks) => {
     const htmlLink = htmlLinks[i];
     // eslint-disable-next-line no-await-in-loop
     await fetch(htmlLink)
-      .then(async(res) => {
+      .then(async res => {
         const status = await res.json();
         const urls = await findProp(status, ['url', 'link', 'source']);
         for (let j = 0; j < urls.length; j++) {
@@ -53,7 +53,7 @@ const scrapeLinks = async(htmlLinks) => {
           }
         }
       }).then(sleeper(500))
-      .catch((err) => {
+      .catch(err => {
         console.log(htmlLink, err);
       });
   }

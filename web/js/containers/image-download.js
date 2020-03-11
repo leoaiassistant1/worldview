@@ -201,14 +201,14 @@ function mapStateToProps(state) {
     ),
   };
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onClose: () => {
     dispatch(onToggle());
   },
   onPanelChange: (type, value) => {
     dispatch(onPanelChange(type, value));
   },
-  onBoundaryChange: (obj) => {
+  onBoundaryChange: obj => {
     dispatch(updateBoundaries(obj));
   },
 });

@@ -2,10 +2,10 @@ const fetch = require('node-fetch');
 // URL status check function makes GET requests to provided list of URLs to get status codes / errors
 
 // Delay helper to prevent too many requests at once
-const sleeper = (ms) => (x) => new Promise((resolve) => setTimeout(() => resolve(x), ms));
+const sleeper = ms => x => new Promise(resolve => setTimeout(() => resolve(x), ms));
 
 // Checks status code of provided links and return object organized by errors / statuscodes
-const requestCheck = async(urls) => {
+const requestCheck = async urls => {
   const parsedUrls = {
     ERROR: [],
     STATUSCODE: {},
@@ -18,7 +18,7 @@ const requestCheck = async(urls) => {
     if (url[0] !== 'h') {
       // eslint-disable-next-line no-await-in-loop
       await fetch(url, { timeout: 10000 })
-        .then(async(res) => {
+        .then(async res => {
           const statusCode = await res.status;
           if (!parsedUrls.STATUSCODE[statusCode]) {
             parsedUrls.STATUSCODE[statusCode] = [];
@@ -26,7 +26,7 @@ const requestCheck = async(urls) => {
           parsedUrls.STATUSCODE[statusCode].push({ [linkName]: url });
         })
         .then(sleeper(500))
-        .catch((err) => { // eslint-disable-line handle-callback-err
+        .catch(err => { // eslint-disable-line handle-callback-err
           parsedUrls.ERROR.push({ [linkName]: url });
         });
     }
@@ -44,7 +44,7 @@ ${'-'.repeat(66)}
   ERRORS: \x1b[31m${checkStatus.ERROR.length}\x1b[0m
   STATUSCODE:`);
   const codes = Object.keys(checkStatus.STATUSCODE);
-  codes.forEach((code) => {
+  codes.forEach(code => {
     let preColor = '\x1b[33m';
     if (code === '200') {
       preColor = '\x1b[32m';

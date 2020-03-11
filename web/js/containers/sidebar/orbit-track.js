@@ -96,8 +96,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  requestPalette: (id) => {
+const mapDispatchToProps = dispatch => ({
+  requestPalette: id => {
     dispatch(requestPalette(id));
   },
 });

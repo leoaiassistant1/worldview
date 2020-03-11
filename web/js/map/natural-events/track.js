@@ -34,7 +34,7 @@ export default function naturalEventsTrack(ui, store, selectedMap) {
    * @return {void}
    */
   const init = function() {
-    selectedMap.on('moveend', (e) => {
+    selectedMap.on('moveend', e => {
       if (self.active && store.getState().events.active) {
         if (self.trackDetails.id) {
           addPointOverlays(selectedMap, self.trackDetails.pointArray);
@@ -44,7 +44,7 @@ export default function naturalEventsTrack(ui, store, selectedMap) {
       }
     });
     // reset track on change to resolution or rotation
-    selectedMap.getView().on('propertychange', (e) => {
+    selectedMap.getView().on('propertychange', e => {
       if (e.key === 'resolution' || e.key === 'rotation') {
         self.trackDetails = self.trackDetails.id
           ? self.removeTrack(selectedMap, self.trackDetails)
@@ -55,9 +55,9 @@ export default function naturalEventsTrack(ui, store, selectedMap) {
           // restricts track/cluster points from disappearing on min/max zoom
           let isNewTarget = true;
           if (e.target) {
-            const valueCheck = (val) => (typeof val === 'number' ? val.toFixed(6) : 0);
-            const oldValues = e.oldValue.map((val) => valueCheck(val));
-            const targetValues = e.target.values_.center.map((val) => valueCheck(val));
+            const valueCheck = val => (typeof val === 'number' ? val.toFixed(6) : 0);
+            const oldValues = e.oldValue.map(val => valueCheck(val));
+            const targetValues = e.target.values_.center.map(val => valueCheck(val));
 
             const oldLon = oldValues[0];
             const oldLat = oldValues[1];
@@ -330,7 +330,7 @@ const createTrack = function(proj, eventObj, map, selectedDate, callback) {
     ? [-250, -90, 250, 90]
     : [-180, -90, 180, 90];
 
-  const selectedCoords = lodashFind(eventObj.geometries, (geometry) => geometry.date.split('T')[0] === selectedDate).coordinates;
+  const selectedCoords = lodashFind(eventObj.geometries, geometry => geometry.date.split('T')[0] === selectedDate).coordinates;
   lodashEach(eventObj.geometries, (geometry, index) => {
     let { coordinates } = geometry;
     const date = geometry.date.split('T')[0];
@@ -407,7 +407,7 @@ const createTrack = function(proj, eventObj, map, selectedDate, callback) {
  * @return {void}
  */
 const removeOldPoints = function(map, pointOverlayArray) {
-  lodashEach(pointOverlayArray, (pointOverlay) => {
+  lodashEach(pointOverlayArray, pointOverlay => {
     if (map.getOverlayById(pointOverlay.getId())) {
       map.removeOverlay(pointOverlay);
     }
@@ -422,7 +422,7 @@ const removeOldPoints = function(map, pointOverlayArray) {
  * @return {void}
  */
 const addPointOverlays = function(map, pointOverlayArray) {
-  lodashEach(pointOverlayArray, (pointOverlay) => {
+  lodashEach(pointOverlayArray, pointOverlay => {
     addOverlayIfIsVisible(map, pointOverlay);
   });
 };

@@ -18,7 +18,7 @@ class DeltaInput extends PureComponent {
     };
   }
 
-  onKeyInput = (e) => {
+  onKeyInput = e => {
     let { value } = e.target;
     if (value === '' || regex.test(value)) {
       value = Number(value);
@@ -28,7 +28,7 @@ class DeltaInput extends PureComponent {
     }
   }
 
-  handleKeyPress = (e) => {
+  handleKeyPress = e => {
     let { value } = this.state;
     if (value === '' || regex.test(value)) {
       value = Number(value);
@@ -46,7 +46,7 @@ class DeltaInput extends PureComponent {
     }
   }
 
-  handleFocus = (e) => {
+  handleFocus = e => {
     e.target.select();
   }
 
@@ -63,7 +63,7 @@ class DeltaInput extends PureComponent {
     }
   }
 
-  setValue = (value) => {
+  setValue = value => {
     this.setState({
       value,
     });

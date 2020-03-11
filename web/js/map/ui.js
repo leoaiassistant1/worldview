@@ -177,7 +177,7 @@ export function mapui(models, config, store, ui) {
   const init = function() {
     // NOTE: iOS sometimes bombs if this is _.each instead. In that case,
     // it is possible that config.projections somehow becomes array-like.
-    lodashForOwn(config.projections, (proj) => {
+    lodashForOwn(config.projections, proj => {
       const map = createMap(proj);
       self.proj[proj.id] = map;
     });
@@ -336,7 +336,7 @@ export function mapui(models, config, store, ui) {
       .getLayers()
       .getArray()
       .slice(0);
-    lodashEach(activeLayers, (mapLayer) => {
+    lodashEach(activeLayers, mapLayer => {
       map.removeLayer(mapLayer);
     });
     removeGraticule('active');
@@ -373,7 +373,7 @@ export function mapui(models, config, store, ui) {
         },
         state,
       );
-      lodashEach(defs, (def) => {
+      lodashEach(defs, def => {
         if (isGraticule(def, proj.id)) {
           addGraticule(def.opacity, layerGroupStr);
         } else {
@@ -390,7 +390,7 @@ export function mapui(models, config, store, ui) {
       ) {
         stateArray.reverse(); // Set Layer order based on active A|B group
       }
-      lodashEach(stateArray, (arr) => {
+      lodashEach(stateArray, arr => {
         map.addLayer(getCompareLayerGroup(arr, layers, proj.id, state));
       });
       compareMapUi.create(map, compareState.mode);
@@ -408,14 +408,14 @@ export function mapui(models, config, store, ui) {
         { reverse: true },
         store.getState(),
       )
-        .filter((def) => {
+        .filter(def => {
           if (isGraticule(def, projId)) {
             addGraticule(def.opacity, arr[0]);
             return false;
           }
           return true;
         })
-        .map((def) => createLayer(def, {
+        .map(def => createLayer(def, {
           date: state.date[arr[1]],
           group: arr[0],
         })),
@@ -440,7 +440,7 @@ export function mapui(models, config, store, ui) {
     const activeGroupStr = state.compare.activeString;
     const activeDateStr = state.compare.isCompareA ? 'selected' : 'selectedB';
     const updateGraticules = function(defs, groupName) {
-      lodashEach(defs, (def) => {
+      lodashEach(defs, def => {
         if (isGraticule(def, state.proj.id)) {
           renderable = isRenderableLayer(
             def.id,
@@ -456,7 +456,7 @@ export function mapui(models, config, store, ui) {
         }
       });
     };
-    layers.forEach((layer) => {
+    layers.forEach(layer => {
       const group = layer.get('group');
       // Not in A|B
       if (layer.wv) {
@@ -471,7 +471,7 @@ export function mapui(models, config, store, ui) {
         updateGraticules(defs);
         // If in A|B layer-group will have a 'group' string
       } else if (group) {
-        lodashEach(layer.getLayers().getArray(), (subLayer) => {
+        lodashEach(layer.getLayers().getArray(), subLayer => {
           if (subLayer.wv) {
             renderable = isRenderableLayer(
               subLayer.wv.id,
@@ -625,7 +625,7 @@ export function mapui(models, config, store, ui) {
             : null;
       }
     }
-    lodashEach(activeLayers, (def) => {
+    lodashEach(activeLayers, def => {
       const layerName = def.layer || def.id;
 
       if (!['subdaily', 'daily', 'monthly', 'yearly'].includes(def.period)) {
@@ -658,7 +658,7 @@ export function mapui(models, config, store, ui) {
         vectorStyleId = def.vectorStyle.id;
         if (state.layers[activeLayerStr]) {
           const layers = state.layers[activeLayerStr];
-          layers.forEach((layer) => {
+          layers.forEach(layer => {
             if (layer.id === layerName && layer.custom) {
               vectorStyleId = layer.custom;
             }
@@ -706,7 +706,7 @@ export function mapui(models, config, store, ui) {
 
     if (!layer && layers.length && layers[0].get('group')) {
       let olGroupLayer;
-      lodashEach(layers, (layerGroup) => {
+      lodashEach(layers, layerGroup => {
         if (layerGroup.get('group') === layerGroupStr) {
           olGroupLayer = layerGroup;
         }
@@ -857,8 +857,8 @@ export function mapui(models, config, store, ui) {
     measureTools[proj].clearMeasurements();
   };
 
-  const toggleMeasurementUnits = (units) => {
-    Object.keys(measureTools).forEach((projection) => {
+  const toggleMeasurementUnits = units => {
+    Object.keys(measureTools).forEach(projection => {
       measureTools[projection].changeUnits(units);
     });
   };
@@ -959,8 +959,8 @@ export function mapui(models, config, store, ui) {
     // This component is inside the map viewport container. Allowing
     // mouse move events to bubble up displays map coordinates--let those
     // be blank when over a component.
-    $('.wv-map-scale-metric').mousemove((e) => e.stopPropagation());
-    $('.wv-map-scale-imperial').mousemove((e) => e.stopPropagation());
+    $('.wv-map-scale-metric').mousemove(e => e.stopPropagation());
+    $('.wv-map-scale-imperial').mousemove(e => e.stopPropagation());
 
     // allow rotation by dragging for polar projections
     if (proj.id !== 'geographic' && proj.id !== 'webmerc') {
@@ -979,7 +979,7 @@ export function mapui(models, config, store, ui) {
       self.mapIsbeingDragged = true;
       self.events.trigger('drag');
     });
-    map.getView().on('propertychange', (e) => {
+    map.getView().on('propertychange', e => {
       switch (e.key) {
         case 'resolution':
           self.mapIsbeingZoomed = true;
@@ -987,7 +987,7 @@ export function mapui(models, config, store, ui) {
           break;
       }
     });
-    map.on('moveend', (e) => {
+    map.on('moveend', e => {
       self.events.trigger('moveend');
       setTimeout(() => {
         self.mapIsbeingDragged = false;
@@ -1034,7 +1034,7 @@ export function mapui(models, config, store, ui) {
     $zoomOut.click(() => {
       mapUtilZoomAction(map, -1);
     });
-    $zoomOut.mousemove((e) => e.stopPropagation());
+    $zoomOut.mousemove(e => e.stopPropagation());
 
     const $zoomIn = $('<div></div>')
       .addClass('wv-map-zoom-in')
@@ -1048,7 +1048,7 @@ export function mapui(models, config, store, ui) {
     $zoomIn.click(() => {
       mapUtilZoomAction(map, 1);
     });
-    $zoomIn.mousemove((e) => e.stopPropagation());
+    $zoomIn.mousemove(e => e.stopPropagation());
 
     /*
      * Sets zoom buttons as active or inactive based
@@ -1139,7 +1139,7 @@ export function mapui(models, config, store, ui) {
       dataRunner.newPoint(pixels, map);
     }
     $(map.getViewport())
-      .mouseout((e) => {
+      .mouseout(e => {
         if (
           $(e.relatedTarget).hasClass('map-coord')
           || $(e.relatedTarget).hasClass('coord-btn')

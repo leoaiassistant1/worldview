@@ -53,7 +53,7 @@ export class Swipe {
   applyEventsToBaseLayers(layer, callback) {
     const layers = layer.get('layers');
     if (layers) {
-      lodashEach(layers.getArray(), (layer) => {
+      lodashEach(layers.getArray(), layer => {
         this.applyEventsToBaseLayers(layer, callback);
       });
     } else {
@@ -115,7 +115,7 @@ export class Swipe {
    * @param {Array} layers | Layer group
    */
   removeListenersFromBottomLayers(layers) {
-    lodashEach(layers, (layer) => {
+    lodashEach(layers, layer => {
       layer.un('precompose', this.reverseClip);
       layer.un('postcompose', restore);
     });
@@ -126,7 +126,7 @@ export class Swipe {
    * @param {Array} layers | Layer group
    */
   removeListenersFromLayers(layers) {
-    lodashEach(layers, (layer) => {
+    lodashEach(layers, layer => {
       layer.un('precompose', this.clip);
       layer.un('postcompose', restore);
     });
@@ -165,7 +165,7 @@ const addLineOverlay = function(map) {
   lineCaseEl.style.transform = `translateX( ${swipeOffset}px)`;
 
   // Add event listeners to Elements
-  [lineCaseEl, draggerEl].forEach((el) => {
+  [lineCaseEl, draggerEl].forEach(el => {
     el.addEventListener(
       'mousedown',
       () => {

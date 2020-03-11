@@ -128,9 +128,9 @@ describe('permalink 1.0', () => {
     );
     const activeLayers = stateFromLocation.layers.active;
 
-    expect(activeLayers.find((x) => x.id === 'terra-cr')).toBeTruthy();
-    expect(activeLayers.find((x) => x.id === 'terra-aod')).toBeTruthy();
-    expect(activeLayers.find((x) => x.id === 'aqua-aod')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'terra-cr')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'terra-aod')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'aqua-aod')).toBeTruthy();
   });
 });
 
@@ -180,9 +180,9 @@ describe('permalink 1.1', () => {
       config,
     );
     const activeLayers = stateFromLocation.layers.active;
-    expect(activeLayers.find((x) => x.id === 'terra-cr')).toBeTruthy();
-    expect(activeLayers.find((x) => x.id === 'terra-aod')).toBeTruthy();
-    expect(activeLayers.find((x) => x.id === 'aqua-aod')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'terra-cr')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'terra-aod')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'aqua-aod')).toBeTruthy();
   });
   test('empty layer list', () => {
     const parameters = {
@@ -208,8 +208,8 @@ describe('permalink 1.1', () => {
       config,
     );
     const activeLayers = stateFromLocation.layers.active;
-    expect(activeLayers.find((x) => x.id === 'terra-cr')).toBeTruthy();
-    expect(activeLayers.find((x) => x.id === 'aqua-aod')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'terra-cr')).toBeTruthy();
+    expect(activeLayers.find(x => x.id === 'aqua-aod')).toBeTruthy();
   });
   test('no layers if no groups found', () => {
     const parameters = {

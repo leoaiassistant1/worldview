@@ -27,7 +27,7 @@ export default (function() {
           indicatorId = wvui.indicator.loading();
         }, 2000);
       }
-      promise.done((result) => {
+      promise.done(result => {
         root[attr] = result;
       })
         .always(() => {

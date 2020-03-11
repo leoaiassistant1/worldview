@@ -10,15 +10,15 @@ export function requestAction(
   // let didTimeOut = false;
   dispatch(startRequest(actionName, id));
   return new Promise((resolve, reject) => fetch(url, { signal })
-    .then((response) => (mimeType === 'application/json'
+    .then(response => (mimeType === 'application/json'
       ? response.json()
       : response.text()
     ))
-    .then((data) => {
+    .then(data => {
       dispatch(fetchSuccess(actionName, data, id));
       resolve(data);
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(fetchFailure(actionName, error, id));
       reject(error);
     }));

@@ -179,7 +179,7 @@ class PaletteSelect extends React.Component {
           {this.renderDefault()}
           {
             // eslint-disable-next-line array-callback-return
-            paletteOrder.map((id) => {
+            paletteOrder.map(id => {
               if (lodashIndexOf(recommended, id) < 0) {
                 const item = this.customLegend(id);
                 if (item) {

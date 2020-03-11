@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 const tileRectTimeScaleOptions = {
   minute() {
     return {
-      lineLengthY: (item) => {
+      lineLengthY: item => {
         const timeScaleUnit = item.dateObject.minutes;
         const lineLengthY = timeScaleUnit === 0
           || timeScaleUnit === 15
@@ -21,7 +21,7 @@ const tileRectTimeScaleOptions = {
   },
   hour() {
     return {
-      lineLengthY: (item) => {
+      lineLengthY: item => {
         const timeScaleUnit = item.dateObject.hours;
         const lineLengthY = timeScaleUnit === 0 ? 62
           : timeScaleUnit === 6
@@ -33,7 +33,7 @@ const tileRectTimeScaleOptions = {
   },
   day() {
     return {
-      lineLengthY: (item) => {
+      lineLengthY: item => {
         const timeScaleUnit = item.dateObject.date;
         const { dayOfWeek } = item;
         const lineLengthY = timeScaleUnit === 1 ? 62 : dayOfWeek === 0 ? 22 : 10;
@@ -43,7 +43,7 @@ const tileRectTimeScaleOptions = {
   },
   month() {
     return {
-      lineLengthY: (item) => {
+      lineLengthY: item => {
         const timeScaleUnit = item.dateObject.months;
         const lineLengthY = timeScaleUnit === 0 ? 62 : timeScaleUnit % 3 === 0 ? 22 : 10;
         return lineLengthY;
@@ -52,7 +52,7 @@ const tileRectTimeScaleOptions = {
   },
   year() {
     return {
-      lineLengthY: (item) => {
+      lineLengthY: item => {
         const timeScaleUnit = item.dateObject.years;
         const lineLengthY = timeScaleUnit % 10 === 0 ? 62 : timeScaleUnit % 5 === 0 ? 22 : 10;
         return lineLengthY;
@@ -72,7 +72,7 @@ class TileRect extends PureComponent {
   * @param {Event} mouse event
   * @returns {void}
   */
-  showHover = (e) => {
+  showHover = e => {
     const { item, index } = this.props;
     this.props.showHover(e, item.rawDate, item.rawNextDate, index);
   }

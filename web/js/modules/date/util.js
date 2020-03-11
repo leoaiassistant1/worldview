@@ -40,7 +40,7 @@ export function tryCatchDate(str, initialState) {
  */
 export function getLayersActiveAtDate(layers, date) {
   const arra = [];
-  lodashEach(layers, (layer) => {
+  lodashEach(layers, layer => {
     if (layer.visible && layer.startDate && new Date(layer.startDate > date)) {
       arra.push(layer);
     }

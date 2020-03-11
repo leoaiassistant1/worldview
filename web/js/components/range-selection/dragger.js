@@ -164,7 +164,7 @@ class TimelineDragger extends PureComponent {
     e.preventDefault();
     const deltaX = e.movementX || d.deltaX;
     this.props.onDrag(d.deltaX, this.props.id, d.x);
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       position: prevState.position + deltaX,
     }));
   }

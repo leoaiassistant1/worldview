@@ -57,7 +57,7 @@ class DateInputColumn extends Component {
     this.setState({ value });
   }
 
-  onKeyPress = (e) => {
+  onKeyPress = e => {
     // check tab and enter key code
     const { keyCode } = e;
     const entered = keyCode === 13 || keyCode === 9;
@@ -67,7 +67,7 @@ class DateInputColumn extends Component {
     }
   }
 
-  onKeyUp = (e) => {
+  onKeyUp = e => {
     const { type } = this.props;
     const { keyCode } = e;
     const entered = keyCode === 13 || keyCode === 9;
@@ -115,7 +115,7 @@ class DateInputColumn extends Component {
     this.rollDate(-1);
   }
 
-  validateBasedOnType = (value) => {
+  validateBasedOnType = value => {
     const { type, updateTimeUnitInput } = this.props;
     let newDate;
     switch (type) {
@@ -155,7 +155,7 @@ class DateInputColumn extends Component {
     return newDate;
   }
 
-  yearValidation = (input) => {
+  yearValidation = input => {
     const date = new Date(this.props.date);
     if (input > 1000 && input < 9999) {
       const newDate = new Date(date.setUTCFullYear(input));
@@ -164,7 +164,7 @@ class DateInputColumn extends Component {
     return null;
   }
 
-  monthValidation = (input) => {
+  monthValidation = input => {
     const date = new Date(this.props.date);
     let newDate;
     // eslint-disable-next-line no-restricted-globals
@@ -194,7 +194,7 @@ class DateInputColumn extends Component {
     return null;
   }
 
-  dayValidation = (input) => {
+  dayValidation = input => {
     const date = new Date(this.props.date);
     const standardMaxDateForMonth = 31;
 
@@ -214,7 +214,7 @@ class DateInputColumn extends Component {
     return null;
   }
 
-  hourValidation = (input) => {
+  hourValidation = input => {
     const date = new Date(this.props.date);
     if (input >= 0 && input <= 23) {
       const newDate = new Date(date.setUTCHours(input));
@@ -223,7 +223,7 @@ class DateInputColumn extends Component {
     return null;
   }
 
-  minuteValidation = (input) => {
+  minuteValidation = input => {
     const date = new Date(this.props.date);
     if (input >= 0 && input <= 59) {
       const newDate = new Date(date.setUTCMinutes(input));
@@ -232,7 +232,7 @@ class DateInputColumn extends Component {
     return null;
   }
 
-  rollDate = (amt) => {
+  rollDate = amt => {
     const {
       date, minDate, maxDate, type, updateDate,
     } = this.props;
@@ -251,14 +251,14 @@ class DateInputColumn extends Component {
    * https://stackoverflow.com/a/40261505/4589331
    * @param {Object} e | Event Object
    */
-  handleFocus = (e) => {
+  handleFocus = e => {
     const { setFocusedTab, tabIndex } = this.props;
     e.target.select();
     this.setState({ selected: true });
     setFocusedTab(tabIndex);
   }
 
-  blur = (e) => {
+  blur = e => {
     const { setFocusedTab, tabIndex, type } = this.props;
     // check for valid date on blur
     const inputValue = e.target.value;
@@ -282,7 +282,7 @@ class DateInputColumn extends Component {
     setFocusedTab(null, tabIndex);
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       value: e.target.value.toUpperCase(),
     });
@@ -298,7 +298,7 @@ class DateInputColumn extends Component {
     changeTab(tabIndex - 1, tabIndex);
   }
 
-  validateDate = (date) => {
+  validateDate = date => {
     const { minDate, maxDate } = this.props;
     if (date > minDate && date <= maxDate) {
       return date;
@@ -337,7 +337,7 @@ class DateInputColumn extends Component {
         />
         <input
           type="text"
-          ref={(input) => {
+          ref={input => {
             this.inputs[tabIndex] = input;
           }}
           size={size}

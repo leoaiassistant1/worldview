@@ -169,7 +169,7 @@ export function setToggledClassification(layerId, classIndex, index, groupName) 
       state,
     );
     let hasDisabled = false;
-    newActivePalettesObj[layerId].maps.forEach((colorMap) => {
+    newActivePalettesObj[layerId].maps.forEach(colorMap => {
       if (colorMap.disabled && colorMap.disabled.length) {
         hasDisabled = true;
       }
@@ -195,7 +195,7 @@ export function refreshDisabledClassification(layerId, disabledArray, index, gro
       state,
     );
     let hasDisabled = false;
-    newActivePalettesObj[layerId].maps.forEach((colorMap) => {
+    newActivePalettesObj[layerId].maps.forEach(colorMap => {
       if (colorMap.disabled && colorMap.disabled.length) {
         hasDisabled = true;
       }

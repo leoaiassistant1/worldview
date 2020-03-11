@@ -96,9 +96,7 @@ export default function naturalEventsUI(ui, config, store, models) {
       }
       // check if selected event is in changed projection
       if (self.selected.id) {
-        const findSelectedInProjection = lodashFind(self.markers, (
-          marker,
-        ) => {
+        const findSelectedInProjection = lodashFind(self.markers, marker => {
           if (marker.pin) {
             if (marker.pin.id === self.selected.id) {
               // keep event highlighted when available in changed projection
@@ -137,7 +135,7 @@ export default function naturalEventsUI(ui, config, store, models) {
     self.filterEventList();
 
     // handle list filter on map move
-    map.on('moveend', (e) => {
+    map.on('moveend', e => {
       self.filterEventList();
     });
 
@@ -149,9 +147,7 @@ export default function naturalEventsUI(ui, config, store, models) {
       self.filterEventList();
       // check if selected event is in changed projection
       if (self.selected.id) {
-        const findSelectedInProjection = lodashFind(self.markers, (
-          marker,
-        ) => {
+        const findSelectedInProjection = lodashFind(self.markers, marker => {
           if (marker.pin) {
             if (marker.pin.id === self.selected.id) {
               // keep event highlighted when available in changed projection
@@ -190,7 +186,7 @@ export default function naturalEventsUI(ui, config, store, models) {
       self.filterEventList();
     }
 
-    map.on('moveend', (e) => {
+    map.on('moveend', e => {
       const isZoomed = Math.floor(view.getZoom()) >= 3;
       if (isZoomed || state.proj.selected.id !== 'geographic') {
         self.filterEventList();
@@ -343,20 +339,20 @@ export default function naturalEventsUI(ui, config, store, models) {
     const visibleListEvents = {};
     let showListAllButton = false;
 
-    self.eventsData.forEach((naturalEvent) => {
+    self.eventsData.forEach(naturalEvent => {
       const isSelectedEvent = self.selected.id === naturalEvent.id;
       let date = self.getDefaultEventDate(naturalEvent);
       if (self.selected && self.selected.date) {
         date = self.selected.date;
       }
-      const geometry = lodashFind(naturalEvent.geometries, (geometry) => geometry.date.split('T')[0] === date) || naturalEvent.geometries[0];
+      const geometry = lodashFind(naturalEvent.geometries, geometry => geometry.date.split('T')[0] === date) || naturalEvent.geometries[0];
 
       let { coordinates } = geometry;
 
       if (proj.selected.id !== 'geographic') {
         // check for polygon geometries for targeted projection coordinate transform
         if (geometry.type === 'Polygon') {
-          const coordinatesTransform = coordinates[0].map((coordinate) => olProj.transform(coordinate, 'EPSG:4326', proj.selected.crs));
+          const coordinatesTransform = coordinates[0].map(coordinate => olProj.transform(coordinate, 'EPSG:4326', proj.selected.crs));
           const geomExtent = olExtent.boundingExtent(coordinatesTransform);
           coordinates = olExtent.getCenter(geomExtent);
         } else {
@@ -412,7 +408,7 @@ export default function naturalEventsUI(ui, config, store, models) {
     const zoom = isSameEventID
       ? ui.map.selected.getView().getZoom()
       : zoomLevelReference[category];
-    const geometry = lodashFind(event.geometries, (geom) => geom.date.split('T')[0] === date);
+    const geometry = lodashFind(event.geometries, geom => geom.date.split('T')[0] === date);
 
     // check for polygon geometries and/or perform projection coordinate transform
     let coordinates = geometry.type === 'Polygon'

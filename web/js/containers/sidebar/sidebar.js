@@ -52,7 +52,7 @@ class Sidebar extends React.Component {
     this.state = { subComponentHeight: 700 };
     this.checkerBoardPattern = getCheckerboard();
     const customPalettePromise = loadCustomPalette(props.config);
-    customPalettePromise.done((customs) => {
+    customPalettePromise.done(customs => {
       props.loadedCustomPalettes(customs);
     });
     this.toggleSidebar = this.toggleSidebar.bind(this);
@@ -62,7 +62,7 @@ class Sidebar extends React.Component {
     this.updateDimensions();
     // prevent browserzooming in safari
     if (util.browser.safari) {
-      const onGestureCallback = (e) => {
+      const onGestureCallback = e => {
         e.preventDefault();
         e.stopPropagation();
       };
@@ -183,7 +183,7 @@ class Sidebar extends React.Component {
             id="wv-logo"
             onClick={resetWorldview}
             // eslint-disable-next-line no-return-assign
-            ref={(iconElement) => (this.iconElement = iconElement)}
+            ref={iconElement => (this.iconElement = iconElement)}
             onWheel={wheelCallBack}
           />
           <CollapsedButton
@@ -195,7 +195,7 @@ class Sidebar extends React.Component {
           <div
             id="productsHolder"
             className="products-holder-case"
-            ref={(el) => {
+            ref={el => {
               this.sideBarCase = el;
             }}
             style={
@@ -243,7 +243,7 @@ class Sidebar extends React.Component {
                   </TabPane>
                   <footer
                     // eslint-disable-next-line no-return-assign
-                    ref={(footerElement) => (this.footerElement = footerElement)}
+                    ref={footerElement => (this.footerElement = footerElement)}
                   >
                     <FooterContent tabTypes={tabTypes} activeTab={activeTab} />
                   </footer>
@@ -291,8 +291,8 @@ function mapStateToProps(state) {
     config,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  changeTab: (str) => {
+const mapDispatchToProps = dispatch => ({
+  changeTab: str => {
     dispatch(changeTab(str));
   },
   onTabClick: (str, activeStr) => {
@@ -311,7 +311,7 @@ const mapDispatchToProps = (dispatch) => ({
   expandSidebar: () => {
     dispatch(expandSidebar());
   },
-  loadedCustomPalettes: (customs) => {
+  loadedCustomPalettes: customs => {
     dispatch(loadedCustomPalettes(customs));
   },
 });

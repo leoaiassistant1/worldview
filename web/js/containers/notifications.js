@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import NotificationBlock from '../components/notifications/notification-block';
 import { getNumberOfTypeNotSeen } from '../modules/notifications/util';
 
-const Notifications = (props) => {
+const Notifications = props => {
   const { object } = props;
   return (
     <div className="wv-notify-modal">

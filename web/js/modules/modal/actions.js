@@ -50,7 +50,7 @@ export function renderTemplate(headerText, template) {
   };
 }
 export function requestTemplate(pageActionName, location, type) {
-  return (dispatch) => requestAction(dispatch, pageActionName, location);
+  return dispatch => requestAction(dispatch, pageActionName, location);
 }
 export function onToggle() {
   return {

@@ -30,7 +30,7 @@ export function mapAnimate(config, ui, store) {
     if (!rotation) rotation = 0;
     const animationPromise = function(...args) {
       return new Promise((resolve, reject) => {
-        args.push((complete) => {
+        args.push(complete => {
           if (complete) resolve();
           if (!complete) reject(new Error('Animation interrupted!'));
         });
@@ -83,7 +83,7 @@ export function mapAnimate(config, ui, store) {
    */
   const getBestZoom = function(distance, start, end, view) {
     const idealLength = 1500;
-    const lines = [2, 3, 4, 5, 6, 7, 8].map((zoom) => ({
+    const lines = [2, 3, 4, 5, 6, 7, 8].map(zoom => ({
       zoom,
       pixels: distance / view.getResolutionForZoom(zoom),
     }));

@@ -172,7 +172,7 @@ class TimelineDraggerRange extends PureComponent {
       this.state.startLocation.toFixed(3)
       !== this.state.previousStartLocation.toFixed(3)
     ) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         previousStartLocation: prevState.startLocation,
       }));
     }

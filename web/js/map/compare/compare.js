@@ -36,7 +36,7 @@ export function mapCompare(config, store) {
       .on('movestart', () => {
         self.dragging = true;
       })
-      .on('moveend', (value) => {
+      .on('moveend', value => {
         self.dragging = false;
         store.dispatch(setValue(value));
       });

@@ -54,7 +54,7 @@ class MeasureMenu extends Component {
   }
 
   tooltipToggle() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       tooltipOpen: !prevState.tooltipOpen,
     }));
   }
@@ -94,10 +94,10 @@ const mapStateToProps = (state, ownProps) => ({
   units: state.measure.units,
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onToggleUnits: (units) => {
+  onToggleUnits: units => {
     dispatch(changeUnits(units));
   },
-  onCloseModal: (eventName) => {
+  onCloseModal: eventName => {
     dispatch(onToggle());
   },
 });

@@ -65,7 +65,7 @@ import { clearGraticule, refreshGraticule } from '../modules/layers/actions';
 import { hasCustomPaletteInActiveProjection } from '../modules/palettes/util';
 
 
-const RangeHandle = (props) => {
+const RangeHandle = props => {
   const {
     value, offset, dragging, ...restProps
   } = props;
@@ -151,7 +151,7 @@ class AnimationWidget extends React.Component {
   }
 
   toggleCollapse() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       collapsed: !prevState.collapsed,
     }));
   }
@@ -170,7 +170,7 @@ class AnimationWidget extends React.Component {
       'thru-label',
     ];
     const { classList } = e.target;
-    return draggableTargets.some((tClass) => classList.contains(tClass));
+    return draggableTargets.some(tClass => classList.contains(tClass));
   }
 
   onExpandedDrag(e, position) {
@@ -368,7 +368,7 @@ class AnimationWidget extends React.Component {
   * @param {Boolean} isOpen
   * @returns {void}
   */
-  toggleCustomIntervalModal = (isOpen) => {
+  toggleCustomIntervalModal = isOpen => {
     const { toggleCustomModal } = this.props;
     toggleCustomModal(isOpen, customModalType.ANIMATION);
   };
@@ -501,7 +501,7 @@ class AnimationWidget extends React.Component {
                 max={10}
                 min={0.5}
                 value={this.state.speed}
-                onChange={(num) => this.setState({ speed: num })}
+                onChange={num => this.setState({ speed: num })}
                 handle={RangeHandle}
                 onBeforeChange={() => this.setState({ isSliding: true })}
                 onAfterChange={() => {
@@ -738,8 +738,8 @@ function mapStateToProps(state) {
     ),
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  selectDate: (val) => {
+const mapDispatchToProps = dispatch => ({
+  selectDate: val => {
     dispatch(selectDate(val));
   },
   notify: (type, action, title) => new Promise((resolve, reject, cancel) => {
@@ -793,7 +793,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleCustomModal: (open, toggleBy) => {
     dispatch(toggleCustomModal(open, toggleBy));
   },
-  onSlide: (num) => {
+  onSlide: num => {
     dispatch(changeFrameRate(num));
   },
   onIntervalSelect: (delta, timeScale, customSelected) => {

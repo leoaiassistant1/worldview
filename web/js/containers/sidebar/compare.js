@@ -110,7 +110,7 @@ class CompareCase extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   toggleActiveCompareState: () => {
     dispatch(toggleActiveCompareState());
   },

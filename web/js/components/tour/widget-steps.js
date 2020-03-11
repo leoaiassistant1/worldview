@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
-const Steps = (props) => {
+const Steps = props => {
   const {
     currentStep, decreaseStep, incrementStep, totalSteps,
   } = props;

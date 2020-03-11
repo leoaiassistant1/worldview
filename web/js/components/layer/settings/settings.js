@@ -96,7 +96,7 @@ class LayerSettings extends React.Component {
       if (legend.type === 'classification' && legend.colors.length > 1) {
         paneItemEl = (
           <TabPane key={`${legend.id}pane`} tabId={i}>
-            <ClassificationToggle height={Math.ceil(screenHeight / 3)} palette={palette} toggle={(classIndex) => toggleClassification(layer.id, classIndex, i, groupName)} legend={legend} />
+            <ClassificationToggle height={Math.ceil(screenHeight / 3)} palette={palette} toggle={classIndex => toggleClassification(layer.id, classIndex, i, groupName)} legend={legend} />
           </TabPane>
         );
       } else if (
@@ -189,7 +189,7 @@ class LayerSettings extends React.Component {
     if (len > 1) {
       return this.renderMultiColormapCustoms(paletteLegends);
     } if (legend.type === 'classification' && legend.colors.length > 1) {
-      return (<ClassificationToggle height={Math.ceil(screenHeight / 2)} palette={palette} toggle={(classIndex) => toggleClassification(layer.id, classIndex, 0, groupName)} legend={legend} />);
+      return (<ClassificationToggle height={Math.ceil(screenHeight / 2)} palette={palette} toggle={classIndex => toggleClassification(layer.id, classIndex, 0, groupName)} legend={legend} />);
     }
     return (
       <>
@@ -305,16 +305,16 @@ function mapStateToProps(state, ownProps) {
     palettedAllowed: isPaletteAllowed(ownProps.layer.id, config),
     palettesTranslate,
     getDefaultLegend: (layerId, index) => getDefaultLegend(layerId, index, state),
-    getCustomPalette: (id) => getCustomPalette(id, custom),
+    getCustomPalette: id => getCustomPalette(id, custom),
     getPaletteLegend: (layerId, index) => getPaletteLegend(layerId, index, groupName, state),
 
-    getPaletteLegends: (layerId) => getPaletteLegends(layerId, groupName, state),
+    getPaletteLegends: layerId => getPaletteLegends(layerId, groupName, state),
     getPalette: (layerId, index) => getPalette(layerId, index, groupName, state),
     getVectorStyle: (layerId, index) => getVectorStyle(layerId, index, groupName, state),
     vectorStyles: config.vectorStyles,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   toggleClassification: (layerId, classIndex, index, groupName) => {
     dispatch(
       setToggledClassification(layerId, classIndex, index, groupName),

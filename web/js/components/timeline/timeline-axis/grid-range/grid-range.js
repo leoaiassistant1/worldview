@@ -9,29 +9,29 @@ import TileText from './tile-text';
 * @returns {Function} used to determine if text will be rendered
 */
 const tileTextConditionOptions = {
-  minute: (itemDateObject) => {
+  minute: itemDateObject => {
     const timeScaleUnit = itemDateObject.minutes;
     return timeScaleUnit === 0
       || timeScaleUnit === 15
       || timeScaleUnit === 30
       || timeScaleUnit === 45;
   },
-  hour: (itemDateObject) => {
+  hour: itemDateObject => {
     const timeScaleUnit = itemDateObject.hours;
     return timeScaleUnit === 0
     || timeScaleUnit === 6
     || timeScaleUnit === 12
     || timeScaleUnit === 18;
   },
-  day: (itemDateObject) => {
+  day: itemDateObject => {
     const timeScaleUnit = itemDateObject.date;
     return timeScaleUnit === 1;
   },
-  month: (itemDateObject) => {
+  month: itemDateObject => {
     const timeScaleUnit = itemDateObject.months;
     return timeScaleUnit === 0;
   },
-  year: (itemDateObject) => {
+  year: itemDateObject => {
     const timeScaleUnit = itemDateObject.years;
     return timeScaleUnit % 10 === 0;
   },

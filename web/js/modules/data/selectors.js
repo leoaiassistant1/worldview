@@ -93,7 +93,7 @@ export function groupByProducts(config, dataProducts) {
 }
 export function doesSelectedExist(products, selectedId) {
   let exists = false;
-  lodashEach(products, (productItemArray) => {
+  lodashEach(products, productItemArray => {
     const id = productItemArray[0];
     if (id === selectedId) {
       exists = true;
@@ -104,7 +104,7 @@ export function doesSelectedExist(products, selectedId) {
 }
 export function getDataProductsFromActiveLayers(layers, config, projId) {
   const dataProducts = [];
-  lodashEach(layers, (layer) => {
+  lodashEach(layers, layer => {
     const { id } = layer;
     const names = getTitles(config, layer.id, projId);
     const layerName = names.title;

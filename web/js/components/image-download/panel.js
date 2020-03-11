@@ -132,7 +132,7 @@ export default class ImageResSelection extends React.Component {
             <select
               id="wv-image-worldfile"
               value={value}
-              onChange={(e) => this.handleChange('worldfile', e.target.value)}
+              onChange={e => this.handleChange('worldfile', e.target.value)}
             >
               <option value={0}>No</option>
               <option value={1}>Yes</option>

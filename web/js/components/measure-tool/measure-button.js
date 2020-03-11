@@ -89,7 +89,7 @@ class MeasureButton extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   isActive: state.measure.isActive,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   openModal: (key, customParams) => {
     dispatch(openCustomContent(key, customParams));
   },

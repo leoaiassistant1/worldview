@@ -44,7 +44,7 @@ class LayerList extends React.Component {
     } if (layer.palette) {
       this.promises[layer.id] = true;
       const promise = palettePromise(layer.id);
-      promise.then((palette) => {
+      promise.then(palette => {
         const { palettes } = this.state;
         delete this.promises[layer.id];
         palettes[layer.id] = palette;
@@ -200,15 +200,15 @@ function mapStateToProps(state, ownProps) {
     projId: id,
     checkerBoardPattern,
     layerSplit,
-    getNames: (layerId) => getTitles(state.config, layerId, id),
-    available: (id) => {
+    getNames: layerId => getTitles(state.config, layerId, id),
+    available: id => {
       const date = state.date[activeDateString];
       return available(id, date, layers, state.config, state);
     },
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  reorderLayers: (newLayerArray) => {
+const mapDispatchToProps = dispatch => ({
+  reorderLayers: newLayerArray => {
     dispatch(reorderLayers(newLayerArray));
   },
 });

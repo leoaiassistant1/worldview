@@ -27,7 +27,7 @@ class Dragger extends PureComponent {
   * @param {Event} mouse event
   * @returns {void}
   */
-  selectDragger = (e) => {
+  selectDragger = e => {
     this.props.selectDragger(this.props.draggerName, e);
   };
 

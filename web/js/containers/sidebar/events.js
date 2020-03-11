@@ -139,7 +139,7 @@ class Events extends React.Component {
             >
               <ul id="wv-eventscontent" className="content map-item-list">
                 {events && sources
-                  ? events.map((event) => (
+                  ? events.map(event => (
                     <Event
                       showAlert={showAlert}
                       key={event.id}
@@ -163,7 +163,7 @@ class Events extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   selectEvent: (id, dateStr, isMobile) => {
     dispatch(selectEvent(id, dateStr));
     if (isMobile) {
@@ -188,13 +188,13 @@ const mapDispatchToProps = (dispatch) => ({
   deselectEvent: (id, date) => {
     dispatch(deselectEvent());
   },
-  requestEvents: (url) => {
+  requestEvents: url => {
     dispatch(requestEvents(url));
   },
-  requestSources: (url) => {
+  requestSources: url => {
     dispatch(requestSources(url));
   },
-  requestCategories: (url) => {
+  requestCategories: url => {
     dispatch(requestCategories(url));
   },
 });

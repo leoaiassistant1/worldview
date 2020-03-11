@@ -42,7 +42,7 @@ export default (function() {
     if (lodashIsString(hides)) {
       hides = [hides];
     }
-    lodashEach(hides, (id) => {
+    lodashEach(hides, id => {
       lodashRemove(self.active, {
         id,
       });

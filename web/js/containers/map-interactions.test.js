@@ -34,7 +34,7 @@ beforeEach(() => {
       modalState={{ id: [], isOpen: false }}
     />,
     {
-      createNodeMock: (element) => {
+      createNodeMock: element => {
         if (element.id === 'ol-coords-case') {
           return null;
         }

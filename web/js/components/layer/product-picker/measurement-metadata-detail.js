@@ -20,7 +20,7 @@ class MeasurementMetadataDetail extends React.Component {
    * @return {void}
    */
   toggleMetadataExpansion() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       isMetadataExpanded: !prevState.isMetadataExpanded,
     }));
   }
@@ -28,7 +28,7 @@ class MeasurementMetadataDetail extends React.Component {
   getSourceMetadata() {
     const { source } = this.props;
     if (source.description) {
-      util.get(`config/metadata/layers/${source.description}.html`).then((data) => {
+      util.get(`config/metadata/layers/${source.description}.html`).then(data => {
         if (data) {
           const { sourceMetaData } = this.state;
           sourceMetaData[source.description] = { data };

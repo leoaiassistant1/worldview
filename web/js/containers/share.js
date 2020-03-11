@@ -106,7 +106,7 @@ class ShareLinkContainer extends Component {
         win = window.open('', '_blank');
       }
       promise
-        .then((result) => {
+        .then(result => {
           if (result.status_code === 200) {
             const href = getSharelink(type, result.data.url);
             openPromisedSocial(href, win);
@@ -178,7 +178,7 @@ class ShareLinkContainer extends Component {
               value={value}
               name="permalink_content"
               id="permalink_content"
-              onChange={(e) => {
+              onChange={e => {
                 e.preventDefault();
               }}
             />
@@ -225,7 +225,7 @@ function mapStateToProps(state) {
         : '',
   };
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   requestShortLink: (location, signal) => dispatch(
     requestShortLink(location, 'application/json', null, signal),
   ),

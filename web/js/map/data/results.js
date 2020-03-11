@@ -363,16 +363,16 @@ export function dataResultsDividePolygon() {
     const ring = granule.geometry['EPSG:4326'].getLinearRing(0);
     const coords = ring.getCoordinates();
     const latlons = [];
-    lodashEach(coords, (coord) => {
+    lodashEach(coords, coord => {
       const latlon = new dataHelper.LatLng(coord[1], coord[0]);
       latlons.push(latlon);
     });
     const result = dataHelper.sphericalPolygon.dividePolygon(latlons);
     const newPolys = result.interiors;
     const resultMultiPoly = [];
-    lodashEach(newPolys, (newPoly) => {
+    lodashEach(newPolys, newPoly => {
       const resultPoly = [];
-      lodashEach(newPoly, (newCoord) => {
+      lodashEach(newPoly, newCoord => {
         resultPoly.push([newCoord.lng, newCoord.lat]);
       });
       resultMultiPoly.push(resultPoly);
@@ -721,7 +721,7 @@ const versionParsers = {
   // 41, 51, 61 for minor versions. This function multiplies values
   // less than 10 for easy comparision (40, 41, 50, 51, 60, 61).
   // Will there ever be a collection 10?
-  MODIS: (strVersion) => {
+  MODIS: strVersion => {
     let version = Number.parseFloat(strVersion);
     if (version < 10) {
       version *= 10;

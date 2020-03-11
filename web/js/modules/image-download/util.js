@@ -14,7 +14,7 @@ const POLAR_ESTIMATION_CONSTANT = 0.002197265625;
  * @returns {Date}
  */
 export function getLatestIntervalTime(layerDefs, dateTime) {
-  const subDailyDefs = layerDefs.filter((def) => def.period === 'subdaily') || [];
+  const subDailyDefs = layerDefs.filter(def => def.period === 'subdaily') || [];
   const defsSortedByInterval = subDailyDefs.sort((defA, defB) => {
     const intervalA = Number(lodashGet(defA, 'dateRanges[0].dateInterval'));
     const intervalB = Number(lodashGet(defB, 'dateRanges[0].dateInterval'));
@@ -140,7 +140,7 @@ export function imageUtilCalculateResolution(
  */
 export function imageUtilGetLayers(products, proj) {
   const layers = [];
-  lodashEach(products, (layer) => {
+  lodashEach(products, layer => {
     if (layer.downloadId) {
       layers.push(layer.downloadId);
     } else if (layer.projections[proj].layer) {
@@ -165,7 +165,7 @@ export function imageUtilGetLayers(products, proj) {
 export function imageUtilGetLayerOpacities(layers) {
   const opacities = [];
   let found = false;
-  layers.forEach((layer) => {
+  layers.forEach(layer => {
     let opacity = '';
     if ('opacity' in layer && layer.opacity !== 1) {
       opacity = layer.opacity;
@@ -182,7 +182,7 @@ export function imageUtilGetLayerOpacities(layers) {
 }
 
 export function imageUtilGetLayerWrap(layers) {
-  return layers.map((layer) => {
+  return layers.map(layer => {
     if (layer.wrapX) {
       return 'x';
     }

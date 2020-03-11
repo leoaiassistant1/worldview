@@ -10,7 +10,7 @@ const dirs = [
   'config/default/release/gc',
 ];
 
-dirs.forEach((dir) => {
+dirs.forEach(dir => {
   console.log('Removing', dir);
   shell.rm('-rf', dir);
 });

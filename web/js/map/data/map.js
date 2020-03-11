@@ -202,7 +202,7 @@ export function dataMap(store, maps, dataUi, ui) {
     updateButtons();
     updateSwaths();
     updateGrid();
-    lodashEach(dataState.selectedGranules, (granule) => {
+    lodashEach(dataState.selectedGranules, granule => {
       if (selectedFeatures[granule.id]) {
         selectionLayer.getSource().removeFeature(selectedFeatures[granule.id]);
         delete selectedFeatures[granule.id];
@@ -216,7 +216,7 @@ export function dataMap(store, maps, dataUi, ui) {
     const projCrs = state.proj.selected.crs;
     buttonLayer.getSource().clear();
     const features = [];
-    lodashEach(granules, (granule) => {
+    lodashEach(granules, granule => {
       if (!granule.centroid || !granule.centroid[projCrs]) {
         return;
       }
@@ -242,17 +242,17 @@ export function dataMap(store, maps, dataUi, ui) {
     }
     const maxDistance = projCrs === CRS_WGS_84 ? 270 : Number.POSITIVE_INFINITY;
     const features = [];
-    lodashEach(swaths, (swath) => {
+    lodashEach(swaths, swath => {
       let lastGranule = null;
-      lodashEach(swath, (granule) => {
+      lodashEach(swath, granule => {
         if (!lastGranule) {
           lastGranule = granule;
           return;
         }
         const polys1 = mapToPolys(lastGranule.geometry[projCrs]);
         const polys2 = mapToPolys(granule.geometry[projCrs]);
-        lodashEach(polys1, (poly1) => {
-          lodashEach(polys2, (poly2) => {
+        lodashEach(polys1, poly1 => {
+          lodashEach(polys2, poly2 => {
             const c1 = poly1.getInteriorPoint().getCoordinates();
             const c2 = poly2.getInteriorPoint().getCoordinates();
             const distanceX = mapDistanceX(c1[0], c2[0]);
@@ -276,7 +276,7 @@ export function dataMap(store, maps, dataUi, ui) {
     }
     const features = [];
     const parser = new OlFormatGeoJSON();
-    lodashEach(grid, (cell) => {
+    lodashEach(grid, cell => {
       const geom = parser.readGeometry(cell.geometry);
       const feature = new OlFeature(geom);
       features.push(feature);

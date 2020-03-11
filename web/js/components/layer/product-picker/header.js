@@ -125,7 +125,7 @@ class ProductPickerHeader extends React.Component {
             value={this.state.inputValue}
             placeholder="Search"
             // eslint-disable-next-line no-return-assign
-            innerRef={(c) => (this._input = c)}
+            innerRef={c => (this._input = c)}
             type="search"
             autoFocus={isAutoFocus}
           />

@@ -17,7 +17,7 @@ export class DateRanges extends React.Component {
     return layer.dateRanges
       .slice(0)
       .reverse()
-      .map((l) => {
+      .map(l => {
         let listItemStartDate;
         let listItemEndDate;
 

@@ -101,7 +101,7 @@ class TimelineRangeSelector extends React.Component {
    * @return {void}
    */
   onRangeDrag = (d, deltaStart) => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const startLocation = prevState.startLocation + d;
       const endLocation = prevState.endLocation + d;
       this.animationDraggerPositionUpdate(startLocation, endLocation, true);

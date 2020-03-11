@@ -10,8 +10,8 @@ const metersPerKilometer = 1000;
 const ftPerMile = 5280;
 const sqFtPerSqMile = 27878400;
 const sqMeterPerKilometer = 1000000;
-const metersToFeet = (meters) => meters * 3.28084;
-const squareMetersToFeet = (sqMeters) => sqMeters * 10.76391;
+const metersToFeet = meters => meters * 3.28084;
+const squareMetersToFeet = sqMeters => sqMeters * 10.76391;
 
 /**
  * Transforms a LineString of two points to a MultiLineString of multiple points
@@ -112,7 +112,7 @@ export function getGeographicLibArea(polygon) {
   const coordinates = polygon.getCoordinates()[0];
   if (coordinates.length < 3) return 0;
   const geoPoly = geod.Polygon(false);
-  coordinates.forEach((coord) => {
+  coordinates.forEach(coord => {
     // flip lat/lon position
     geoPoly.AddPoint(coord[1], coord[0]);
   });

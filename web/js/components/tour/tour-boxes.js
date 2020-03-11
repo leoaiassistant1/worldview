@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TourBox from './tour-box';
 
-const TourBoxes = (props) => {
+const TourBoxes = props => {
   const { stories, storyOrder, selectTour } = props;
   return (
     <div className="tour-box-container">

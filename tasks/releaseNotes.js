@@ -5,7 +5,7 @@ const args = process.argv;
 
 // save arguments to object for options check below
 const argStore = {};
-args.forEach((val) => {
+args.forEach(val => {
   if (val.match(/=/)) {
     const splitArg = val.split('=');
     const key = splitArg[0];

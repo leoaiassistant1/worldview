@@ -88,13 +88,13 @@ export class MapInteractions extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
-  selectVectorFeatures: (features) => {
+const mapDispatchToProps = dispatch => ({
+  selectVectorFeatures: features => {
     setTimeout(() => {
       dispatch(selectVectorFeatures(features));
     }, 1);
   },
-  changeCursor: (bool) => {
+  changeCursor: bool => {
     dispatch(changeCursor(bool));
   },
   onCloseModal: () => {

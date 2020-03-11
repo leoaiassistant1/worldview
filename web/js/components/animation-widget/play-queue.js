@@ -357,7 +357,7 @@ class PlayAnimation extends React.Component {
     this.addToInQueue(date);
     this.queue
       .add(() => promiseImageryForTime(date, activeLayers))
-      .then((date) => {
+      .then(date => {
         if (this.mounted) {
           this.preloadObject[strDate] = date;
           delete this.inQueueObject[strDate];

@@ -19,17 +19,17 @@ import { toggleCustomModal } from '../../../modules/date/actions';
  * @class CustomIntervalSelectorWidget
  */
 class CustomIntervalSelectorWidget extends PureComponent {
-  changeDelta = (value) => {
+  changeDelta = value => {
     if (value >= 0 && value <= 1000) {
       this.props.changeCustomInterval(value, this.props.customIntervalZoomLevel);
     }
   }
 
-  changeZoomLevel = (zoomLevel) => {
+  changeZoomLevel = zoomLevel => {
     this.props.changeCustomInterval(this.props.customDelta, timeScaleToNumberKey[zoomLevel]);
   }
 
-  handleKeyPress= (e) => {
+  handleKeyPress= e => {
     if (e.key === 'Escape') {
       this.props.closeModal();
     }
@@ -55,7 +55,7 @@ class CustomIntervalSelectorWidget extends PureComponent {
         onKeyDown={this.handleKeyPress}
         className={`custom-interval-widget ${hasSubdailyLayers ? 'subdaily' : ''}`}
         tabIndex={0}
-        ref={(customIntervalWidget) => { this.customIntervalWidget = customIntervalWidget; }}
+        ref={customIntervalWidget => { this.customIntervalWidget = customIntervalWidget; }}
       >
         <h3 className="custom-interval-widget-header">Custom Interval Selector</h3>
         <div className="custom-interval-widget-controls-container">
@@ -75,7 +75,7 @@ class CustomIntervalSelectorWidget extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   closeModal: () => {
     dispatch(toggleCustomModal(false, undefined));
   },

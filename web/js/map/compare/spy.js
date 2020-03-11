@@ -184,7 +184,7 @@ const restore = function(event) {
  * @param {Array} layers | Layer group
  */
 const removeListenersFromLayers = function(layers) {
-  lodashEach(layers, (layer) => {
+  lodashEach(layers, layer => {
     layer.un('precompose', clip);
     layer.un('postcompose', restore);
   });
@@ -194,7 +194,7 @@ const removeListenersFromLayers = function(layers) {
  * @param {Array} layers | Layer group
  */
 const removeInverseListenersFromLayers = function(layers) {
-  lodashEach(layers, (layer) => {
+  lodashEach(layers, layer => {
     layer.un('precompose', inverseClip);
     layer.un('postcompose', restore);
   });
@@ -208,7 +208,7 @@ const removeInverseListenersFromLayers = function(layers) {
 const applyEventsToBaseLayers = function(layer, map, callback) {
   const layers = layer.get('layers');
   if (layers) {
-    lodashEach(layers.getArray(), (layer) => {
+    lodashEach(layers.getArray(), layer => {
       applyEventsToBaseLayers(layer, map, callback);
     });
   } else {

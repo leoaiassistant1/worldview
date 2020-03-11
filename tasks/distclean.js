@@ -7,7 +7,7 @@ const dirs = [
   '.python',
 ];
 
-dirs.forEach((dir) => {
+dirs.forEach(dir => {
   console.log('Removing', dir);
   shell.rm('-rf', dir);
 });

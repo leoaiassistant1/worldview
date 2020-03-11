@@ -85,7 +85,7 @@ const mapStateToProps = (state, ownProps) => ({
   isMobile: state.browser.lessThan.medium,
 });
 
-const getLocation = (isMobile) => {
+const getLocation = isMobile => {
   const paramArr = [
     'p=geographic&',
     'l=Reference_Labels,Reference_Features(hidden),Coastlines(hidden),GOES-East_ABI_Band2_Red_Visible_1km,VIIRS_SNPP_CorrectedReflectance_TrueColor(hidden),MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor(hidden)&',
@@ -105,8 +105,8 @@ const getLocation = (isMobile) => {
   return location;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  prepareAnimate: (isMobile) => {
+const mapDispatchToProps = dispatch => ({
+  prepareAnimate: isMobile => {
     dispatch({
       type: 'REDUX-LOCATION-POP-ACTION',
       payload: getLocation(isMobile),

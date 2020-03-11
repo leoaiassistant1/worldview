@@ -33,7 +33,7 @@ const DEFAULT_PROJ_ARRAY = [
   },
 ];
 const getInfoArray = function(projArray) {
-  return projArray.map((el) => ({
+  return projArray.map(el => ({
     text: el.name,
     iconClass: ' ui-icon icon-large',
     iconName: el.style,

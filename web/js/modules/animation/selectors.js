@@ -92,7 +92,7 @@ function getProducts(layers, date, state) {
     },
     state,
   );
-  lodashEach(products, (layer) => {
+  lodashEach(products, layer => {
     const layerDate = new Date(date);
     if (layer.endDate) {
       if (layerDate > new Date(layer.endDate)) return;

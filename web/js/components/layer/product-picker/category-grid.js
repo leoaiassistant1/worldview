@@ -9,7 +9,7 @@ import CategoryCell from './category-cell';
  * @class LayerList
  * @extends React.Component
  */
-const CategoryGrid = (props) => {
+const CategoryGrid = props => {
   const {
     categories,
     measurementConfig,
@@ -23,7 +23,7 @@ const CategoryGrid = (props) => {
     columnWidth: width >= 630 ? 310 : width - 26,
     gutter: 10,
   };
-  categories.forEach((item) => {
+  categories.forEach(item => {
     item.sortOrder = item.placement === 'first' ? 1 : item.placement === 'last' ? 3 : 2;
   });
   const orderedCategories = lodashOrderBy(
@@ -33,7 +33,7 @@ const CategoryGrid = (props) => {
   );
   return (
     <Masonry className="category-masonry-case" options={masonryOptions}>
-      {orderedCategories.map((category) => (
+      {orderedCategories.map(category => (
         <CategoryCell
           key={category.id}
           category={category}

@@ -16,7 +16,7 @@ const listIcons = {
   outage: faExclamationCircle,
 };
 
-const NotificationBlock = (props) => {
+const NotificationBlock = props => {
   const { arr, type, numberNotSeen } = props;
   return (
     <ul>

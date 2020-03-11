@@ -59,7 +59,7 @@ window.onload = () => {
 
   loadingIndicator.delayed(promise, 1000);
   promise
-    .done((config) => {
+    .done(config => {
       config.pageLoadTime = parameters.now
         ? util.parseDateUTC(parameters.now) || new Date()
         : new Date();
@@ -81,9 +81,9 @@ window.onload = () => {
         if (parameters.l1 && hasCustomTypePalette(parameters.l1)) {
           layers.push(...layersParse12(parameters.l1, config));
         }
-        layers = uniqBy(layers, (layer) => {
+        layers = uniqBy(layers, layer => {
           let str = '';
-          CUSTOM_PALETTE_TYPE_ARRAY.forEach((element) => {
+          CUSTOM_PALETTE_TYPE_ARRAY.forEach(element => {
             str += layer[element] ? layer[element][0] : '';
           });
           return layer.id + str;
@@ -91,7 +91,7 @@ window.onload = () => {
       }
       const legacyState = parse(parameters, config, errors);
       layerValidate(errors, config);
-      preloadPalettes(layers, {}, false).then((obj) => {
+      preloadPalettes(layers, {}, false).then(obj => {
         config.palettes = {
           custom: obj.custom,
           rendered: obj.rendered,

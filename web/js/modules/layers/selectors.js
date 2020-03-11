@@ -14,16 +14,16 @@ import update from 'immutability-helper';
 import { createSelector } from 'reselect';
 import util from '../../util/util';
 
-const getConfig = (state) => state.config;
-const getProjection = (state) => state.proj && state.proj.id;
+const getConfig = state => state.config;
+const getProjection = state => state.proj && state.proj.id;
 
 export const getLayersForProjection = createSelector(
   [getConfig, getProjection],
   (config, projection) => {
     const filteredRows = lodashValues(config.layers)
       // Only use the layers for the active projection
-      .filter((layer) => layer.projections[projection])
-      .map((layer) => {
+      .filter(layer => layer.projections[projection])
+      .map(layer => {
         // If there is metadata for the current projection, use that
         const projectionMeta = layer.projections[projection];
         if (projectionMeta.title) layer.title = projectionMeta.title;
@@ -32,13 +32,13 @@ export const getLayersForProjection = createSelector(
         if (layer.subtitle) layer.subtitle = decodeHtml(layer.subtitle);
         return layer;
       });
-    return lodashSortBy(filteredRows, (layer) => lodashIndexOf(config.layerOrder, layer.id));
+    return lodashSortBy(filteredRows, layer => lodashIndexOf(config.layerOrder, layer.id));
   },
 );
 
 export function hasMeasurementSource(current, config, projId) {
   let hasSource;
-  lodashValues(current.sources).forEach((source) => {
+  lodashValues(current.sources).forEach(source => {
     if (hasMeasurementSetting(current, source, config, projId)) {
       hasSource = true;
     }
@@ -57,7 +57,7 @@ export function hasMeasurementSource(current, config, projId) {
  */
 export function hasMeasurementSetting(current, source, config, projId) {
   let hasSetting;
-  lodashValues(source.settings).forEach((setting) => {
+  lodashValues(source.settings).forEach(setting => {
     const layer = config.layers[setting];
     if (layer) {
       const proj = layer.projections;
@@ -104,7 +104,7 @@ export function hasSubDaily(layers) {
 export function addLayer(id, spec, layers, layerConfig, overlayLength, projection) {
   layers = lodashCloneDeep(layers);
   if (projection) {
-    layers = layers.filter((layer) => layer.projections[projection]);
+    layers = layers.filter(layer => layer.projections[projection]);
   }
   if (
     lodashFind(layers, {
@@ -134,7 +134,7 @@ export function addLayer(id, spec, layers, layerConfig, overlayLength, projectio
   if (def.group === 'overlays') {
     layers.unshift(def);
   } else {
-    const overlaysLength = overlayLength || layers.filter((layer) => layer.group === 'overlays').length;
+    const overlaysLength = overlayLength || layers.filter(layer => layer.group === 'overlays').length;
     layers.splice(overlaysLength, 0, def);
   }
   return layers;
@@ -148,7 +148,7 @@ export function addLayer(id, spec, layers, layerConfig, overlayLength, projectio
 export function resetLayers(startingLayers, layerConfig) {
   let layers = [];
   if (startingLayers) {
-    lodashEach(startingLayers, (start) => {
+    lodashEach(startingLayers, start => {
       layers = addLayer(start.id, start, layers, layerConfig);
     });
   }
@@ -222,7 +222,7 @@ function forGroup(group, spec, activeLayers, state) {
   const defs = lodashFilter(activeLayers, {
     group,
   });
-  lodashEach(defs, (def) => {
+  lodashEach(defs, def => {
     // Skip if this layer isn't available for the selected projection
     if (!def.projections[projId] && projId !== 'all') {
       return;
@@ -304,7 +304,7 @@ export function dateRange(spec, activeLayers, config) {
   // seconds value of current appNow time is greater than a layer's available time range
   const minuteCeilingCurrentTime = util.now().setSeconds(59);
 
-  lodashEach(layers, (def) => {
+  lodashEach(layers, def => {
     if (def) {
       if (def.startDate) {
         range = true;
@@ -430,7 +430,7 @@ export function isRenderable(id, activeLayers, date, state) {
   let obscured = false;
   lodashEach(
     getLayers(activeLayers, { group: 'baselayers' }, state),
-    (otherDef) => {
+    otherDef => {
       if (otherDef.id === def.id) {
         return false;
       }
@@ -481,7 +481,7 @@ export function activateLayersForEventCategory(activeLayers, state) {
     });
   });
   // Turn on or add new layers
-  lodashEach(activeLayers, (layer) => {
+  lodashEach(activeLayers, layer => {
     const id = layer[0];
     const visible = layer[1];
     const index = lodashFindIndex(newLayers, { id });
@@ -507,7 +507,7 @@ export function getZotsForActiveLayers(config, projection, map, activeLayers) {
   const { sources } = config;
   const proj = projection.selected.id;
   const zoom = map.ui.selected.getView().getZoom();
-  lodashEach(activeLayers, (layer) => {
+  lodashEach(activeLayers, layer => {
     if (layer.projections[proj]) {
       const overZoomValue = getZoomLevel(layer, zoom, proj, sources);
       if (overZoomValue) {

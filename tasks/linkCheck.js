@@ -9,14 +9,14 @@ const getUrlStatusCodeCollection = require('./link-check/url-check');
 const getHtmlUrls = require('./link-check/html-url-extract.js');
 const getNaturalEventsUrls = require('./link-check/natural-event-url-extract.js');
 
-const makeLine = (msg) => console.log(`${'-'.repeat(66)}
+const makeLine = msg => console.log(`${'-'.repeat(66)}
 \x1b[36m${msg}\x1b[0m`);
 
 // Prevent majority of TLS SSL related errors
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Make get requests with URLs with node-fetch to check status codes and organize by errors and codes
-const organizeURLStatus = async(scrapedUrls) => {
+const organizeURLStatus = async scrapedUrls => {
   const timeEstimate = ((scrapedUrls.length * 1000) / 60000).toFixed(0);
   makeLine(`Checking url status codes will take approximately ${timeEstimate} minutes...`);
   // Initiate status code check

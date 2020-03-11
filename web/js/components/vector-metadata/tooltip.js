@@ -19,7 +19,7 @@ export default class VectorMetaTooltip extends React.Component {
   }
 
   toggle() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       tooltipOpen: !prevState.tooltipOpen,
     }));
   }

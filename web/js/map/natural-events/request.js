@@ -44,17 +44,17 @@ export default function naturalEventsRequest(models, ui, config) {
       model.data.types = model.data.types.filter(removeIgnoredItems);
 
       // Sort event geometries by descending date
-      model.data.events = model.data.events.map((e) => {
+      model.data.events = model.data.events.map(e => {
         e.geometries = lodashOrderBy(e.geometries, 'date', 'desc');
         // Discard duplicate geometry dates
-        e.geometries = lodashUniqBy(e.geometries, (g) => g.date.split('T')[0]);
+        e.geometries = lodashUniqBy(e.geometries, g => g.date.split('T')[0]);
         return e;
       });
 
       // Sort events by descending date
       model.data.events = lodashOrderBy(
         model.data.events,
-        (e) => e.geometries[0].date,
+        e => e.geometries[0].date,
         'desc',
       );
       ui.sidebar.renderEvents();
@@ -63,20 +63,20 @@ export default function naturalEventsRequest(models, ui, config) {
   };
 
   const queryEvents = function() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let url = `${self.apiURL}/events`;
       if (config.parameters.mockEvents) {
         console.warn(`Using mock events data: ${config.parameters.mockEvents}`);
         url = `mock/events_data.json-${config.parameters.mockEvents}`;
       }
-      $.getJSON(url, (data) => {
+      $.getJSON(url, data => {
         resolve(data);
       });
     });
   };
 
   const queryTypes = function() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let url = `${self.apiURL}/categories`;
       if (config.parameters.mockCategories) {
         console.warn(
@@ -84,14 +84,14 @@ export default function naturalEventsRequest(models, ui, config) {
         );
         url = `mock/categories_data.json-${config.parameters.mockCategories}`;
       }
-      $.getJSON(url, (data) => {
+      $.getJSON(url, data => {
         resolve(data);
       });
     });
   };
 
   const querySources = function() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let url = `${self.apiURL}/sources`;
       if (config.parameters.mockSources) {
         console.warn(
@@ -99,16 +99,14 @@ export default function naturalEventsRequest(models, ui, config) {
         );
         url = `mock/sources_data.json-${config.parameters.mockSources}`;
       }
-      $.getJSON(url, (data) => {
+      $.getJSON(url, data => {
         resolve(data);
       });
     });
   };
 
   self.query = function() {
-    Promise.all([queryTypes(), queryEvents(), querySources()]).then((
-      res,
-    ) => {
+    Promise.all([queryTypes(), queryEvents(), querySources()]).then(res => {
       model.data.types = res[0].categories;
       model.data.events = res[1].events;
       model.data.sources = res[2].sources;

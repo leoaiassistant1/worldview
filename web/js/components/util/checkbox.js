@@ -31,7 +31,7 @@ export class Checkbox extends React.Component {
   }
 
   handleChange(e) {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const { onCheck } = this.props;
       const checked = !prevState.checked;
       if (onCheck) onCheck(checked);

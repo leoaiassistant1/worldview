@@ -414,7 +414,7 @@ export function mapDateLineBuilder(models, config, store, ui) {
    * @sets {string} self.date - if new date
    * @returns {boolean}
    */
-  const compareDateStrings = (date) => {
+  const compareDateStrings = date => {
     const dateString = date.toISOString().split('T')[0];
     if (dateString !== self.date) {
       self.date = dateString;

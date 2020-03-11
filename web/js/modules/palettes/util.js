@@ -122,7 +122,7 @@ export function drawTicksOnCanvas(ctx, legend, width) {
   const halfWidth = drawWidth / 2;
   if (ticks && ticks.length > 0 && bins > 100) {
     ctx.beginPath();
-    ticks.forEach((tick) => {
+    ticks.forEach(tick => {
       const start = binWidth * tick;
       const midpoint = Math.floor(start + halfWidth) + 0.5; // https://stackoverflow.com/a/8696641/4589331
       ctx.strokeStyle = '#000';
@@ -193,7 +193,7 @@ export function parseLegacyPalettes(
   config,
 ) {
   const parts = parameters.palettes.split('~');
-  parts.forEach((part) => {
+  parts.forEach(part => {
     const items = part.split(',');
     const layerId = items[0];
     const paletteId = items[1];
@@ -291,7 +291,7 @@ export function getPaletteAttributeArray(layerId, palettes, state) {
       );
     }
 
-    [palObj, minObj, maxObj, squashObj, disabledObj].forEach((obj) => {
+    [palObj, minObj, maxObj, squashObj, disabledObj].forEach(obj => {
       if (obj.isActive) {
         attrArray.push({
           id: obj.key === 'custom' ? 'palette' : obj.key,
@@ -341,8 +341,8 @@ export function loadPalettes(permlinkState, state) {
       { stateStr: 'l1', groupStr: 'activeB' },
     ];
   }
-  lodashEach(stateArray, (stateObj) => {
-    lodashEach(state.layers[stateObj.groupStr], (layerDef) => {
+  lodashEach(stateArray, stateObj => {
+    lodashEach(state.layers[stateObj.groupStr], layerDef => {
       if (layerDef.palette) {
         const layerId = layerDef.id;
         const min = [];
@@ -489,7 +489,7 @@ export function preloadPalettes(layersArray, renderedPalettes, customLoaded) {
   let custom = {};
   const loading = {};
   if (layersArray) {
-    layersArray.forEach((obj) => {
+    layersArray.forEach(obj => {
       if (
         obj
         && obj.palette
@@ -501,7 +501,7 @@ export function preloadPalettes(layersArray, renderedPalettes, customLoaded) {
         const promise = util.fetch(location, 'application/json');
         loading[paletteId] = true;
         requestArray.push(promise);
-        promise.then((data) => {
+        promise.then(data => {
           rendered[paletteId] = data;
         });
       }
@@ -512,7 +512,7 @@ export function preloadPalettes(layersArray, renderedPalettes, customLoaded) {
         );
         preloadedCustom = true;
         requestArray.push(customPromise);
-        customPromise.then((data) => {
+        customPromise.then(data => {
           custom = data;
         });
       }
@@ -522,7 +522,7 @@ export function preloadPalettes(layersArray, renderedPalettes, customLoaded) {
         .then(() => {
           resolve({ custom, rendered });
         })
-        .catch((error) => {
+        .catch(error => {
           reject(error);
         });
     });
@@ -542,7 +542,7 @@ export function hasCustomPaletteInActiveProjection(
 }
 export function hasCustomTypePalette(str) {
   let bool = false;
-  PALETTE_STRINGS_PERMALINK_ARRAY.forEach((element) => {
+  PALETTE_STRINGS_PERMALINK_ARRAY.forEach(element => {
     if (str.includes(element)) bool = true;
   });
   return bool;

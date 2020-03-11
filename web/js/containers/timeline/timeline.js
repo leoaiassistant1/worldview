@@ -60,7 +60,7 @@ import {
 } from '../../modules/date/constants';
 
 const ANIMATION_DELAY = 500;
-const preventDefaultFunc = (e) => {
+const preventDefaultFunc = e => {
   e.preventDefault();
 };
 
@@ -133,7 +133,7 @@ class Timeline extends React.Component {
   }
 
   // chain throttled timescale wheel change call after debounce for smoother UX
-  throttleChangeTimeScaleWheel = (e) => {
+  throttleChangeTimeScaleWheel = e => {
     this.throttleChangeTimeScaleWheelFire(e);
   }
 
@@ -183,7 +183,7 @@ class Timeline extends React.Component {
   * @param {Boolean} toggleBoolean
   * @returns {void}
   */
-  toggleShowDraggerTime = (toggleBoolean) => {
+  toggleShowDraggerTime = toggleBoolean => {
     this.setState({
       showDraggerTime: toggleBoolean,
       showHoverLine: false,
@@ -415,7 +415,7 @@ class Timeline extends React.Component {
   * @param {Event} mouse event
   * @returns {void}
   */
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     const { isTimelineDragging } = this.state;
     const { hasSubdailyLayers, timeScale } = this.props;
     // prevent left/right arrows changing date within inputs
@@ -451,7 +451,7 @@ class Timeline extends React.Component {
   * @param {Event} mouse event
   * @returns {void}
   */
-  handleKeyUp = (e) => {
+  handleKeyUp = e => {
     // left arrow
     if (e.keyCode === 37) {
       e.preventDefault();
@@ -468,7 +468,7 @@ class Timeline extends React.Component {
   * @param {Boolean} isOpen
   * @returns {void}
   */
-  toggleCustomIntervalModal = (isOpen) => {
+  toggleCustomIntervalModal = isOpen => {
     const { toggleCustomModal } = this.props;
     toggleCustomModal(isOpen, customModalType.TIMELINE);
   };
@@ -478,7 +478,7 @@ class Timeline extends React.Component {
   * @param {Number} timeScaleNumber
   * @returns {void}
   */
-  changeTimeScale = (timeScale) => {
+  changeTimeScale = timeScale => {
     this.setState({
       showHoverLine: false,
       showDraggerTime: false,
@@ -492,7 +492,7 @@ class Timeline extends React.Component {
   * @param {Event} wheel scroll event
   * @returns {void}
   */
-  changeTimeScaleScroll = (e) => {
+  changeTimeScaleScroll = e => {
     const {
       timeScale,
       hasSubdailyLayers,
@@ -1352,13 +1352,13 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   // updates the relative application now to allow up to date coverage
-  updateAppNow: (date) => {
+  updateAppNow: date => {
     dispatch(updateAppNow(date));
   },
   // changes date of active dragger 'selected' or 'selectedB'
-  changeDate: (val) => {
+  changeDate: val => {
     dispatch(selectDate(val));
   },
   // changes/sets custom delta and timescale interval
@@ -1366,7 +1366,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeCustomInterval(delta, timeScale));
   },
   // changes timescale (scale of grids vs. what LEFT/RIGHT arrow do)
-  changeTimeScale: (val) => {
+  changeTimeScale: val => {
     dispatch(changeTimeScale(val));
   },
   // changes to non-custom timescale interval, sets customSelected to TRUE/FALSE
@@ -1386,11 +1386,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(toggleActiveCompareState());
   },
   // update animation startDate
-  onUpdateStartDate: (date) => {
+  onUpdateStartDate: date => {
     dispatch(changeStartDate(date));
   },
   // update animation endDate
-  onUpdateEndDate: (date) => {
+  onUpdateEndDate: date => {
     dispatch(changeEndDate(date));
   },
   // update animation startDate and endDate

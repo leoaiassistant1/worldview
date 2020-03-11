@@ -30,7 +30,7 @@ class Event extends React.Component {
             return (
               <li key={`${event.id}-${date}`} className="dates">
                 <a
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     this.onClick(date);
                   }}
@@ -88,7 +88,7 @@ class Event extends React.Component {
       ? event.sources
       : [event.sources];
     if (references.length > 0) {
-      return references.map((reference) => {
+      return references.map(reference => {
         const source = lodashFind(sources, {
           id: reference.id,
         });
@@ -100,7 +100,7 @@ class Event extends React.Component {
               className="natural-event-link"
               href={reference.url}
               key={`${event.id}-${reference.id}`}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
               }}
             >
@@ -134,7 +134,7 @@ class Event extends React.Component {
               ? 'selectorItem item'
               : 'selectorItem item hidden'
         }
-        onClick={(e) => {
+        onClick={e => {
           e.stopPropagation();
           this.onClick();
         }}

@@ -29,7 +29,7 @@ class Tour extends React.Component {
     super(props);
     const { storyOrder } = props;
     const { stories } = props;
-    const currentStoryIndex = lodashFindIndex(storyOrder, (id) => id === props.currentStoryId) || null;
+    const currentStoryIndex = lodashFindIndex(storyOrder, id => id === props.currentStoryId) || null;
     const currentStory = currentStoryIndex >= 0 ? stories[props.currentStoryId] : {};
     const steps = lodashGet(currentStory, 'steps') || [];
     this.state = {
@@ -68,7 +68,7 @@ class Tour extends React.Component {
 
   toggleModalStart(e) {
     e.preventDefault();
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const toggleModal = !prevState.modalStart;
       // if closing modal
       if (!toggleModal) {
@@ -122,8 +122,8 @@ class Tour extends React.Component {
       description: 'Loading story description...',
     });
     fetch(uri)
-      .then((res) => (res.ok ? res.text() : errorMessage))
-      .then((body) => {
+      .then(res => (res.ok ? res.text() : errorMessage))
+      .then(body => {
         const isMetadataSnippet = !body.match(
           /<(head|body|html|style|script)[^>]*>/i,
         );
@@ -134,7 +134,7 @@ class Tour extends React.Component {
           metaLoaded: true,
         });
       })
-      .catch((error) => this.setState({ description: error, isLoadingMeta: false }));
+      .catch(error => this.setState({ description: error, isLoadingMeta: false }));
   }
 
   resetTour(e) {
@@ -155,14 +155,14 @@ class Tour extends React.Component {
 
   toggleModalInProgress(e) {
     e.preventDefault();
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modalInProgress: !prevState.modalInProgress,
     }));
   }
 
   toggleModalComplete(e) {
     e.preventDefault();
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modalComplete: !prevState.modalComplete,
       currentStep: prevState.totalSteps,
     }));
@@ -387,7 +387,7 @@ class Tour extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   processStepLink: (currentStoryId, currentStep, totalSteps, search, config, rendered) => {
     search = search.split('/?').pop();
     const location = update(history.location, {
@@ -417,7 +417,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
       layers = uniqBy(layers, 'id');
 
-      preloadPalettes(layers, rendered, true).then((obj) => {
+      preloadPalettes(layers, rendered, true).then(obj => {
         dispatch({
           type: BULK_PALETTE_RENDERING_SUCCESS,
           rendered: obj.rendered,
@@ -434,10 +434,10 @@ const mapDispatchToProps = (dispatch) => ({
   endTour: () => {
     dispatch(endTour());
   },
-  showTourAlert: (message) => {
+  showTourAlert: message => {
     // dispatch(showAlert(message));
   },
-  selectTour: (id) => {
+  selectTour: id => {
     dispatch(selectStory(id));
   },
   showTour,

@@ -256,7 +256,7 @@ function mapStateToProps(state) {
     ),
   };
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   refreshStateAfterImageDownload: (activePalettes, rotation, isGraticule) => {
     if (activePalettes) {
       dispatch(refreshPalettes(activePalettes));
@@ -295,11 +295,11 @@ const mapDispatchToProps = (dispatch) => ({
       }),
     );
   }),
-  requestNotifications: (location) => {
+  requestNotifications: location => {
     const promise = dispatch(
       requestNotifications(location, REQUEST_NOTIFICATIONS, 'json'),
     );
-    promise.then((data) => {
+    promise.then(data => {
       const obj = JSON.parse(data);
       if (obj.notifications) {
         dispatch(setNotifications(obj.notifications));

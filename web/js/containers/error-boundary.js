@@ -41,7 +41,7 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   errorAlert: () => {
     dispatch(
       openCustomContent('ERROR_MODAL', {

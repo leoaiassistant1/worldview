@@ -49,7 +49,7 @@ class CategoryLayerRow extends React.Component {
     const LayerSouceList = [];
     let orbitTitle = '';
 
-    source.settings.forEach((setting) => {
+    source.settings.forEach(setting => {
       const layer = layerConfig[setting];
       if (
         layer

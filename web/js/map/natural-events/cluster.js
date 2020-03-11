@@ -11,7 +11,7 @@ import lodashRound from 'lodash/round';
 export const naturalEventsClusterCreateObject = () => new Supercluster({
   radius: 60, // pixel radius where points are clustered
   maxZoom: 12,
-  map: (props) => ({ startDate: props.date, endDate: props.date }),
+  map: props => ({ startDate: props.date, endDate: props.date }),
   reduce: (accumulated, properties) => {
     const newDate = properties.startDate;
     const pastStartDate = accumulated.startDate;
@@ -56,7 +56,7 @@ export const naturalEventsClusterPointToGeoJSON = (id, coordinates, date) => ({
  * @param  {Array}
  * @return {void}
  */
-export const naturalEventsClusterSort = (clusterArray) => {
+export const naturalEventsClusterSort = clusterArray => {
   const newArray = clusterArray.sort((a, b) => {
     const firstDate = a.properties.date || a.properties.startDate;
     const secondDate = b.properties.date || b.properties.startDate;

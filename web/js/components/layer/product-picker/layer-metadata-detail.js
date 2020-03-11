@@ -34,14 +34,14 @@ class LayerMetadataDetail extends React.Component {
    * @return {void}
    */
   toggleDateRanges(e) {
-    this.setState((prevState) => ({ isDateRangesExpanded: !prevState.isDateRangesExpanded }));
+    this.setState(prevState => ({ isDateRangesExpanded: !prevState.isDateRangesExpanded }));
   }
 
   getListItems(layer) {
     return layer.dateRanges
       .slice(0)
       .reverse()
-      .map((l) => {
+      .map(l => {
         let listItemStartDate;
         let listItemEndDate;
 
@@ -88,7 +88,7 @@ class LayerMetadataDetail extends React.Component {
                 id="layer-date-ranges-button"
                 title="View all date ranges"
                 className="layer-date-ranges-button"
-                onClick={(e) => this.toggleDateRanges(e)}
+                onClick={e => this.toggleDateRanges(e)}
               >
                 {' '}
                 <sup>*View Dates</sup>
@@ -209,7 +209,7 @@ export default LayerMetadataDetail;
    * @param  {object} layer the layer object
    * @return {string}       Return a string with temporal range information
    */
-const dateRangeText = (layer) => {
+const dateRangeText = layer => {
   let startDate; let startDateId; let endDate; let
     endDateId;
 

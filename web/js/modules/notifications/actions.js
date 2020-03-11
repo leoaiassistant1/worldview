@@ -7,7 +7,7 @@ import {
 } from './constants';
 
 export function requestNotifications(location, type) {
-  return (dispatch) => requestAction(dispatch, REQUEST_NOTIFICATIONS, location);
+  return dispatch => requestAction(dispatch, REQUEST_NOTIFICATIONS, location);
 }
 export function setNotifications(array) {
   return {

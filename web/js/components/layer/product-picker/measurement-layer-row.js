@@ -26,7 +26,7 @@ class MeasurementLayerRow extends React.Component {
   onClick() {
     const { removeLayer, addLayer, layer } = this.props;
     const checked = !this.state.checked;
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       checked: !prevState.checked,
     }));
     if (!checked) {
@@ -37,7 +37,7 @@ class MeasurementLayerRow extends React.Component {
   }
 
   toggleTooltip() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       tooltipOpen: !prevState.tooltipOpen,
     }));
   }

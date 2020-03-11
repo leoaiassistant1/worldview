@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  */
 class AxisTimeScaleChangeTooltip extends PureComponent {
   // Handle change axis timescale
-  changeTimeScale = (timeScale) => {
+  changeTimeScale = timeScale => {
     this.props.changeTimeScale(timeScale);
   };
 

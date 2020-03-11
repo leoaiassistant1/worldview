@@ -12,7 +12,7 @@ import {
 import { requestAction } from '../core/actions';
 
 export function requestEvents(location) {
-  return (dispatch) => requestAction(
+  return dispatch => requestAction(
     dispatch,
     REQUEST_EVENTS,
     location,
@@ -20,7 +20,7 @@ export function requestEvents(location) {
   );
 }
 export function requestCategories(location) {
-  return (dispatch) => requestAction(
+  return dispatch => requestAction(
     dispatch,
     REQUEST_CATEGORIES,
     location,
@@ -28,7 +28,7 @@ export function requestCategories(location) {
   );
 }
 export function requestSources(location) {
-  return (dispatch) => requestAction(
+  return dispatch => requestAction(
     dispatch,
     REQUEST_SOURCES,
     location,

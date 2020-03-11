@@ -37,7 +37,7 @@ class FeaturedAlert extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   showModal: () => {
     dispatch(
       openCustomContent('', {

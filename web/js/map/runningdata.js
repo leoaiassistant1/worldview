@@ -67,7 +67,7 @@ export function MapRunningData(models, compareUi, store) {
         const properties = feature.getProperties();
         const value = properties[identifier] || def.palette.unclassified;
         if (!value) return;
-        const tooltips = legend.tooltips.map((c) => c.toLowerCase().replace(/\s/g, ''));
+        const tooltips = legend.tooltips.map(c => c.toLowerCase().replace(/\s/g, ''));
         const colorIndex = tooltips.indexOf(value.toLowerCase().replace(/\s/g, ''));
         color = legend.colors[colorIndex];
       } else if (legend.colors.length === 1) {

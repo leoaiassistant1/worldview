@@ -127,11 +127,11 @@ class ProductPicker extends React.Component {
     // Search with terms
     } else {
       const terms = val.split(/ +/);
-      const searchResultRows = allLayers.filter((layer) => !(filterProjections(layer) || filterSearch(layer, val, terms)));
-      const filteredRows = searchResultRows.filter((layer) => !(filterByAvailable && !availableAtDate(layer, selectedDate)));
+      const searchResultRows = allLayers.filter(layer => !(filterProjections(layer) || filterSearch(layer, val, terms)));
+      const filteredRows = searchResultRows.filter(layer => !(filterByAvailable && !availableAtDate(layer, selectedDate)));
 
       const selectedLayerInResults = selectedLayer
-        && !!filteredRows.find((layer) => layer.id === selectedLayer.id);
+        && !!filteredRows.find(layer => layer.id === selectedLayer.id);
 
       if (filteredRows.length === 1) {
         [newSelectedLayer] = filteredRows;
@@ -206,7 +206,7 @@ class ProductPicker extends React.Component {
   getSelectedMeasurementSource() {
     const { selectedMeasurement, selectedMeasurementSourceIndex } = this.props;
     const measurements = Object.values(this.props.measurementConfig);
-    const currentMeasurement = measurements.find((measure) => measure.id === selectedMeasurement);
+    const currentMeasurement = measurements.find(measure => measure.id === selectedMeasurement);
     if (currentMeasurement) {
       const sources = Object.values(currentMeasurement.sources)
         .sort((a, b) => a.title.localeCompare(b.title));
@@ -214,7 +214,7 @@ class ProductPicker extends React.Component {
     }
   }
 
-  toggleFeatureTab = (partialState) => {
+  toggleFeatureTab = partialState => {
     const { update } = this.props;
     const categoryType = 'featured';
     const { categoryConfig, measurementConfig } = this.props;
@@ -312,7 +312,7 @@ class ProductPicker extends React.Component {
     } = this.props;
 
     const isSearching = listType === 'search';
-    const debouncedOnScroll = lodashDebounce((contentWrapperEl) => {
+    const debouncedOnScroll = lodashDebounce(contentWrapperEl => {
       updateScrollPosition(contentWrapperEl.scrollTop);
     }, 500);
     const detailTopBorderSize = 5;
@@ -370,8 +370,8 @@ class ProductPicker extends React.Component {
                   measurementConfig={measurementConfig}
                   selectedMeasurement={selectedMeasurement}
                   updateSelectedMeasurement={this.updateSelectedMeasurement}
-                  showMetadataForLayer={(layer) => this.showMetadataForLayer(layer)}
-                  setSourceIndex={(index) => this.setSourceIndex(index)}
+                  showMetadataForLayer={layer => this.showMetadataForLayer(layer)}
+                  setSourceIndex={index => this.setSourceIndex(index)}
                   selectedMeasurementSourceIndex={selectedMeasurementSourceIndex}
                 />
               </div>
@@ -414,7 +414,7 @@ class ProductPicker extends React.Component {
     } = this.props;
     const isSearching = listType === 'search';
     const selectedLayerActive = selectedLayer
-      && activeLayers.some((layer) => layer.id === selectedLayer.id);
+      && activeLayers.some(layer => layer.id === selectedLayer.id);
     const detailContainerClass = isSearching
       ? isMobile
         ? 'layer-detail-container layers-all search mobile'
@@ -535,7 +535,7 @@ class ProductPicker extends React.Component {
               ? (
                 <>
                   <Nav id="categories-nav" className="categories-nav">
-                    {categoryKeys.map((sortKey) => (
+                    {categoryKeys.map(sortKey => (
                       <NavItem
                         key={sortKey}
                         className="layer-category-navigation"
@@ -611,8 +611,8 @@ ProductPicker.propTypes = {
   width: PropTypes.number,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addLayer: (id) => {
+const mapDispatchToProps = dispatch => ({
+  addLayer: id => {
     googleTagManager.pushEvent({
       event: 'layer_added',
       layers: {
@@ -621,16 +621,16 @@ const mapDispatchToProps = (dispatch) => ({
     });
     dispatch(addLayer(id));
   },
-  removeLayer: (id) => {
+  removeLayer: id => {
     dispatch(removeLayer(id));
   },
   onToggle: () => {
     dispatch(onToggle());
   },
-  updateScrollPosition: (scrollTop) => {
+  updateScrollPosition: scrollTop => {
     dispatch(updateListScrollTop(scrollTop));
   },
-  update: (partialState) => {
+  update: partialState => {
     dispatch(updateProductPicker(partialState));
   },
 });
@@ -665,9 +665,9 @@ function mapStateToProps(state, ownProps) {
     activeLayers,
     selectedProjection: proj.id,
     showPreviewImage: config.features.previewSnapshots,
-    filterProjections: (layer) => !layer.projections[proj.id],
+    filterProjections: layer => !layer.projections[proj.id],
     filterSearch: (layer, val, terms) => filterSearch(layer, val, terms, config, proj.id),
-    hasMeasurementSource: (current) => hasMeasurementSource(current, config, proj.id),
+    hasMeasurementSource: current => hasMeasurementSource(current, config, proj.id),
     hasMeasurementSetting: (current, source) => hasMeasurementSetting(current, source, config, proj.id),
   };
 }
@@ -702,7 +702,7 @@ const filterSearch = (layer, val, terms, config, projId) => {
   const tags = lodashToLower(names.tags);
   const layerId = lodashToLower(layer.id);
 
-  lodashEach(terms, (term) => {
+  lodashEach(terms, term => {
     filtered = !lodashIncludes(title, term)
       && !lodashIncludes(subtitle, term)
       && !lodashIncludes(tags, term)

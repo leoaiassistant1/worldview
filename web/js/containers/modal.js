@@ -117,7 +117,7 @@ class ModalContainer extends Component {
       <ErrorBoundary>
         <InteractionWrap
           condition={isDraggable || isResizable}
-          wrapper={(children) => (
+          wrapper={children => (
             <Draggable
               handle={dragHandle}
               disabled={!isDraggable}
@@ -226,7 +226,7 @@ function mapStateToProps(state) {
     customProps,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onToggle: () => {
     dispatch(onToggle());
   },

@@ -136,8 +136,8 @@ function mapStateToProps(state) {
     isMobile: state.browser.lessThan.medium,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  sendFeedback: (isInitiated) => {
+const mapDispatchToProps = dispatch => ({
+  sendFeedback: isInitiated => {
     onClickFeedback(isInitiated);
     if (!isInitiated) {
       dispatch(initFeedback());
@@ -157,7 +157,7 @@ const mapDispatchToProps = (dispatch) => ({
       }),
     );
   },
-  startTour: (isTourActive) => {
+  startTour: isTourActive => {
     if (isTourActive) {
       dispatch(endTour());
       setTimeout(() => {

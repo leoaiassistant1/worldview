@@ -28,7 +28,7 @@ test('adds base layer', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers, 0);
   layers = addLayer('mask', {}, layers, config.layers, 1);
 
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
 
   expect(layerList).toEqual(['mask', 'terra-cr', 'terra-aod']);
 });
@@ -38,7 +38,7 @@ test('adds overlay layer', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers, 0);
   layers = addLayer('combo-aod', {}, layers, config.layers, 1);
 
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'combo-aod', 'terra-aod']);
 });
 
@@ -47,7 +47,7 @@ test('does not add duplicate layer', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers, 0);
   layers = addLayer('terra-cr', {}, layers, config.layers, 1);
 
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'terra-aod']);
 });
 
@@ -63,7 +63,7 @@ test('resets to default layers', () => {
     ],
     config.layers,
   );
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'terra-aod']);
 });
 test('no date range for static products', () => {
@@ -120,7 +120,7 @@ test('gets layers in reverse', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
 
   const layerList = getLayers(layers, { reverse: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['terra-cr', 'aqua-cr', 'terra-aod', 'aqua-aod']);
 });
@@ -134,7 +134,7 @@ test('gets base layers', () => {
     layers,
     { group: 'baselayers' },
     getState(layers),
-  ).map((x) => x.id);
+  ).map(x => x.id);
   expect(layerList).toEqual(['aqua-cr', 'terra-cr']);
 });
 
@@ -147,7 +147,7 @@ test('gets overlay layers', () => {
     layers,
     { group: 'overlays' },
     getState(layers),
-  ).map((x) => x.id);
+  ).map(x => x.id);
   expect(layerList).toEqual(['aqua-aod', 'terra-aod']);
 });
 
@@ -170,7 +170,7 @@ test('gets layers for other projection', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers);
   layers = addLayer('aqua-aod', {}, layers, config.layers);
   const layerList = getLayers(layers, { proj: 'arctic' }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['aqua-cr', 'terra-cr']);
 });
@@ -181,7 +181,7 @@ test('obscured base layer is not renderable', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers);
   layers = addLayer('aqua-aod', {}, layers, config.layers);
   const layerList = getLayers(layers, { renderable: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['aqua-cr', 'aqua-aod', 'terra-aod']);
 });
@@ -193,7 +193,7 @@ test('base layer is not obscured by a hidden layer', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
 
   const layerList = getLayers(layers, { renderable: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['terra-cr', 'aqua-aod', 'terra-aod']);
 });
@@ -205,7 +205,7 @@ test('layer with zero opacity is not renderable', () => {
   layers = addLayer('aqua-aod', { opacity: 0 }, layers, config.layers);
 
   const layerList = getLayers(layers, { renderable: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['aqua-cr', 'terra-aod']);
 });
@@ -220,7 +220,7 @@ test('layer outside date range is not renderable', () => {
     date: { selected: { $set: new Date(Date.UTC(2001, 0, 1)) } },
   });
 
-  const layerList = getLayers(layers, { renderable: true }, state).map((x) => x.id);
+  const layerList = getLayers(layers, { renderable: true }, state).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'terra-aod']);
 });
 
@@ -231,7 +231,7 @@ test('all layers are visible', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
 
   const layerList = getLayers(layers, { visible: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['aqua-cr', 'terra-cr', 'aqua-aod', 'terra-aod']);
 });
@@ -243,7 +243,7 @@ test('only visible layers', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
 
   const layerList = getLayers(layers, { visible: true }, getState(layers)).map(
-    (x) => x.id,
+    x => x.id,
   );
   expect(layerList).toEqual(['aqua-cr', 'aqua-aod']);
 });
@@ -254,7 +254,7 @@ test('push overlay to bottom', () => {
   layers = addLayer('terra-aod', {}, layers, config.layers);
   layers = addLayer('aqua-aod', {}, layers, config.layers);
   layers = pushToBottom('aqua-cr', layers);
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'aqua-cr', 'aqua-aod', 'terra-aod']);
 });
 
@@ -265,7 +265,7 @@ test('move base layer before', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
   moveBefore('terra-cr', 'aqua-cr', layers);
 
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['terra-cr', 'aqua-cr', 'aqua-aod', 'terra-aod']);
 });
 
@@ -276,7 +276,7 @@ test('move overlay before', () => {
   layers = addLayer('aqua-aod', {}, layers, config.layers);
   moveBefore('terra-aod', 'aqua-aod', layers);
 
-  const layerList = getLayers(layers, {}, getState(layers)).map((x) => x.id);
+  const layerList = getLayers(layers, {}, getState(layers)).map(x => x.id);
   expect(layerList).toEqual(['aqua-cr', 'terra-cr', 'terra-aod', 'aqua-aod']);
 });
 

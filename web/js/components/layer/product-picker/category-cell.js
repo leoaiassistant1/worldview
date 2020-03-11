@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  * @class LayerList
  * @extends React.Component
  */
-const CategoryCell = (props) => {
+const CategoryCell = props => {
   const {
     category,
     measurementConfig,
@@ -44,7 +44,7 @@ const CategoryCell = (props) => {
           </h3>
           <ul>
             {category.measurements
-              .filter((measurement) => hasMeasurementSource(measurementConfig[measurement]))
+              .filter(measurement => hasMeasurementSource(measurementConfig[measurement]))
               .slice(0, 7)
               .map((measurement, index) => {
                 const current = measurementConfig[measurement];

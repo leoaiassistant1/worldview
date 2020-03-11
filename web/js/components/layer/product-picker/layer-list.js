@@ -44,7 +44,7 @@ class LayerList extends React.Component {
       selectedLayer,
       showMetadataForLayer,
     } = this.props;
-    const layer = filteredRows.find((l) => l.id === layerId);
+    const layer = filteredRows.find(l => l.id === layerId);
 
     if (!layerId) {
       showMetadataForLayer(null);
@@ -58,8 +58,8 @@ class LayerList extends React.Component {
       const errorMessage = '<p>There was an error loading layer metadata.</p>';
       const uri = `config/metadata/layers/${layer.description}.html`;
       fetch(uri)
-        .then((res) => (res.ok ? res.text() : errorMessage))
-        .then((body) => {
+        .then(res => (res.ok ? res.text() : errorMessage))
+        .then(body => {
           // Check that we have a metadata html snippet, rather than a fully
           // formed HTML file. Also avoid executing any script or style tags.
           const isMetadataSnippet = !body.match(/<(head|body|html|style|script)[^>]*>/i);
@@ -139,8 +139,8 @@ class LayerList extends React.Component {
     } = this.props;
 
     return (
-      filteredRows.map((layer) => {
-        const isEnabled = activeLayers.some((l) => l.id === layer.id);
+      filteredRows.map(layer => {
+        const isEnabled = activeLayers.some(l => l.id === layer.id);
         const isMetadataShowing = selectedLayer && layer.id === selectedLayer.id;
         return (
           <SearchLayerRow
@@ -151,8 +151,8 @@ class LayerList extends React.Component {
             onState={addLayer}
             offState={removeLayer}
             isMobile={isMobile}
-            showLayerMetadata={(id) => this.showLayerMetadata(id)}
-            toggleDateRangesExpansion={(id) => this.toggleDateRangesExpansion(id)}
+            showLayerMetadata={id => this.showLayerMetadata(id)}
+            toggleDateRangesExpansion={id => this.toggleDateRangesExpansion(id)}
           />
         );
       })

@@ -17,7 +17,7 @@ afterEach(() => {
   indicator.hide = unmocked.hide;
 });
 
-test('delayed indicator shown', (done) => {
+test('delayed indicator shown', done => {
   indicator._show = jest.fn();
   indicator.hide = jest.fn();
   const promise = jQuery.Deferred();
@@ -30,7 +30,7 @@ test('delayed indicator shown', (done) => {
   }, 50);
 });
 
-test('delayed indicator not shown', (done) => {
+test('delayed indicator not shown', done => {
   indicator._show = jest.fn();
   indicator.hide = jest.fn();
   const promise = jQuery.Deferred();

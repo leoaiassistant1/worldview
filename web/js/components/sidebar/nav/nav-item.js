@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavItem, NavLink } from 'reactstrap';
 
-const CustomNavItem = (props) => {
+const CustomNavItem = props => {
   const {
     isMobile,
     shouldHideInMobile,

@@ -106,17 +106,17 @@ export function setStyleFunction(def, vectorStyleId, vectorStyles, layer, state)
             : null;
       }
     }
-    lodashEach(activeLayers, (def) => {
+    lodashEach(activeLayers, def => {
       if (compare && compare.active) {
         if (layerGroup && layerGroup.getLayers().getArray().length) {
-          lodashEach(layerGroup.getLayers().getArray(), (subLayer) => {
+          lodashEach(layerGroup.getLayers().getArray(), subLayer => {
             if (subLayer.wv && (subLayer.wv.id === layerId)) {
               layer = subLayer;
             }
           });
         }
       } else {
-        lodashEach(layerGroups, (subLayer) => {
+        lodashEach(layerGroups, subLayer => {
           if (subLayer.wv && (subLayer.wv.id === layerId)) {
             layer = subLayer;
           }
@@ -125,7 +125,7 @@ export function setStyleFunction(def, vectorStyleId, vectorStyles, layer, state)
     });
   }
   const layerArray = layer.getLayers ? layer.getLayers().getArray() : [layer];
-  lodashEach(layerArray, (layerInLayerGroup) => {
+  lodashEach(layerArray, layerInLayerGroup => {
     // Apply mapbox-gl styles
     const extentStartX = layerInLayerGroup.getExtent()[0];
     const acceptableExtent = extentStartX === 180 ? [-180, -90, -110, 90] : extentStartX === -250 ? [110, -90, 180, 90] : null;
@@ -208,7 +208,7 @@ export function clearStyleFunction(def, vectorStyleId, vectorStyles, layer, stat
   const glStyle = vectorStyles[layerId];
   const olMap = lodashGet(state, 'legacy.map.ui.selected');
   if (olMap) {
-    lodashEach(olMap.getLayers().getArray(), (subLayer) => {
+    lodashEach(olMap.getLayers().getArray(), subLayer => {
       if (subLayer.wv.id === layerId) {
         layer = subLayer;
       }

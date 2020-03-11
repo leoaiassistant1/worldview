@@ -51,7 +51,7 @@ const CustomBodyModalContent = () => (
   </>
 );
 
-const Data = (props) => {
+const Data = props => {
   const {
     isActive,
     height,
@@ -124,7 +124,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       dispatch(selectProduct(newSelection));
     }
   },
-  selectProduct: (id) => {
+  selectProduct: id => {
     dispatch(selectProduct(id));
   },
 });

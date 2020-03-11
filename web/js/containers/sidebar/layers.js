@@ -5,7 +5,7 @@ import LayerList from './layer-list';
 import { getLayers } from '../../modules/layers/selectors';
 import Scrollbars from '../../components/util/scrollbar';
 
-const Layers = (props) => {
+const Layers = props => {
   const {
     overlays,
     baselayers,
@@ -61,7 +61,7 @@ function mapStateToProps(state, ownProps) {
     checkerBoardPattern,
   };
 }
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

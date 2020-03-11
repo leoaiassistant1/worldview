@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-const TourIntro = (props) => (
+const TourIntro = props => (
   <div className="tour-intro">
     <p className="intro">
       Visually explore the past and the present of this dynamic planet from a satellite&apos;s perspective.

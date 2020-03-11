@@ -95,7 +95,7 @@ export function dataUi(store, ui, config) {
     // FIXME: This is a hack for now and should be cleaned up when
     // everything changes to models.
     const products = getDataProductsFromActiveLayers(activeLayers, config, proj.id);
-    lodashEach(data.selectedGranules, (selected) => {
+    lodashEach(data.selectedGranules, selected => {
       if (!products[selected.product] && !lodashFind(layers[activeString], { product: selected.product })) {
         store.dispatch(toggleGranule(selected));
       }
@@ -133,7 +133,7 @@ export function dataUi(store, ui, config) {
       .on('query', () => {
         self.events.trigger(self.EVENT_QUERY);
       })
-      .on('results', (results) => {
+      .on('results', results => {
         queryExecuting = false;
         if (self.active && !nextQuery) {
           self.events.trigger(self.EVENT_QUERY_RESULTS, results);
@@ -176,7 +176,7 @@ export function dataUi(store, ui, config) {
     ui.events.on('last-action', subscribeToStore);
     ui.map.events.on('extent', self.onViewChange);
     self.events.on('query', onQuery)
-      .on('queryResults', (results) => {
+      .on('queryResults', results => {
         onQueryResults(results);
         self.onViewChange(results);
       })
@@ -197,7 +197,7 @@ export function dataUi(store, ui, config) {
     let inView = false;
     const extent = map.getView().calculateExtent(map.getSize());
     const { crs } = state.proj.selected;
-    lodashEach(results.granules, (granule) => {
+    lodashEach(results.granules, granule => {
       if (granule.centroid && granule.centroid[crs]) {
         hasCentroids = true;
         if (olExtent.intersects(extent, granule.centroid[crs].getExtent())) {
@@ -393,7 +393,7 @@ const dataUiBulkDownloadPage = (function() {
 
     const netrcEntries = [];
     const hostnames = [];
-    $.each(hosts, (host) => {
+    $.each(hosts, host => {
       netrcEntries.push(
         `machine ${host} login URS_USER password URS_PASSWORD`,
       );

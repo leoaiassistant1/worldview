@@ -8,7 +8,7 @@ import Switch from '../../util/switch';
  * @class LayerList
  * @extends React.Component
  */
-const FilterUnavailable = (props) => {
+const FilterUnavailable = props => {
   const {
     selectedDate,
     filterByAvailable,

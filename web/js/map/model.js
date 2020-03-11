@@ -18,7 +18,7 @@ export function mapModel(models, config) {
       return;
     }
 
-    Object.values(config.projections).forEach((proj) => {
+    Object.values(config.projections).forEach(proj => {
       if (proj.crs && proj.proj4) {
         self.register(proj.crs, proj.proj4);
       }

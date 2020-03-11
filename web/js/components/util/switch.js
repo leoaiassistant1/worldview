@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 // https://upmostly.com/tutorials/build-a-react-switch-toggle-component
-const Switch = (props) => {
+const Switch = props => {
   const {
     id,
     color,

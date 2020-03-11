@@ -207,7 +207,7 @@ class GIF extends Component {
           },
           pause: 1,
         },
-        (obj) => {
+        obj => {
           this.onGifComplete(obj, width, height);
         },
       );
@@ -420,8 +420,8 @@ function mapStateToProps(state, ownProps) {
     onClose: ownProps.onClose,
   };
 }
-const mapDispatchToProps = (dispatch) => ({
-  onBoundaryChange: (bounds) => {
+const mapDispatchToProps = dispatch => ({
+  onBoundaryChange: bounds => {
     dispatch(changeCropBounds(bounds));
   },
 });

@@ -106,7 +106,7 @@ export function dataHandlerBase(config, store) {
 
     const queriedProduct = dataState.selectedProduct;
     promise
-      .done((data) => {
+      .done(data => {
         try {
           if (dataState.selectedProduct !== queriedProduct) {
             self.events.trigger('results', {

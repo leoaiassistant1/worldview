@@ -13,7 +13,7 @@ function isNotDefined(value) {
 }
 export function encode(value) {
   let encoded = encodeURIComponent(value);
-  lodashEach(ENCODING_EXCEPTIONS, (exception) => {
+  lodashEach(ENCODING_EXCEPTIONS, exception => {
     encoded = encoded.replace(exception.match, exception.replace);
   });
   return encoded;

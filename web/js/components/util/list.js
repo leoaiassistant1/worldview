@@ -50,7 +50,7 @@ export default function List(props) {
   } = props;
   return (
     <ListGroup className={listClass}>
-      {list.map((item) => {
+      {list.map(item => {
         const { iconName } = item;
         const { iconClass } = item;
         const isActive = item.key && active ? item.key === active : false;

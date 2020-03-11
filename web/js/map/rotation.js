@@ -111,7 +111,7 @@ export function MapRotate(ui, models, store) {
       // This component is inside the map viewport container. Allowing
       // mouse move events to bubble up displays map coordinates--let those
       // be blank when over a component.
-      .mousemove((e) => e.stopPropagation());
+      .mousemove(e => e.stopPropagation());
 
     $rightButton
       .button({
@@ -130,7 +130,7 @@ export function MapRotate(ui, models, store) {
         clearInterval(self.intervalId);
       })
       // See note above
-      .mousemove((e) => e.stopPropagation());
+      .mousemove(e => e.stopPropagation());
 
     $resetButton
       .button({
@@ -147,7 +147,7 @@ export function MapRotate(ui, models, store) {
         $resetButton.button('option', 'label', '0');
       })
       // See note above
-      .mousemove((e) => e.stopPropagation());
+      .mousemove(e => e.stopPropagation());
   };
 
   /**

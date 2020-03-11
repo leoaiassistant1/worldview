@@ -17,7 +17,7 @@ class OpacitySelect extends React.Component {
         <h2 className="wv-header">Opacity</h2>
         <Slider
           defaultValue={start}
-          onChange={(val) => {
+          onChange={val => {
             setOpacity(layer.id, (val / 100).toFixed(2));
             this.setState({ value: val });
           }}

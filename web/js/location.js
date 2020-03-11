@@ -93,7 +93,7 @@ export const mapLocationToState = (state, location) => {
     );
 
     // one level deep merge of newState with defaultState
-    Object.keys(stateFromLocation).forEach((key) => {
+    Object.keys(stateFromLocation).forEach(key => {
       const obj = lodashAssign({}, state[key], stateFromLocation[key]);
       stateFromLocation = update(stateFromLocation, {
         [key]: { $set: obj },
@@ -128,7 +128,7 @@ const getParameters = function(config, parameters) {
       stateKey: 'proj.id',
       initialState: 'geographic',
       options: {
-        parse: (str) => parseProjection(str, config),
+        parse: str => parseProjection(str, config),
       },
     },
     now: {
@@ -138,10 +138,10 @@ const getParameters = function(config, parameters) {
       options: {
         serializeNeedsGlobalState: false,
         setAsEmptyItem: true,
-        serialize: (currentItemState) => (currentItemState
+        serialize: currentItemState => (currentItemState
           ? util.toISOStringSeconds(currentItemState)
           : undefined),
-        parse: (str) => tryCatchDate(str, now),
+        parse: str => tryCatchDate(str, now),
       },
     },
     t: {
@@ -168,7 +168,7 @@ const getParameters = function(config, parameters) {
                 ? undefined
                 : serializeDate(currentItemState);
         },
-        parse: (str) => {
+        parse: str => {
           let time = tryCatchDate(str, now);
           if (time instanceof Date) {
             const startDate = new Date(config.startDate);
@@ -202,7 +202,7 @@ const getParameters = function(config, parameters) {
             ? undefined
             : serializeDate(currentItemState || appNowMinusSevenDays);
         },
-        parse: (str) => tryCatchDate(str, nowMinusSevenDays),
+        parse: str => tryCatchDate(str, nowMinusSevenDays),
       },
     },
     z: {
@@ -222,7 +222,7 @@ const getParameters = function(config, parameters) {
           }
           return zoom === 3 ? undefined : zoom.toString();
         },
-        parse: (str) => (str ? Number(str) : 3),
+        parse: str => (str ? Number(str) : 3),
       },
     },
     i: {
@@ -242,7 +242,7 @@ const getParameters = function(config, parameters) {
           }
           return interval === 3 ? undefined : interval.toString();
         },
-        parse: (str) => (str ? Number(str) : 3),
+        parse: str => (str ? Number(str) : 3),
       },
     },
     ics: {
@@ -258,7 +258,7 @@ const getParameters = function(config, parameters) {
           }
           return currentItemState;
         },
-        parse: (val) => val === 'true',
+        parse: val => val === 'true',
       },
     },
     ici: {
@@ -280,7 +280,7 @@ const getParameters = function(config, parameters) {
           }
           return customInterval.toString();
         },
-        parse: (val) => Number(val),
+        parse: val => Number(val),
       },
     },
     icd: {
@@ -293,7 +293,7 @@ const getParameters = function(config, parameters) {
           if (!isCustomSelected) return undefined;
           return currentItemState.toString();
         },
-        parse: (val) => Number(val),
+        parse: val => Number(val),
       },
     },
     as: {
@@ -308,7 +308,7 @@ const getParameters = function(config, parameters) {
             ? serializeDate(currentItemState || nowMinusSevenDays)
             : undefined;
         },
-        parse: (str) => tryCatchDate(str, nowMinusSevenDays),
+        parse: str => tryCatchDate(str, nowMinusSevenDays),
       },
     },
     ae: {
@@ -323,7 +323,7 @@ const getParameters = function(config, parameters) {
             ? serializeDate(currentItemState || now)
             : undefined;
         },
-        parse: (str) => tryCatchDate(str, now),
+        parse: str => tryCatchDate(str, now),
       },
     },
     e: {
@@ -340,7 +340,7 @@ const getParameters = function(config, parameters) {
       initialState: resetLayers(config.defaults.startingLayers, config.layers),
       type: 'array',
       options: {
-        parse: (permalink) => layersParse12(permalink, config),
+        parse: permalink => layersParse12(permalink, config),
         serializeNeedsGlobalState: true,
         serialize: (currentLayers, state) => {
           const compareIsActive = get(state, 'compare.active');
@@ -357,7 +357,7 @@ const getParameters = function(config, parameters) {
       initialState: [],
       type: 'array',
       options: {
-        parse: (permalink) => layersParse12(permalink, config),
+        parse: permalink => layersParse12(permalink, config),
         serializeNeedsGlobalState: true,
         serialize: (currentLayers, state) => {
           const compareIsActive = get(state, 'compare.active');
@@ -421,8 +421,8 @@ const getParameters = function(config, parameters) {
       stateKey: 'animation.isActive',
       initialState: false,
       options: {
-        serialize: (boo) => (boo ? 'on' : undefined),
-        parse: (str) => str === 'on',
+        serialize: boo => (boo ? 'on' : undefined),
+        parse: str => str === 'on',
       },
     },
     download: {
@@ -432,7 +432,7 @@ const getParameters = function(config, parameters) {
       options: {
         delimiter: ',',
         serializeNeedsGlobalState: true,
-        parse: (id) => {
+        parse: id => {
           if (!config.products[id]) {
             console.warn(`No such product: ${id}`);
             return '';
@@ -470,7 +470,7 @@ export function getParamObject(
   return {
     global: obj,
     RLSCONFIG: {
-      queryParser: (q) => q.match(/^.*?(?==)|[^=\n\r].*$/gm),
+      queryParser: q => q.match(/^.*?(?==)|[^=\n\r].*$/gm),
     },
   };
 }

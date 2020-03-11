@@ -8,7 +8,7 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
  * @class PlayButton
  * @extends React.Component
  */
-const PlayButton = (props) => {
+const PlayButton = props => {
   const { playing, pause, play } = props;
   return (
     <a

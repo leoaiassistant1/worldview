@@ -49,7 +49,7 @@ class ModalStart extends React.Component {
 
   // Handle the show/hide checkbox state
   handleCheck() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       checked: !prevState.checked,
     }));
     if (!this.state.checked) {

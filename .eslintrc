@@ -81,6 +81,7 @@
         "prefer-const": "warn",
         "class-methods-use-this": "warn",
         "no-plusplus": "warn",
+        "arrow-parens": ["error", "as-needed"],
         "max-len": "off",
 
         "consistent-return": "off",
