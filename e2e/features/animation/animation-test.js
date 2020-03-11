@@ -11,19 +11,19 @@ module.exports = {
    * Clicking the animation widget button
    * Opens the widget
    */
-  'Toggling Animation Mode': (client) => {
-    client.waitForElementVisible(localSelectors.dragger, TIME_LIMIT, (el) => {
+  'Toggling Animation Mode': client => {
+    client.waitForElementVisible(localSelectors.dragger, TIME_LIMIT, el => {
       client.expect.element(localSelectors.animationWidget).to.not.be.present;
       client.useCss().click(localSelectors.animationButton);
       client.waitForElementVisible(localSelectors.animationWidget, TIME_LIMIT);
     });
   },
-  'Opening custom interval widget': (client) => {
+  'Opening custom interval widget': client => {
     client.url(client.globals.url + localQuerystrings.activeAnimationWidget);
     client.waitForElementVisible(
       localSelectors.animationButton,
       TIME_LIMIT,
-      (el) => {
+      el => {
         client
           .useCss()
           .moveToElement('.wv-animation-widget-header #timeline-interval-btn-container #current-interval', 1, 1)
@@ -40,14 +40,14 @@ module.exports = {
    * Moving the range selector updates the selected range
    * in the animation widget date selector
    */
-  'Changing date range of animation': (client) => {
+  'Changing date range of animation': client => {
     client.url(client.globals.url + localQuerystrings.activeAnimationWidget);
     // Test Permalink opens widget
     client.waitForElementVisible(
       '#day-animation-widget-start',
       TIME_LIMIT,
-      (el) => {
-        client.getValue('#day-animation-widget-start', (result) => {
+      el => {
+        client.getValue('#day-animation-widget-start', result => {
           const startDay = result.value;
           client
             .useCss()
@@ -60,7 +60,7 @@ module.exports = {
             .moveToElement('.timeline-dragger', 0, 0)
             .mouseButtonUp(0)
             .pause(2000);
-          client.getValue('#day-animation-widget-start', (result) => {
+          client.getValue('#day-animation-widget-start', result => {
             const newDay = result.value;
             client.assert.notEqual(startDay, newDay);
           });
@@ -72,7 +72,7 @@ module.exports = {
   /**
    * Changing animation time interval
    */
-  'Changing animation time interval': (client) => {
+  'Changing animation time interval': client => {
     // Can't use moveToElement twice with same elements
     // because of selenium catching.
     // Loading a different Url fixed the problem
@@ -82,7 +82,7 @@ module.exports = {
     client.waitForElementVisible(
       localSelectors.animationButton,
       TIME_LIMIT,
-      (el) => {
+      el => {
         client
           .useCss()
           .moveToElement('.wv-animation-widget-header #timeline-interval-btn-container #current-interval', 1, 1)

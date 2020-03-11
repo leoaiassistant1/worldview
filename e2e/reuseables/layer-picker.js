@@ -1,7 +1,7 @@
 const layerItem = '.item.productsitem';
 const categoriesContainer = '.category-masonry-case';
 module.exports = {
-  assertCategories: (client) => () => {
+  assertCategories: client => () => {
     client.expect.element(categoriesContainer).to.be.present;
     client.expect.element('#legacy-all').to.be.present;
     client.expect.element('#air-quality').to.be.present;
@@ -16,7 +16,7 @@ module.exports = {
     client.expect.element('#vegetation').to.be.present;
     client.expect.element('#legacy-other').to.be.present;
   },
-  assertDefaultLayers: (client) => () => {
+  assertDefaultLayers: client => () => {
     client.expect.elements(layerItem).count.to.equal(6);
     client.expect.element('#active-Reference_Labels').to.be.present;
     client.expect.element('#active-Reference_Features').to.be.present;

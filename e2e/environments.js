@@ -28,7 +28,7 @@ const capabilities = createCapabilities(
   ],
 );
 
-capabilities.forEach((capability) => {
+capabilities.forEach(capability => {
   capability.resolution = '1280x1024';
 });
 

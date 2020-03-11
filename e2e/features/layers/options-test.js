@@ -18,7 +18,7 @@ module.exports = {
     client.waitForElementVisible(
       combinedAodSettingsButton,
       TIME_LIMIT,
-      (e) => {
+      e => {
         if (client.options.desiredCapabilities.browser !== 'ie') {
           client.expect.element(thresholdMinLabel).to.not.be.present;
           client.click(combinedAodSettingsButton).pause(1000);

@@ -18,7 +18,7 @@ module.exports = {
   before(client) {
     reuseables.loadAndSkipTour(client, TIME_LIMIT);
   },
-  'Make sure that 4 fire layers are not present in layer list: use mock': (client) => {
+  'Make sure that 4 fire layers are not present in layer list: use mock': client => {
     client.url(client.globals.url + localQuerystrings.mockEvents);
     client.waitForElementVisible(
       '#sidebar-event-EONET_3931',
@@ -35,10 +35,10 @@ module.exports = {
       },
     );
   },
-  'Click fire event': (client) => {
+  'Click fire event': client => {
     client.click('#sidebar-event-EONET_3931');
   },
-  'Check that 4 fire layers are now present': (client) => {
+  'Check that 4 fire layers are now present': client => {
     client.click(layersTab);
     client.waitForElementPresent(
       '#active-VIIRS_SNPP_Thermal_Anomalies_375m_Night',
@@ -53,17 +53,17 @@ module.exports = {
       },
     );
   },
-  'Use Mock to make sure appropriate number of event markers are appended to map': (client) => {
+  'Use Mock to make sure appropriate number of event markers are appended to map': client => {
     client.url(client.globals.url + localQuerystrings.mockEvents);
     client.waitForElementVisible(listOfEvents, TIME_LIMIT, () => {
       client.expect.elements(eventIcons).count.to.equal(9);
     });
   },
-  'On events tab click events list is loaded': (client) => {
+  'On events tab click events list is loaded': client => {
     client.url(client.globals.url + localQuerystrings.mockEvents);
     client.waitForElementVisible(listOfEvents, TIME_LIMIT);
   },
-  'Use Mock Ensure number of event track points is correct and event markers and tabs are not visible when layer tab is clicked': (client) => {
+  'Use Mock Ensure number of event track points is correct and event markers and tabs are not visible when layer tab is clicked': client => {
     const globalSelectors = client.globals.selectors;
     client.click(firstEvent);
     client.waitForElementVisible(trackMarker, TIME_LIMIT, () => {
@@ -76,7 +76,7 @@ module.exports = {
       client.expect.element(eventIcons).to.be.present;
     });
   },
-  'Click Events tab and select an Event from the List': (client) => {
+  'Click Events tab and select an Event from the List': client => {
     client.url(client.globals.url + localQuerystrings.mockEvents);
     client.waitForElementVisible(listOfEvents, TIME_LIMIT, () => {
       client.click(firstEvent);
@@ -85,14 +85,14 @@ module.exports = {
       });
     });
   },
-  'Verify that Url is updated': (client) => {
+  'Verify that Url is updated': client => {
     client.assert
       .urlParameterEquals('l', true)
       .assert.urlParameterEquals('t', true)
       .assert.urlParameterEquals('v', true)
       .assert.urlParameterEquals('e', true);
   },
-  'Verify Events may not be visible at all times is visible ': (client) => {
+  'Verify Events may not be visible at all times is visible ': client => {
     const globalSelectors = client.globals.selectors;
     client.waitForElementVisible(
       globalSelectors.notifyMessage,
@@ -105,7 +105,7 @@ module.exports = {
       },
     );
   },
-  'Clicking event notifcation opens explanation in dialog': (client) => {
+  'Clicking event notifcation opens explanation in dialog': client => {
     const globalSelectors = client.globals.selectors;
 
     client.click(globalSelectors.notifyMessage).pause(2000);
@@ -119,17 +119,17 @@ module.exports = {
     client.expect.element(globalSelectors.notificationDismissButton).to.not.be
       .present;
   },
-  'Clicking selected event deselects event': (client) => {
+  'Clicking selected event deselects event': client => {
     client.click(selectedFirstEvent).pause(500);
     client.expect.element(selectedFirstEvent).to.not.be.present;
   },
-  'Check that clicking eternal link opens in new window': (client) => {
+  'Check that clicking eternal link opens in new window': client => {
     client.click(firstEvent).pause(500);
-    client.windowHandles((tabs) => {
+    client.windowHandles(tabs => {
       client.assert.equal(tabs.value.length, 1);
     });
     client.click(firstExternalEventLink).pause(2000);
-    client.windowHandles((tabs) => {
+    client.windowHandles(tabs => {
       client.assert.equal(tabs.value.length, 2);
     });
   },

@@ -35,52 +35,52 @@ const projectionButton = '#wv-proj-button';
 const TIME_LIMIT = 10000;
 
 module.exports = {
-  before: (client) => {
+  before: client => {
     skipTour.loadAndSkipTour(client, TIME_LIMIT);
     client.url(`${client.globals.url}?t=2013-05-15`);
   },
-  'Layer picker shows categories when first opened': (client) => {
+  'Layer picker shows categories when first opened': client => {
     client.click(addLayers);
     client.waitForElementVisible(categoriesNav, TIME_LIMIT, assertCategories(client));
   },
-  'Enabled Corrected Reflectance layers are shown as checked': (client) => {
+  'Enabled Corrected Reflectance layers are shown as checked': client => {
     client.click(allCategoryHeader);
-    client.waitForElementVisible(layerBrowseList, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerBrowseList, TIME_LIMIT, e => {
       client.click('#accordion-legacy-all-corrected-reflectance');
-      client.waitForElementVisible(correctedReflectanceCheckboxContainer, TIME_LIMIT, (e) => {
+      client.waitForElementVisible(correctedReflectanceCheckboxContainer, TIME_LIMIT, e => {
         client.expect.element(correctedReflectanceChecked).to.be.present;
       });
     });
   },
-  '"Unavailable" layers show unavailable icon and tooltip': (client) => {
+  '"Unavailable" layers show unavailable icon and tooltip': client => {
     client.click('#landsat-weld-1-source-Nav');
-    client.waitForElementVisible(weldReflectanceCheckboxContainer, TIME_LIMIT, (e) => {
-      client.moveToElement(weldUnavailableTooltipIcon, 2, 2, (e) => {
-        client.waitForElementVisible('.tooltip', TIME_LIMIT, (e) => {
+    client.waitForElementVisible(weldReflectanceCheckboxContainer, TIME_LIMIT, e => {
+      client.moveToElement(weldUnavailableTooltipIcon, 2, 2, e => {
+        client.waitForElementVisible('.tooltip', TIME_LIMIT, e => {
           client.expect.element('.tooltip').to.be.present;
         });
       });
     });
   },
-  'Entering search text transitions to search mode': (client) => {
+  'Entering search text transitions to search mode': client => {
     client.setValue(layersSearchField, 'ozone');
-    client.waitForElementVisible(layerSearchList, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerSearchList, TIME_LIMIT, e => {
       client.expect.elements(layersSearchRow).count.to.equal(6);
     });
   },
-  'Updating input changes results': (client) => {
+  'Updating input changes results': client => {
     client.clearValue(layersSearchField);
     client.setValue(layersSearchField, 'ozone day');
-    client.waitForElementVisible(layerSearchList, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerSearchList, TIME_LIMIT, e => {
       client.expect.elements(layersSearchRow).count.to.equal(1);
     });
   },
-  'A single result is automatically selected from the list': (client) => {
+  'A single result is automatically selected from the list': client => {
     client.assert.cssClassPresent(layersSearchRow, 'selected');
     client.assert.containsText(layerDetailHeader, 'Ozone');
     client.expect.element('.layer-preview').to.be.present;
   },
-  'Add layer button and list item checbox are in sync': (client) => {
+  'Add layer button and list item checbox are in sync': client => {
     const checkBox = '.search-row.layers-all-layer.selected .wv-checkbox';
     client.click(addToMapButton);
     client.pause(200);
@@ -91,17 +91,17 @@ module.exports = {
     client.assert.containsText(addToMapButton, 'Add Layer');
     client.assert.not.cssClassPresent(checkBox, 'checked');
   },
-  'Search for "nothing" returns no results': (client) => {
+  'Search for "nothing" returns no results': client => {
     client.clearValue(layersSearchField);
     client.setValue(layersSearchField, 'nothing');
-    client.waitForElementVisible('.no-results', TIME_LIMIT, (e) => {
+    client.waitForElementVisible('.no-results', TIME_LIMIT, e => {
       client.assert.containsText('.no-results', 'No layers found!');
     });
   },
-  'Unavailable filter removes items not available from list by default': (client) => {
+  'Unavailable filter removes items not available from list by default': client => {
     client.clearValue(layersSearchField);
     client.setValue(layersSearchField, '(True');
-    client.waitForElementVisible(layerSearchList, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerSearchList, TIME_LIMIT, e => {
       client.expect.elements(layersSearchRow).count.to.equal(4);
       client.assert
         .containsText(
@@ -110,23 +110,23 @@ module.exports = {
         );
     });
   },
-  'Disabling unavailable filter updates list': (client) => {
+  'Disabling unavailable filter updates list': client => {
     client.click(unavailableFilterToggle);
     client.pause(200);
     client.expect.elements(layersSearchRow).count.to.equal(5);
     client
       .assert
       .containsText(layerResultsCountText, 'Showing 5 results');
-    client.moveToElement(unavailableFilterTooltipIcon, 2, 2, (e) => {
-      client.waitForElementVisible('.tooltip', TIME_LIMIT, (e) => {
+    client.moveToElement(unavailableFilterTooltipIcon, 2, 2, e => {
+      client.waitForElementVisible('.tooltip', TIME_LIMIT, e => {
         client.expect.element('.tooltip').to.be.present;
       });
     });
   },
-  'Closing and reopening layer picker restores state.': (client) => {
+  'Closing and reopening layer picker restores state.': client => {
     // First, select a row and confirm details are showing
     client.click(layersSearchRow);
-    client.waitForElementVisible(layerDetailHeader, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerDetailHeader, TIME_LIMIT, e => {
       client.assert.containsText(layerDetailHeader, 'Corrected Reflectance');
 
       // Close the modal
@@ -135,7 +135,7 @@ module.exports = {
 
       // Now reopen modal and confirm state is just as we left it
       client.click(addLayers);
-      client.waitForElementVisible(layerSearchList, TIME_LIMIT, (e) => {
+      client.waitForElementVisible(layerSearchList, TIME_LIMIT, e => {
         client.expect.elements(layersSearchRow).count.to.equal(5);
         client
           .assert
@@ -146,26 +146,26 @@ module.exports = {
       });
     });
   },
-  'Finding layer by ID with search': (client) => {
+  'Finding layer by ID with search': client => {
     client.clearValue(layersSearchField);
     client.setValue(
       layersSearchField,
       'MERRA2_Total_Aerosol_Optical_Thickness_550nm_Scattering_Monthly',
     );
-    client.waitForElementVisible(layersSearchRow, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layersSearchRow, TIME_LIMIT, e => {
       client.assert.containsText(layersAll, 'Total Aerosol Optical Thickness Scattering 550nm');
       client.assert.containsText(layersAll, 'MERRA-2');
     });
   },
-  'Back button returns to main selection and clears search input': (client) => {
-    client.waitForElementVisible(layerPickerBackButton, TIME_LIMIT, (e) => {
+  'Back button returns to main selection and clears search input': client => {
+    client.waitForElementVisible(layerPickerBackButton, TIME_LIMIT, e => {
       client.click(layerPickerBackButton);
-      client.getValue(layersSearchField, (result) => {
+      client.getValue(layersSearchField, result => {
         client.assert.equal(result.value, '');
       });
     });
   },
-  'Switching to "Science Disciplines" tab updates category/measurement choices': (client) => {
+  'Switching to "Science Disciplines" tab updates category/measurement choices': client => {
     client.click(scienceDisciplinesTab);
     client.pause(200);
     client.expect.element('#scientific-all').to.be.present;
@@ -179,10 +179,10 @@ module.exports = {
     client.expect.element('#terrestrial-hydrosphere').to.be.present;
     client.expect.element('#scientific-other').to.be.present;
   },
-  'Selecting a measurement from the grid shows sources and details for first source': (client) => {
+  'Selecting a measurement from the grid shows sources and details for first source': client => {
     client.click(aodMeasurement);
-    client.waitForElementVisible(aodMeasurementContents, TIME_LIMIT, (e) => {
-      client.waitForElementVisible(layerBrowseDetail, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(aodMeasurementContents, TIME_LIMIT, e => {
+      client.waitForElementVisible(layerBrowseDetail, TIME_LIMIT, e => {
         client
           .assert
           .containsText(layerDetailHeader, 'Aqua and Terra/MODIS');
@@ -200,27 +200,27 @@ module.exports = {
       });
     });
   },
-  'Selecting layers from product picker adds them to the sidebar/map': (client) => {
+  'Selecting layers from product picker adds them to the sidebar/map': client => {
     client.click(aodCheckboxMODIS);
     client.click(aodCheckboxMAIAC);
     client.click(layersModalCloseButton);
     client.expect.element(aodSidebarLayer).to.be.present;
     client.expect.element(aodMAIACSidebarLayer).to.be.present;
   },
-  'Collapsed sidebar shows updated layer count': (client) => {
+  'Collapsed sidebar shows updated layer count': client => {
     client.click('.toggleIconHolder');
     client.assert.containsText('.layer-count', '8 Layers');
     client.click('#accordionTogglerButton');
   },
-  'When no results returned due to filters, help text shows and user can click to remove all': (client) => {
+  'When no results returned due to filters, help text shows and user can click to remove all': client => {
     client.url(`${client.globals.url}?t=2020-2-14`);
     client.click(addLayers);
-    client.waitForElementVisible(layersSearchField, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layersSearchField, TIME_LIMIT, e => {
       client.setValue(layersSearchField, 'grace');
-      client.waitForElementVisible('.no-results', TIME_LIMIT, (e) => {
+      client.waitForElementVisible('.no-results', TIME_LIMIT, e => {
         client.assert.containsText('.no-results', 'No layers found!');
         client.click('.remove-filters');
-        client.waitForElementVisible(layersSearchRow, TIME_LIMIT, (e) => {
+        client.waitForElementVisible(layersSearchRow, TIME_LIMIT, e => {
           client.expect.elements(layersSearchRow).count.to.equal(1);
           client.assert.containsText(layerDetailHeader, 'Liquid Water Equivalent Thickness');
           client.click(layersModalCloseButton);
@@ -228,39 +228,39 @@ module.exports = {
       });
     });
   },
-  'When in arctic projection, go straight to measurements browse list': (client) => {
+  'When in arctic projection, go straight to measurements browse list': client => {
     const arcticbutton = '#change-arctic-button';
     client.click(projectionButton);
-    client.waitForElementVisible(arcticbutton, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(arcticbutton, TIME_LIMIT, e => {
       client.click(arcticbutton).pause(200);
-      client.click(addLayers).waitForElementVisible(layerBrowseList, TIME_LIMIT, (e) => {
+      client.click(addLayers).waitForElementVisible(layerBrowseList, TIME_LIMIT, e => {
         client.expect.element(layerBrowseDetail).to.be.present;
         client.assert.containsText('.no-results', 'Select a measurement to view details here!');
       });
     });
   },
-  'Searching in arctic projection': (client) => {
+  'Searching in arctic projection': client => {
     client.setValue(layersSearchField, 'sea');
-    client.waitForElementVisible(layerSearchList, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(layerSearchList, TIME_LIMIT, e => {
       client.expect.elements(layersSearchRow).count.to.equal(10);
       client.assert.containsText(layerResultsCountText, 'Showing 10 results(5 hidden by filters)');
       client.click(layerPickerBackButton);
-      client.waitForElementVisible(layerBrowseList, TIME_LIMIT, (e) => {
+      client.waitForElementVisible(layerBrowseList, TIME_LIMIT, e => {
         client.expect.element(layerBrowseDetail).to.be.present;
       });
       client.click(layersModalCloseButton);
     });
   },
-  'Switching back to geographic projetion, categories appear': (client) => {
+  'Switching back to geographic projetion, categories appear': client => {
     const geographicButton = '#change-geographic-button';
     client.click(projectionButton);
-    client.waitForElementVisible(geographicButton, TIME_LIMIT, (e) => {
+    client.waitForElementVisible(geographicButton, TIME_LIMIT, e => {
       client.click(geographicButton).pause(200);
       client.click(addLayers);
       client.waitForElementVisible(categoriesNav, TIME_LIMIT, assertCategories(client));
     });
   },
-  after: (client) => {
+  after: client => {
     client.end();
   },
 };

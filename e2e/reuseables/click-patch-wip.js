@@ -2,7 +2,7 @@
 module.exports = {
   customMouseEvent(client, selector, offsetX, offsetY, eventType) {
     eventType = eventType || 'dblclick';
-    client.execute((obj) => {
+    client.execute(obj => {
       const {
         eventType, selector, offsetX, offsetY,
       } = obj;
@@ -41,7 +41,7 @@ module.exports = {
       }
 
       function extend(destination, source) {
-        Object.keys(source).forEach((property) => {
+        Object.keys(source).forEach(property => {
           destination[property] = source[property];
         });
         return destination;
@@ -65,7 +65,7 @@ module.exports = {
       return simulate(el, eventType, { pointerX: offsetX, pointerY: offsetY });
     }, [{
       eventType, selector, offsetX, offsetY,
-    }], (result) => {
+    }], result => {
     });
   },
 };

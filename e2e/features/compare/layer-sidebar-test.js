@@ -9,10 +9,10 @@ const aodMAIACCheckbox = '#checkbox-case-MODIS_Combined_MAIAC_L2G_AerosolOptical
 const TIME_LIMIT = 10000;
 
 module.exports = {
-  before: (client) => {
+  before: client => {
     reuseables.loadAndSkipTour(client, client.globals.timeout);
   },
-  'Add AOD Layer to Layer Group A': (client) => {
+  'Add AOD Layer to Layer Group A': client => {
     client.url(client.globals.url + localQuerystrings.swipeAndAIsActive);
     client.waitForElementVisible(selectors.swipeDragger, client.globals.timeout, () => {
       client.click(selectors.addLayers);
@@ -28,14 +28,14 @@ module.exports = {
     client.waitForElementNotPresent('#layer_picker_component', TIME_LIMIT);
     client.pause(250);
   },
-  'Toggle compare mode to Active state B': (client) => {
+  'Toggle compare mode to Active state B': client => {
     client.click(`${selectors.bTab} .productsIcon`);
     client.waitForElementVisible('#activeB-Coastlines', client.globals.timeout);
   },
-  'Verify that AOD layer is not visible': (client) => {
+  'Verify that AOD layer is not visible': client => {
     client.expect.element(`#active-${aodCombinedValueId}`).to.not.be.present;
   },
-  'Add AOD index layer to Active state B and verify it has been added': (client) => {
+  'Add AOD index layer to Active state B and verify it has been added': client => {
     client.click(selectors.addLayers);
     client.waitForElementVisible(
       aodMAIACCheckbox,

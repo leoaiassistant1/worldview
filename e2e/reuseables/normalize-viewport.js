@@ -8,7 +8,7 @@ module.exports = {
           height: height === window.innerHeight ? 0 : window.outerHeight - window.innerHeight,
         }),
         [width, height],
-        (result) => {
+        result => {
           const padding = result.value;
           const newHeight = padding.height ? height + padding.height : height;
           const newWidth = padding.width ? width + padding.width : width;

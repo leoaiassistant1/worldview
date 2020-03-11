@@ -5,7 +5,7 @@ module.exports = {
     normalizeViewport(client, 1024, 768);
     client.url(client.globals.url)
       .execute(() => !window.localStorage.getItem('hideTour'), // See if there should be a tour
-        [], (result) => {
+        [], result => {
           const hasTour = result.value;
           if (hasTour) {
             client.waitForElementVisible('.tour button.close', wait, () => {

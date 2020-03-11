@@ -67,7 +67,7 @@ const nightwatchConfig = {
   },
 };
 
-environments.forEach((e) => {
+environments.forEach(e => {
   const env = [
     e.browser,
     e.browser_version,
@@ -78,13 +78,13 @@ environments.forEach((e) => {
 });
 
 // Merge common_capabilities with each test_settings key
-Object.keys(nightwatchConfig.test_settings).forEach((settingKey) => {
+Object.keys(nightwatchConfig.test_settings).forEach(settingKey => {
   const config = nightwatchConfig.test_settings[settingKey];
   config.selenium_host = nightwatchConfig.selenium.host;
   config.selenium_port = nightwatchConfig.selenium.port;
   config.desiredCapabilities = config.desiredCapabilities || {};
   const capabilityKeys = Object.keys(nightwatchConfig.common_capabilities);
-  capabilityKeys.forEach((capabilityKey) => {
+  capabilityKeys.forEach(capabilityKey => {
     config.desiredCapabilities[capabilityKey] = config.desiredCapabilities[capabilityKey]
       || nightwatchConfig.common_capabilities[capabilityKey];
   });

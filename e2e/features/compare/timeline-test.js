@@ -32,7 +32,7 @@ module.exports = {
       .moveToElement(draggerB, 100, 30)
       .mouseButtonUp(0)
       .pause(2000);
-    client.getValue(dateSelectorDayInput, (dayResult) => {
+    client.getValue(dateSelectorDayInput, dayResult => {
       client.getValue(dateSelectorMonthInput, function(monthResult) {
         const result = monthResult.value.concat(dayResult.value);
         this.assert.notEqual('AUG17', result);

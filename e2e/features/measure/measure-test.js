@@ -18,13 +18,13 @@ module.exports = {
   before(client) {
     reuseables.loadAndSkipTour(client, TIME_LIMIT);
   },
-  'Clicking the measure button opens the menu': (client) => {
+  'Clicking the measure button opens the menu': client => {
     client.expect.element(measureMenu).to.not.be.present;
     client.useCss().click(measureBtn);
     client.waitForElementVisible(measureMenu, TIME_LIMIT);
     client.pause(300);
   },
-  'Initiating a measurement causes an alert to show and sidebar to collapse': (client) => {
+  'Initiating a measurement causes an alert to show and sidebar to collapse': client => {
     client.useCss().click(measureDistanceBtn);
     client.waitForElementVisible('#measurement-alert', TIME_LIMIT);
     client.useCss().assert.elementPresent(sidebarContainer);
@@ -35,10 +35,10 @@ module.exports = {
     );
     client.pause(300);
   },
-  'Cancelling a measurement causes an alert to disappear and sidebar to expand': (client) => {
+  'Cancelling a measurement causes an alert to disappear and sidebar to expand': client => {
     if (client.options.desiredCapabilities.browserName !== 'firefox') { // right click doesn't work in firefox
       client.useCss().click(measureBtn);
-      client.waitForElementVisible(measureMenu, TIME_LIMIT, (el) => {
+      client.waitForElementVisible(measureMenu, TIME_LIMIT, el => {
         client.waitForElementVisible(measureDistanceBtn, TIME_LIMIT);
         client.click(measureDistanceBtn);
         client.pause(300);
@@ -54,9 +54,9 @@ module.exports = {
       });
     }
   },
-  'Creating a distance measurement causes a tooltip to show': (client) => {
+  'Creating a distance measurement causes a tooltip to show': client => {
     client.useCss().click(measureBtn);
-    client.waitForElementVisible(measureMenu, TIME_LIMIT, (el) => {
+    client.waitForElementVisible(measureMenu, TIME_LIMIT, el => {
       client.useCss().click(measureDistanceBtn);
       client.pause(300);
       client.waitForElementVisible('#measurement-alert', TIME_LIMIT);
@@ -70,9 +70,9 @@ module.exports = {
       client.waitForElementVisible(measurementTooltip, TIME_LIMIT);
     });
   },
-  'Creating a area measurement causes a tooltip to show': (client) => {
+  'Creating a area measurement causes a tooltip to show': client => {
     client.useCss().click(measureBtn);
-    client.waitForElementVisible(measureMenu, TIME_LIMIT, (el) => {
+    client.waitForElementVisible(measureMenu, TIME_LIMIT, el => {
       client.useCss().click(measureAreaBtn);
       client.moveTo(null, -250, 10);
       client.mouseButtonClick(0);
@@ -90,23 +90,23 @@ module.exports = {
       client.waitForElementVisible(measurementTooltip, TIME_LIMIT);
     });
   },
-  'Toggling unit of measure updates the measurement value': async(client) => {
+  'Toggling unit of measure updates the measurement value': async client => {
     if (client.options.desiredCapabilities.browserName !== 'firefox') { // client.elements() returns different values for firefox
       client.click(measureBtn);
       await client.waitForElementVisible(measureMenu, TIME_LIMIT);
       await client.click(unitOfMeasureToggle);
       const tooltips = await client.elements('css selector', measurementTooltip);
-      tooltips.value.forEach((element) => {
-        client.elementIdText(element.ELEMENT, (elResult) => {
+      tooltips.value.forEach(element => {
+        client.elementIdText(element.ELEMENT, elResult => {
           const pass = elResult.value.includes('mi');
           client.assert.ok(pass);
         });
       });
     }
   },
-  'Clearing a measurements removes all tooltips': (client) => {
+  'Clearing a measurements removes all tooltips': client => {
     if (client.options.desiredCapabilities.browserName !== 'firefox') { // client.elements() returns different values for firefox
-      client.waitForElementVisible(measureMenu, TIME_LIMIT, (el) => {
+      client.waitForElementVisible(measureMenu, TIME_LIMIT, el => {
         client.useCss().click(clearMeasurementsBtn);
         client.expect.elements(measurementTooltip).count.to.equal(0);
       });

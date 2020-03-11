@@ -17,7 +17,7 @@ exports.assertion = function(selector, count) {
   };
   this.command = function(cb) {
     const self = this;
-    return this.api.execute((selector) => document.querySelectorAll(selector).length, [selector], (res) => {
+    return this.api.execute(selector => document.querySelectorAll(selector).length, [selector], res => {
       cb.call(self, res);
     });
   };

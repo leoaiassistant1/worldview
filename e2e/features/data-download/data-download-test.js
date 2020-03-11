@@ -23,7 +23,7 @@ module.exports = {
       .to.have.text.equal('No Data Selected');
 
     // All 6 default layers in Not Available for Download
-    client.elements('css selector', '.wv-datacategory > li', (result) => {
+    client.elements('css selector', '.wv-datacategory > li', result => {
       client.assert.equal(result.value.length, 6);
     });
 

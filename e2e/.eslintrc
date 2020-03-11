@@ -43,6 +43,7 @@
       For rules set to "off": consider setting to "warn" to identify non-compliance in new code
       For rules set to "warn": consider removing to throw errors on existing and future code
     */
+    "arrow-parens": ["error", "as-needed"],
     "no-param-reassign": "warn",
     "max-len": "off",
     "func-names": "off",

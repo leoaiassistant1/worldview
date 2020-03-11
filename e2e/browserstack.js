@@ -6,7 +6,7 @@ const browserstack = require('browserstack-local');
 const environments = require('./environments.js');
 
 const environment_names = environments.map(
-  (e) => [
+  e => [
     e.browser,
     e.browser_version,
     e.os,
@@ -25,12 +25,12 @@ try {
     key: process.env.BROWSERSTACK_ACCESS_KEY,
     localIdentifier: `wvtester19234${process.env.BROWSERSTACK_USER}`.replace(/[^a-zA-Z0-9]/g, ''),
     force: 'true', // if you want to kill existing ports
-  }, (error) => {
+  }, error => {
     if (error) throw new Error(error);
     console.log('Connected. Running tests...');
     console.log('Go to https://www.browserstack.com/automate to view tests in progress.');
 
-    Nightwatch.cli((argv) => {
+    Nightwatch.cli(argv => {
       const envString = environment_names.join(',');
       argv.e = envString;
       argv.env = envString;
@@ -46,7 +46,7 @@ try {
               process.exitCode = 0;
             }
           });
-        }).catch((err) => {
+        }).catch(err => {
           console.error(err);
           process.exitCode = 1;
         });
