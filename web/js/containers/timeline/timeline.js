@@ -1281,17 +1281,19 @@ function mapStateToProps(state) {
     tour,
     ui,
   } = state;
-  let {
+  const {
     customSelected,
     selected,
     selectedB,
-    selectedZoom,
-    interval,
     delta,
-    customInterval,
     customDelta,
     appNow,
     timelineCustomModalOpen,
+  } = date;
+  let {
+    selectedZoom,
+    interval,
+    customInterval,
   } = date;
   const { screenWidth, lessThan } = browser;
   const { isCompareA, activeString } = compare;

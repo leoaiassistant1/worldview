@@ -354,19 +354,23 @@ class TimelineAxis extends Component {
   * @returns {Number} output.newDraggerPositionB
   */
   updateTimeRangeFromDrag = (position, deltaX, draggerPosition, draggerPositionB, overDrag) => {
-    let {
+    const {
       gridWidth,
       currentTimeRange,
-      numberOfVisibleTiles,
     } = this.state;
     let {
+      numberOfVisibleTiles,
+    } = this.state;
+    const {
       transformX,
-      draggerVisible,
-      draggerVisibleB,
       draggerTimeState,
       draggerTimeStateB,
       isCompareModeActive,
       draggerSelected,
+    } = this.props;
+    let {
+      draggerVisible,
+      draggerVisibleB,
     } = this.props;
     numberOfVisibleTiles = Math.floor(numberOfVisibleTiles * 0.25);
     const overDragGrids = Math.ceil(overDrag / gridWidth);
@@ -971,8 +975,10 @@ class TimelineAxis extends Component {
       dragSentinelChangeNumber,
       dragSentinelCount,
     } = this.state;
-    let {
+    const {
       timeScale,
+    } = this.props;
+    let {
       position,
       animationStartLocation,
       animationEndLocation,
@@ -1153,21 +1159,23 @@ class TimelineAxis extends Component {
   * @returns {void}
   */
   handleStopDrag(e, d, wheelZoom) {
+    const { midPoint } = this.state;
     let {
-      midPoint,
       leftBound,
       rightBound,
     } = this.state;
-    let {
+    const {
       frontDate,
       leftOffset,
-      position,
       hoverTime,
-      transformX,
       timeScale,
       timelineStartDateLimit,
       timelineEndDateLimit,
       updatePositioningOnAxisStopDrag,
+    } = this.props;
+    let {
+      position,
+      transformX,
     } = this.props;
 
     position -= midPoint;
