@@ -26,11 +26,9 @@ class TimelineAxis extends Component {
       currentTimeRange: null,
       gridWidth: 12,
       wheelZoom: false,
-      mouseDown: false,
       hitRightBound: false,
       hitLeftBound: false,
       updatedTimeScale: false,
-      wheelType: null,
       clientXOnDrag: 0,
     };
     // axis
@@ -816,7 +814,6 @@ class TimelineAxis extends Component {
       clientX = e.clientX;
     }
     this.setState({
-      mouseDown: true,
       clientXOnDrag: clientX,
     });
   }
@@ -857,9 +854,6 @@ class TimelineAxis extends Component {
         otherDraggerVisible = isCompareModeActive && getIsBetween(draggerTimeState, frontDate, backDate);
       }
       this.props.updateDraggerDatePosition(hoverTime, draggerSelected, null, true, otherDraggerVisible, false);
-      this.setState({
-        mouseDown: false,
-      });
     }
   }
 
@@ -938,9 +932,6 @@ class TimelineAxis extends Component {
         otherDraggerVisible = isCompareModeActive && getIsBetween(draggerTimeState, frontDate, backDate);
       }
       this.props.updateDraggerDatePosition(newDraggerTime, draggerSelected, null, true, otherDraggerVisible, false);
-      this.setState({
-        mouseDown: false,
-      });
     }
   }
 

@@ -89,6 +89,7 @@ class Timeline extends React.Component {
       showHoverLine: false,
       showDraggerTime: false,
       isAnimationDraggerDragging: false,
+      // eslint-disable-next-line react/no-unused-state
       isArrowDown: false,
       isHoverOverDistractionFreeTimeUI: false,
       isDraggerDragging: false,
@@ -391,6 +392,7 @@ class Timeline extends React.Component {
       const maxDate = new Date(timelineEndDateLimit);
       this.onDateChange(getNextTimeSelection(delta, timeScaleChangeUnit, selectedDate, minDate, maxDate));
     }
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ isArrowDown: true });
   }
 
@@ -400,6 +402,7 @@ class Timeline extends React.Component {
   */
   stopLeftArrow = () => {
     this.throttleDecrementDate.cancel();
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ isArrowDown: false });
   }
 
@@ -409,6 +412,7 @@ class Timeline extends React.Component {
   */
   stopRightArrow = () => {
     this.throttleIncrementDate.cancel();
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ isArrowDown: false });
   }
 
