@@ -229,7 +229,8 @@ export function mapui(models, config, store, ui) {
     self.selected = self.proj[proj.id];
     const map = self.selected;
     const currentRotation = proj.id !== 'geographic' && proj.id !== 'webmerc' ? map.getView().getRotation() : 0;
-    store.dispatch({ type: UPDATE_MAP_UI, ui: self, rotation: currentRotation });
+    const rotationStart = models.map.rotation;
+    store.dispatch({ type: UPDATE_MAP_UI, ui: self, rotation: start ? rotationStart : currentRotation });
     reloadLayers();
 
     // Update the rotation buttons if polar projection to display correct value
@@ -242,11 +243,12 @@ export function mapui(models, config, store, ui) {
     // using the previous value.
     showMap(map);
     map.updateSize();
-
+    if (proj.id !== 'geographic' && proj.id !== 'webmerc') {
+      rotation.setResetButton(currentRotation);
+    }
     if (self.selected.previousCenter) {
       self.selected.setCenter(self.selected.previousCenter);
     }
-
     // This is awkward and needs a refactoring
     if (start) {
       const projId = proj.selected.id;
@@ -259,6 +261,16 @@ export function mapui(models, config, store, ui) {
         callback = () => {
           const map = self.selected;
           const view = map.getView();
+          const extent = view.calculateExtent(map.getSize());
+          store.dispatch({ type: FITTED_TO_LEADING_EXTENT, extent });
+        };
+      };
+      if (projId !== 'geographic') {
+        callback = () => {
+          const map = self.selected;
+          const view = map.getView();
+          rotation.setResetButton(rotationStart);
+          view.setRotation(rotationStart);
           const extent = view.calculateExtent(map.getSize());
           store.dispatch({ type: FITTED_TO_LEADING_EXTENT, extent });
         };
@@ -917,10 +929,6 @@ export function mapui(models, config, store, ui) {
         maxResolution: proj.resolutions[0],
         projection: olProj.get(proj.crs),
         center: proj.startCenter,
-        rotation:
-          proj.id === 'geographic' || proj.id === 'webmerc'
-            ? 0.0
-            : models.map.rotation,
         zoom: proj.startZoom,
         maxZoom: proj.numZoomLevels,
         enableRotation: true,

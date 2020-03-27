@@ -8,6 +8,7 @@ import {
 } from 'lodash';
 import OlRendererCanvasTileLayer from 'ol/renderer/canvas/TileLayer';
 import Promise from 'bluebird';
+import * as OlPolygon from 'ol/geom/Polygon';
 import { encode } from '../link/util';
 
 export function getMapParameterSetup(
@@ -40,6 +41,11 @@ export function getMapParameterSetup(
         },
         serialize: (currentItemState, currentState) => {
           const rendered = lodashGet(currentState, 'map.rendered');
+          const rotation = lodashGet(currentState, 'map.rotation');
+
+          if (rotation) {
+            currentItemState = getRotatedExtent(currentState.map.ui.selected, -rotation); // WHere the fix happens
+          }
           if (!rendered) return undefined;
           const actualLeadingExtent = lodashGet(
             currentState,
@@ -68,6 +74,11 @@ export function getMapParameterSetup(
     },
   };
 }
+const getRotatedExtent = (map, rotation_in_radians) => {
+  const view = map.getView();
+
+  return olExtent.getForViewAndSize(view.getCenter(), view.getResolution(), 0, map.getSize());
+};
 /**
  * Determines if an exent object contains valid values.
  *
