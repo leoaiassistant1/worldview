@@ -159,7 +159,7 @@ class TimelineAxis extends Component {
     const pixelsToAdd = diffStartAndZeroed / diffFactor;
 
     // offset grids needed since each zoom in won't be centered
-    const gridOffsetCoeff = 2;
+    const gridOffsetCoeff = 1.5;
     const offSetGrids = Math.floor(hoverLeftOffset / gridWidth);
     const offSetHalved = Math.floor(Math.floor(numberOfVisibleTiles * gridOffsetCoeff) / 2);
     const offSetGridsDiff = offSetGrids - Math.floor(numberOfVisibleTiles / 2);
@@ -547,12 +547,12 @@ class TimelineAxis extends Component {
       if (draggerSelected === 'selected') {
         const draggerCheck = this.checkDraggerMoveOrUpdateScale(prevProps.dateA);
         if (!draggerCheck.withinRange) {
-          this.updateScaleWithOffset(dateA, timeScale, draggerCheck);
+          this.updateScaleWithOffset(dateA, timeScale, draggerCheck.newDateInThePast);
         }
       } else {
         const draggerCheck = this.checkDraggerMoveOrUpdateScale(prevProps.dateB, true);
         if (!draggerCheck.withinRange) {
-          this.updateScaleWithOffset(dateB, timeScale, draggerCheck);
+          this.updateScaleWithOffset(dateB, timeScale, draggerCheck.newDateInThePast);
         }
       }
     }
@@ -601,14 +601,14 @@ class TimelineAxis extends Component {
           // handle animation dragger update
           const draggerCheck = this.checkDraggerMoveOrUpdateScale(previousDate, isDraggerB);
           if (!draggerCheck.withinRange) {
-            this.updateScaleWithOffset(date, timeScale, draggerCheck);
+            this.updateScaleWithOffset(date, timeScale, draggerCheck.newDateInThePast);
           }
         }
       } else {
         // check if draggerCheck will be within acceptable visible axis width
         const draggerCheck = this.checkDraggerMoveOrUpdateScale(previousDate, isDraggerB);
         if (!draggerCheck.withinRange) {
-          this.updateScaleWithOffset(date, timeScale, draggerCheck);
+          this.updateScaleWithOffset(date, timeScale, draggerCheck.newDateInThePast);
         }
       }
     }
@@ -629,7 +629,6 @@ class TimelineAxis extends Component {
       dateB,
       draggerPosition,
       draggerPositionB,
-      timeScale,
       axisWidth,
       frontDate,
       backDate,
@@ -644,26 +643,26 @@ class TimelineAxis extends Component {
       selectedDraggerTimeState = dateA;
       selectedDraggerPosition = draggerPosition;
     }
+    // check date is within axis date range
+    const previousDateTime = new Date(previousDate).getTime();
+    const selectedDraggerDateTime = new Date(selectedDraggerTimeState).getTime();
 
-    const selectedDateMoment = moment.utc(previousDate);
-    const draggerDateMoment = moment.utc(selectedDraggerTimeState);
-    const draggerDateFormat = draggerDateMoment.format();
+    const newDateInThePast = selectedDraggerDateTime < previousDateTime;
+    const isBeforeFrontDate = selectedDraggerDateTime < new Date(frontDate);
+    const isAfterBackDate = selectedDraggerDateTime > new Date(backDate);
+    const isDateWithinRange = !isBeforeFrontDate && !isAfterBackDate;
 
-    const newDraggerDiff = draggerDateMoment.diff(selectedDateMoment, timeScale, true);
-    const newDateInThePast = draggerDateMoment < selectedDateMoment;
-
-    const isBeforeFrontDate = new Date(draggerDateFormat) < new Date(frontDate);
-    const isAfterBackDate = new Date(draggerDateFormat) > new Date(backDate);
-
+    // check dragger is within axis position range
     const leftEdgeOfVisibleAxis = -26;
     const rightEdgeOfVisibleAxis = axisWidth - 80;
-    const newDraggerWithinRangeCheck = selectedDraggerPosition <= rightEdgeOfVisibleAxis
-                                     && selectedDraggerPosition >= leftEdgeOfVisibleAxis
-                                     && !isBeforeFrontDate && !isAfterBackDate;
+    const isDraggerPositionWithinAxis = selectedDraggerPosition <= rightEdgeOfVisibleAxis
+      && selectedDraggerPosition >= leftEdgeOfVisibleAxis;
+
+    // determine if date and dragger are within axis range
+    const newDraggerWithinRangeCheck = isDraggerPositionWithinAxis && isDateWithinRange;
     return {
       withinRange: newDraggerWithinRangeCheck,
       newDateInThePast,
-      newDraggerDiff: Math.abs(newDraggerDiff),
     };
   }
 
@@ -672,11 +671,11 @@ class TimelineAxis extends Component {
   * @desc update scale leftOffset
   * @param {String} date
   * @param {String} timeScale
-  * @param {Object} draggerCheck
+  * @param {Boolean} draggerCheck.newDateInThePast
   * @returns {void}
   */
-  updateScaleWithOffset = (date, timeScale, draggerCheck) => {
-    const leftOffsetFixedCoeff = draggerCheck.newDateInThePast
+  updateScaleWithOffset = (date, timeScale, newDateInThePast) => {
+    const leftOffsetFixedCoeff = newDateInThePast
       ? 0.25
       : 0.75;
     this.updateScale(date, timeScale, leftOffsetFixedCoeff);
