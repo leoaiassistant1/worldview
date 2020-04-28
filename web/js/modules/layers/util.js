@@ -25,18 +25,27 @@ import util from '../../util/util';
   * @returns {Boolean} - True if layer is available at date, otherwise false
   */
 export function availableAtDate(def, date) {
-  const availableDates = datesinDateRanges(def, date);
+  const { dateRanges, inactive } = def;
+  const startDate = def.startDate && new Date(def.startDate);
+  const endDate = def.endDate && new Date(def.endDate);
+
   // Some vector layers
-  if (!def.startDate && !def.dateRanges) {
+  if (!startDate && !dateRanges) {
     return true;
   }
-  if (def.endDate && def.inactive) {
-    return date < new Date(def.endDate) && date > new Date(def.startDate);
+  // set inactive in config
+  if (endDate && inactive) {
+    return date < endDate && date > startDate;
   }
-  if (!availableDates.length && !def.endDate && !def.inactive) {
-    return date > new Date(def.startDate);
+  // no endDate may indicate ongoing
+  if (startDate && !endDate) {
+    if (!dateRanges) {
+      return date > startDate;
+    }
+    const endRange = dateRanges.length - 1;
+    const rangeEndDate = new Date(dateRanges[endRange].endDate);
+    return date > startDate && rangeEndDate && date < rangeEndDate;
   }
-  return availableDates.length > 0;
 }
 
 export function getOrbitTrackTitle(def) {
