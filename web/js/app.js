@@ -17,10 +17,11 @@ import Sidebar from './containers/sidebar/sidebar';
 // Modal
 import Modal from './containers/modal';
 
-// Other
+// Other/MISC
 import Brand from './brand';
 import MeasureButton from './components/measure-tool/measure-button';
 import FeatureAlert from './components/feature-alert/alert';
+import Alerts from './containers/alerts';
 
 // actions
 import Tour from './containers/tour';
@@ -28,6 +29,7 @@ import Timeline from './containers/timeline/timeline';
 import AnimationWidget from './containers/animation-widget';
 import ErrorBoundary from './containers/error-boundary';
 import Debug from './components/util/debug';
+import keyPress from './modules/key-press/actions';
 
 // Dependency CSS
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -79,7 +81,7 @@ import '../css/vectorMeta.css';
 import '../css/geostationary-modal.css';
 import '../css/orbitTracks.css';
 import '../pages/css/document.css';
-import keyPress from './modules/key-press/actions';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -167,6 +169,7 @@ class App extends React.Component {
         <MapInteractions mouseEvents={mapMouseEvents} />
         <div id="wv-alert-container" className="wv-alert-container">
           <FeatureAlert />
+          <Alerts />
         </div>
         <Sidebar />
         {isTourActive ? <Tour /> : null}
@@ -180,7 +183,6 @@ class App extends React.Component {
           {isAnimationWidgetActive ? <AnimationWidget key={locationKey || '2'} /> : null}
         </div>
         <MeasureButton />
-
         <Modal key={modalId} />
         <ErrorBoundary>
           <Debug parameters={parameters} />
