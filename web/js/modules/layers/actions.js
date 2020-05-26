@@ -1,11 +1,11 @@
 import { findIndex as lodashFindIndex } from 'lodash';
+import update from 'immutability-helper';
 import {
   addLayer as addLayerSelector,
   resetLayers as resetLayersSelector,
   getLayers as getLayersSelector,
   activateLayersForEventCategory as activateLayersForEventCategorySelector,
 } from './selectors';
-
 import {
   RESET_LAYERS,
   ADD_LAYER,
@@ -126,7 +126,9 @@ export function toggleVisibility(id, visible) {
 }
 export function removeLayer(id) {
   return (dispatch, getState) => {
-    const { layers, compare, data } = getState();
+    const {
+      layers, compare, data, alerts,
+    } = getState();
     const { activeString } = compare;
     const index = lodashFindIndex(layers[activeString], {
       id,
@@ -139,12 +141,16 @@ export function removeLayer(id) {
     if (def.product && def.product === data.selectedProduct) {
       dispatch(selectProduct('')); // Clear selected Data product
     }
+    if (alerts.isVectorAlertActive) {
+      // dispatch({ type: DISABLE_VECTOR_ALERT });
+    }
     dispatch({
       type: REMOVE_LAYER,
       id,
       index,
       activeString,
       def,
+      layers: update(layers[activeString], { $splice: [[index, 1]] }),
     });
   };
 }

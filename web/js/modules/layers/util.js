@@ -863,7 +863,7 @@ export function mapLocationToLayerState(
 }
 /**
  * Determine if active layers have a vector layer
- * @param {Object} layersState
+ * @param {Array} activeLayers
  * @param {Object} compareState
  *
  * @return {Boolean}
@@ -914,7 +914,7 @@ export const hasNonClickableVectorLayer = (activeLayers, mapRes) => {
     const def = activeLayers[i];
     if (def.type === 'vector' && def.visible) {
       isNonClickableVectorLayer = !isVectorLayerClickable(def, mapRes);
-      break;
+      if (isNonClickableVectorLayer) break;
     }
   }
   return isNonClickableVectorLayer;
